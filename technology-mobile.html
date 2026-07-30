@@ -1,0 +1,2928 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#111418" />
+    <meta name="color-scheme" content="light dark" />
+    <link id="favicon" rel="icon" href="/geely-design-showcase/assets/favicon-DuUfLRwy.svg" />
+    <title>Technology | Geely Global — Mobile</title>
+    <style>
+      @font-face {
+        font-family: "GEELY Bold 20250530";
+        src:
+          url("/geely-design-showcase/assets/GEELYBold20250530-CFHws5-8.otf") format("opentype"),
+          url("./fonts/GEELYBold20250530.otf") format("opentype");
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Inter";
+        src:
+          url("/geely-design-showcase/assets/InterVariable-DiVDrmQJ.woff2") format("woff2-variations"),
+          url("./fonts/InterVariable.woff2") format("woff2-variations");
+        font-style: normal;
+        font-weight: 100 900;
+        font-display: swap;
+      }
+
+      :root {
+        --blue: #3a7ff8;
+        --blue-soft: #eaf4f8;
+        --ink: #101215;
+        --muted: #60656d;
+        --paper: #f6f7f7;
+        --surface: #fff;
+        --line: rgba(16, 18, 21, 0.14);
+        --gold: #c9a44b;
+        --display: "GEELY Bold 20250530", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+        --body: Inter, "Helvetica Neue", Helvetica, Arial, sans-serif;
+        --ease: cubic-bezier(0.22, 0.75, 0.2, 1);
+        --safe-top: env(safe-area-inset-top, 0px);
+        --safe-bottom: env(safe-area-inset-bottom, 0px);
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      html {
+        min-width: 320px;
+        scroll-behavior: smooth;
+        background: var(--paper);
+      }
+
+      body {
+        min-width: 320px;
+        min-height: 100%;
+        margin: 0;
+        overflow-x: hidden;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: var(--body);
+        font-size: 16px;
+        line-height: 22px;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      body.is-locked {
+        overflow: hidden;
+      }
+
+      button,
+      a {
+        color: inherit;
+        font: inherit;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      button {
+        border: 0;
+        cursor: pointer;
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      img,
+      video {
+        display: block;
+        max-width: 100%;
+      }
+
+      h1,
+      h2,
+      h3,
+      p,
+      figure {
+        margin: 0;
+      }
+
+      :focus-visible {
+        outline: 2px solid var(--blue);
+        outline-offset: 3px;
+      }
+
+      .skip-link {
+        position: fixed;
+        z-index: 200;
+        top: 8px;
+        left: 16px;
+        padding: 10px 14px;
+        background: #fff;
+        color: #000;
+        transform: translateY(-160%);
+        transition: transform 180ms ease;
+      }
+
+      .skip-link:focus {
+        transform: translateY(0);
+      }
+
+      .shell {
+        width: 100%;
+        max-width: 430px;
+        margin-inline: auto;
+        overflow: clip;
+        background: var(--paper);
+        box-shadow: 0 0 0 1px rgba(16, 18, 21, 0.04);
+      }
+
+      .safe {
+        padding-inline: 16px;
+      }
+
+      .section {
+        position: relative;
+        padding: 72px 16px;
+      }
+
+      .eyebrow,
+      .micro {
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.13em;
+        line-height: 17px;
+        text-transform: uppercase;
+      }
+
+      .eyebrow {
+        color: var(--blue);
+      }
+
+      .section-title {
+        margin-top: 16px;
+        font-family: var(--display);
+        font-size: 28px;
+        font-weight: 400;
+        letter-spacing: -0.02em;
+        line-height: 34px;
+      }
+
+      .section-copy {
+        margin-top: 16px;
+        color: var(--muted);
+        font-size: 16px;
+        line-height: 22px;
+      }
+
+      .topbar {
+        position: fixed;
+        z-index: 80;
+        top: 0;
+        left: 50%;
+        display: flex;
+        width: min(100%, 430px);
+        height: calc(56px + var(--safe-top));
+        align-items: flex-end;
+        justify-content: space-between;
+        padding: var(--safe-top) 8px 0 16px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        color: #fff;
+        transform: translateX(-50%);
+        transition: background 220ms ease, border-color 220ms ease, color 220ms ease, backdrop-filter 220ms ease;
+      }
+
+      .topbar.is-scrolled {
+        border-bottom-color: rgba(16, 18, 21, 0.11);
+        background: rgba(255, 255, 255, 0.88);
+        color: var(--ink);
+        backdrop-filter: blur(18px) saturate(140%);
+      }
+
+      .brand {
+        display: grid;
+        min-width: 124px;
+        height: 56px;
+        align-items: center;
+      }
+
+      .brand img {
+        width: 146px;
+        height: auto;
+        filter: brightness(0) invert(1);
+        transition: filter 220ms ease;
+      }
+
+      .topbar.is-scrolled .brand img {
+        filter: none;
+      }
+
+      .icon-button {
+        position: relative;
+        display: grid;
+        width: 48px;
+        height: 48px;
+        place-items: center;
+        border-radius: 50%;
+        background: transparent;
+        color: currentColor;
+      }
+
+      .icon-button:active {
+        background: rgba(127, 127, 127, 0.16);
+        transform: scale(0.96);
+      }
+
+      .menu-glyph,
+      .menu-glyph::before {
+        display: block;
+        width: 22px;
+        height: 1.5px;
+        background: currentColor;
+        content: "";
+      }
+
+      .menu-glyph::before {
+        transform: translateY(-6px);
+      }
+
+      .hero {
+        position: relative;
+        display: flex;
+        min-height: max(620px, calc(100svh - 96px));
+        max-height: 790px;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: calc(96px + var(--safe-top)) 16px 32px;
+        overflow: hidden;
+        background: #111418;
+        color: #fff;
+        isolation: isolate;
+      }
+
+      .hero-media {
+        position: absolute;
+        z-index: -3;
+        inset: 0;
+      }
+
+      .hero-media video,
+      .hero-media img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: 59% center;
+      }
+
+      .hero::before {
+        position: absolute;
+        z-index: -2;
+        inset: 0;
+        background:
+          linear-gradient(180deg, rgba(5, 10, 17, 0.52) 0%, rgba(5, 10, 17, 0.08) 40%, rgba(5, 10, 17, 0.8) 100%),
+          linear-gradient(90deg, rgba(5, 10, 17, 0.28), transparent 70%);
+        content: "";
+      }
+
+      .hero::after {
+        position: absolute;
+        z-index: -1;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.11) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.11) 1px, transparent 1px);
+        background-position: -1px -1px;
+        background-size: 64px 64px;
+        content: "";
+        mask-image: linear-gradient(to bottom, transparent, #000 46%, #000);
+      }
+
+      .hero-copy {
+        padding-right: 12px;
+      }
+
+      .hero .eyebrow {
+        color: rgba(255, 255, 255, 0.78);
+      }
+
+      .hero h1 {
+        max-width: 340px;
+        margin-top: 12px;
+        font-family: var(--display);
+        font-size: 34px;
+        font-weight: 400;
+        letter-spacing: -0.03em;
+        line-height: 39px;
+      }
+
+      .hero h1 span {
+        display: block;
+      }
+
+      .hero-actions {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 32px;
+        padding-top: 16px;
+        border-top: 1px solid rgba(255, 255, 255, 0.3);
+      }
+
+      .explore-link {
+        display: inline-flex;
+        min-height: 44px;
+        align-items: center;
+        gap: 12px;
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      .arrow {
+        font-size: 22px;
+        line-height: 1;
+      }
+
+      .video-control {
+        display: grid;
+        min-width: 44px;
+        height: 44px;
+        place-items: center;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        border-radius: 50%;
+        background: rgba(5, 10, 17, 0.22);
+        color: #fff;
+        backdrop-filter: blur(8px);
+      }
+
+      .overview {
+        overflow: hidden;
+        background: #fff;
+      }
+
+      .overview::before {
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(58, 127, 248, 0.07) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(58, 127, 248, 0.07) 1px, transparent 1px);
+        background-size: 48px 48px;
+        content: "";
+        mask-image: linear-gradient(135deg, #000, transparent 64%);
+        pointer-events: none;
+      }
+
+      .stats {
+        position: relative;
+        display: grid;
+        margin-top: 40px;
+        border-top: 1px solid var(--line);
+        border-left: 1px solid var(--line);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .stat {
+        min-width: 0;
+        min-height: 158px;
+        padding: 16px;
+        border-right: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.74);
+      }
+
+      .stat:first-child {
+        grid-column: 1 / -1;
+      }
+
+      .stat-index {
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 17px;
+      }
+
+      .stat strong {
+        display: block;
+        margin-top: 20px;
+        overflow-wrap: anywhere;
+        font-family: var(--display);
+        font-size: 34px;
+        font-weight: 400;
+        line-height: 38px;
+      }
+
+      .stat sup {
+        margin-left: 4px;
+        color: var(--blue);
+        font-family: var(--body);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+      }
+
+      .stat p {
+        margin-top: 6px;
+        font-size: 14px;
+        line-height: 20px;
+      }
+
+      .stat small {
+        display: block;
+        margin-top: 8px;
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 17px;
+      }
+
+      .standards {
+        margin-top: 32px;
+      }
+
+      .standards h3 {
+        font-size: 18px;
+        line-height: 24px;
+      }
+
+      .standards-grid {
+        display: grid;
+        margin-top: 16px;
+        gap: 8px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .standard {
+        min-height: 108px;
+        padding: 16px;
+        background: var(--paper);
+      }
+
+      .standard strong {
+        font-family: var(--display);
+        font-size: 24px;
+        font-weight: 400;
+        line-height: 29px;
+      }
+
+      .standard p {
+        margin-top: 8px;
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 17px;
+      }
+
+      .pillars {
+        background: #f2f4f5;
+      }
+
+      .scroll-head {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .swipe-hint {
+        flex: 0 0 auto;
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 17px;
+      }
+
+      .horizontal-rail {
+        display: flex;
+        width: calc(100% + 32px);
+        margin: 32px -16px 0;
+        padding: 0 16px 8px;
+        gap: 12px;
+        overflow-x: auto;
+        overscroll-behavior-inline: contain;
+        scroll-padding-inline: 16px;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+        touch-action: pan-x pan-y;
+      }
+
+      .horizontal-rail::-webkit-scrollbar {
+        display: none;
+      }
+
+      .pillar-card {
+        position: relative;
+        display: flex;
+        min-width: min(82vw, 328px);
+        height: 420px;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 16px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        background: #111418;
+        color: #fff;
+        text-align: left;
+        scroll-snap-align: start;
+        isolation: isolate;
+      }
+
+      .pillar-card img {
+        position: absolute;
+        z-index: -3;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+
+      .pillar-card[data-pillar="architecture"] img {
+        object-fit: contain;
+        object-position: center 54%;
+        padding: 52px 8px 20px;
+        background: radial-gradient(circle at 52% 48%, #234777, #10161e 68%);
+      }
+
+      .pillar-card::before {
+        position: absolute;
+        z-index: -2;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(4, 8, 12, 0.5), transparent 40%, rgba(4, 8, 12, 0.9));
+        content: "";
+      }
+
+      .pillar-card::after {
+        position: absolute;
+        z-index: -1;
+        inset: 0;
+        border: 1px solid transparent;
+        content: "";
+        transition: border-color 220ms ease;
+      }
+
+      .pillar-card:active::after,
+      .pillar-card:focus-visible::after {
+        border-color: var(--blue);
+      }
+
+      .pillar-meta {
+        display: flex;
+        justify-content: space-between;
+        color: rgba(255, 255, 255, 0.76);
+      }
+
+      .pillar-card h3 {
+        max-width: 270px;
+        font-family: var(--display);
+        font-size: 24px;
+        font-weight: 400;
+        line-height: 29px;
+        white-space: pre-line;
+      }
+
+      .pillar-card p {
+        margin-top: 12px;
+        color: rgba(255, 255, 255, 0.74);
+        font-size: 14px;
+        line-height: 20px;
+      }
+
+      .card-action {
+        display: flex;
+        min-height: 44px;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 20px;
+        padding-top: 12px;
+        border-top: 1px solid rgba(255, 255, 255, 0.28);
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      .rail-meter {
+        width: 100%;
+        height: 2px;
+        margin-top: 16px;
+        overflow: hidden;
+        background: rgba(16, 18, 21, 0.12);
+      }
+
+      .rail-meter i {
+        display: block;
+        width: 100%;
+        height: 100%;
+        background: var(--blue);
+        transform: scaleX(0);
+        transform-origin: left;
+      }
+
+      dialog {
+        padding: 0;
+        border: 0;
+      }
+
+      dialog::backdrop {
+        background: rgba(5, 8, 12, 0.64);
+        backdrop-filter: blur(4px);
+      }
+
+      .menu-dialog {
+        width: min(100%, 430px);
+        max-width: none;
+        height: 100dvh;
+        max-height: none;
+        margin: 0 auto;
+        background: #111418;
+        color: #fff;
+      }
+
+      .menu-inner {
+        display: flex;
+        min-height: 100%;
+        flex-direction: column;
+        padding: calc(8px + var(--safe-top)) 16px calc(24px + var(--safe-bottom));
+      }
+
+      .dialog-head {
+        display: flex;
+        height: 48px;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .dialog-head img {
+        width: 146px;
+        filter: brightness(0) invert(1);
+      }
+
+      .close-glyph,
+      .close-glyph::after {
+        display: block;
+        width: 22px;
+        height: 1.5px;
+        background: currentColor;
+        content: "";
+        transform: rotate(45deg);
+      }
+
+      .close-glyph::after {
+        transform: rotate(90deg);
+      }
+
+      .menu-links {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        justify-content: center;
+        padding-block: 32px;
+      }
+
+      .menu-links a {
+        display: flex;
+        min-height: 60px;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+        font-family: var(--display);
+        font-size: 24px;
+        line-height: 29px;
+      }
+
+      .menu-links a[aria-current="page"] {
+        color: #fff;
+        font-weight: 700;
+      }
+
+      .menu-links a[aria-current="page"]::after {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--blue);
+        content: "";
+      }
+
+      .menu-footer {
+        display: flex;
+        gap: 8px;
+      }
+
+      .menu-footer a {
+        display: grid;
+        min-height: 48px;
+        flex: 1;
+        place-items: center;
+        border: 1px solid rgba(255, 255, 255, 0.35);
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      .menu-footer a:first-child {
+        border-color: var(--blue);
+        background: var(--blue);
+      }
+
+      .sheet-dialog {
+        width: min(100%, 430px);
+        max-width: none;
+        max-height: 88dvh;
+        margin: auto auto 0;
+        overflow: hidden;
+        border-radius: 18px 18px 0 0;
+        background: var(--surface);
+        color: var(--ink);
+      }
+
+      .sheet-dialog[open] {
+        animation: sheet-in 280ms var(--ease) both;
+      }
+
+      .sheet {
+        display: flex;
+        max-height: 88dvh;
+        flex-direction: column;
+      }
+
+      .sheet-handle {
+        width: 40px;
+        height: 4px;
+        margin: 8px auto 0;
+        border-radius: 2px;
+        background: rgba(16, 18, 21, 0.24);
+      }
+
+      .sheet-header {
+        display: flex;
+        min-height: 56px;
+        align-items: center;
+        justify-content: space-between;
+        padding: 4px 8px 4px 16px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .sheet-header p {
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        line-height: 17px;
+        text-transform: uppercase;
+      }
+
+      .sheet-scroll {
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        padding-bottom: var(--safe-bottom);
+      }
+
+      .scene-visual {
+        position: relative;
+        height: 224px;
+        overflow: hidden;
+        background: #dfe7ee;
+      }
+
+      .scene-visual img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+
+      .scene-visual.is-contain img {
+        object-fit: contain;
+        padding: 20px;
+        background: radial-gradient(circle, #eaf4f8, #cbd9e4);
+      }
+
+      .scene-copy {
+        padding: 24px 16px 32px;
+      }
+
+      .scene-code {
+        color: var(--blue);
+      }
+
+      .scene-copy h2 {
+        margin-top: 10px;
+        font-family: var(--display);
+        font-size: 24px;
+        font-weight: 400;
+        line-height: 29px;
+      }
+
+      .scene-copy .scene-lead {
+        margin-top: 16px;
+        font-size: 18px;
+        line-height: 25px;
+      }
+
+      .scene-copy .scene-body {
+        margin-top: 12px;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 20px;
+      }
+
+      .scene-tabs {
+        display: flex;
+        margin-top: 24px;
+        gap: 8px;
+        overflow-x: auto;
+        scrollbar-width: none;
+      }
+
+      .scene-tab {
+        min-width: max-content;
+        min-height: 44px;
+        padding: 0 14px;
+        border: 1px solid var(--line);
+        background: #fff;
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+      }
+
+      .scene-tab[aria-selected="true"] {
+        border-color: var(--ink);
+        background: var(--ink);
+        color: #fff;
+      }
+
+      .proof-line {
+        margin-top: 24px;
+        padding-top: 16px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 12px;
+        letter-spacing: 0.08em;
+        line-height: 17px;
+      }
+
+      .evidence {
+        background: #111418;
+        color: #fff;
+      }
+
+      .evidence .section-copy {
+        color: rgba(255, 255, 255, 0.65);
+      }
+
+      .evidence-list {
+        display: grid;
+        margin-top: 40px;
+        gap: 16px;
+      }
+
+      .evidence-card {
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        background: rgba(255, 255, 255, 0.04);
+      }
+
+      .evidence-media {
+        aspect-ratio: 16 / 10;
+        overflow: hidden;
+      }
+
+      .evidence-media img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+
+      .evidence-copy {
+        padding: 20px 16px 24px;
+      }
+
+      .evidence-label {
+        display: flex;
+        gap: 12px;
+        color: rgba(255, 255, 255, 0.66);
+      }
+
+      .evidence-label span {
+        color: var(--blue);
+      }
+
+      .evidence-card h3 {
+        margin-top: 16px;
+        font-family: var(--display);
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 24px;
+      }
+
+      .evidence-card p:last-child {
+        margin-top: 8px;
+        color: rgba(255, 255, 255, 0.65);
+        font-size: 14px;
+        line-height: 20px;
+      }
+
+      .timeline {
+        overflow: hidden;
+        background: #edf1f5;
+        color: var(--ink);
+      }
+
+      .timeline .eyebrow {
+        color: var(--blue);
+      }
+
+      .timeline .section-copy {
+        color: var(--muted);
+      }
+
+      .timeline-rail {
+        margin-top: 32px;
+      }
+
+      .timeline-card {
+        position: relative;
+        min-width: min(86vw, 352px);
+        height: 568px;
+        display: grid;
+        grid-template-rows: 68px minmax(0, 1fr);
+        overflow: hidden;
+        border: 1px solid #cbd2da;
+        background: var(--surface);
+        scroll-snap-align: start;
+        opacity: .48;
+        transform: scale(.97);
+        transition: border-color 220ms ease, opacity 220ms ease, transform 220ms ease;
+      }
+
+      .timeline-card.is-active {
+        border-color: var(--blue);
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      .timeline-group-header {
+        padding: 14px 18px;
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 18px;
+        border-bottom: 1px solid #d4dae1;
+      }
+
+      .timeline-card.is-multiple .timeline-group-header {
+        background: #e7f0ff;
+        border-bottom-color: #c2d8ff;
+      }
+
+      .timeline-year {
+        color: var(--ink);
+        font-family: var(--display);
+        font-size: 30px;
+        font-weight: 400;
+        line-height: 36px;
+      }
+
+      .timeline-event-count {
+        color: var(--blue);
+        font-size: 10px;
+        font-weight: 700;
+        line-height: 14px;
+        letter-spacing: .1em;
+        text-align: right;
+        text-transform: uppercase;
+      }
+
+      .timeline-event-stage,
+      .timeline-event-scroll {
+        width: 100%;
+        min-height: 0;
+        height: 100%;
+      }
+
+      .timeline-event-stage {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .timeline-event-scroll {
+        overflow-y: auto;
+        overscroll-behavior-block: contain;
+        scroll-snap-type: y mandatory;
+        scrollbar-width: none;
+      }
+
+      .timeline-event-scroll::-webkit-scrollbar {
+        display: none;
+      }
+
+      .timeline-event {
+        width: 100%;
+        height: 100%;
+        min-height: 100%;
+        display: grid;
+        grid-template-rows: 220px minmax(0, 1fr);
+        background: var(--surface);
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+      }
+
+      .timeline-event.no-image {
+        grid-template-rows: minmax(0, 1fr);
+      }
+
+      .timeline-event-media {
+        min-width: 0;
+        min-height: 0;
+        margin: 0;
+        display: grid;
+        place-items: center;
+        overflow: hidden;
+        border-bottom: 1px solid #d4dae1;
+        background: #e6eaee;
+      }
+
+      .timeline-event-media img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: contain;
+        object-position: center;
+      }
+
+      .timeline-event-copy {
+        min-height: 0;
+        padding: 20px 20px 22px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .timeline-event-category {
+        color: var(--blue);
+        font-size: 10px;
+        font-weight: 700;
+        line-height: 14px;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+      }
+
+      .timeline-event h3 {
+        margin-top: 12px;
+        font-family: var(--display);
+        font-size: 21px;
+        font-weight: 400;
+        line-height: 25px;
+        text-transform: uppercase;
+      }
+
+      .timeline-event-copy > p {
+        margin-top: 12px;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 20px;
+      }
+
+      .timeline-event footer {
+        margin-top: auto;
+        padding-top: 18px;
+      }
+
+      .source-link {
+        display: inline-flex;
+        min-height: 44px;
+        align-items: center;
+        gap: 10px;
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      .timeline-event-meter {
+        position: absolute;
+        z-index: 4;
+        top: 8px;
+        right: 7px;
+        bottom: 8px;
+        width: 8px;
+        background: #c8cdd2;
+        pointer-events: none;
+      }
+
+      .timeline-event-meter i {
+        position: absolute;
+        inset: 0 0 auto;
+        width: 100%;
+        height: calc(100% / var(--event-count));
+        min-height: 64px;
+        background: var(--blue);
+        transform: translateY(calc(var(--event-progress) * (var(--event-count) - 1) * 100%));
+      }
+
+      .timeline .rail-meter {
+        height: 4px;
+        background: #c8cdd2;
+      }
+
+      .timeline .rail-meter i {
+        background: var(--blue);
+      }
+
+      .timeline-status {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+        color: #6c737b;
+        font-size: 12px;
+        line-height: 17px;
+      }
+
+      .source-note {
+        margin-top: 24px;
+        color: #7a8188;
+        font-size: 12px;
+        line-height: 17px;
+      }
+
+      .models {
+        overflow: hidden;
+        background:
+          radial-gradient(circle at 82% 14%, rgba(58, 127, 248, 0.18), transparent 35%),
+          #f7fafc;
+      }
+
+      .comparison-note {
+        margin-top: 12px;
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 17px;
+      }
+
+      .model-card {
+        display: flex;
+        min-width: min(86vw, 342px);
+        flex-direction: column;
+        padding: 16px;
+        border: 1px solid rgba(58, 127, 248, 0.2);
+        background: rgba(255, 255, 255, 0.88);
+        scroll-snap-align: start;
+      }
+
+      .model-head {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        color: var(--muted);
+      }
+
+      .model-head span {
+        color: var(--blue);
+      }
+
+      .model-head p {
+        text-align: right;
+      }
+
+      .model-card h3 {
+        margin-top: 20px;
+        font-family: var(--display);
+        font-size: 24px;
+        font-weight: 400;
+        line-height: 29px;
+      }
+
+      .model-visual {
+        position: relative;
+        display: grid;
+        height: 190px;
+        margin: 16px -8px 0;
+        place-items: center;
+        overflow: hidden;
+      }
+
+      .model-visual::before {
+        position: absolute;
+        inset: 50% 0 auto;
+        height: 1px;
+        background: rgba(58, 127, 248, 0.18);
+        content: "";
+      }
+
+      .model-visual img {
+        position: relative;
+        width: 110%;
+        max-width: none;
+        filter: drop-shadow(0 18px 16px rgba(16, 18, 21, 0.2));
+      }
+
+      .specs {
+        display: grid;
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .spec {
+        display: flex;
+        min-width: 0;
+        min-height: 52px;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 0;
+        border-top: 1px solid var(--line);
+        border-right: 0;
+      }
+
+      .spec:first-child {
+        border-top: 0;
+      }
+
+      .spec strong {
+        display: block;
+        flex: 0 0 auto;
+        font-size: 18px;
+        line-height: 24px;
+        white-space: nowrap;
+      }
+
+      .spec small {
+        display: block;
+        margin-top: 0;
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 17px;
+        text-align: right;
+      }
+
+      .tech-tags {
+        display: flex;
+        margin-top: 16px;
+        gap: 6px;
+        flex-wrap: wrap;
+      }
+
+      .tech-tags span {
+        padding: 5px 8px;
+        border: 1px solid var(--line);
+        font-size: 11px;
+        line-height: 15px;
+      }
+
+      .model-card .card-action {
+        border-top-color: var(--line);
+      }
+
+      .link-arrow-icon {
+        width: 24px;
+        height: 24px;
+        flex: 0 0 24px;
+        object-fit: contain;
+        transition: transform 220ms var(--ease);
+      }
+
+      .model-card .card-action:hover .link-arrow-icon,
+      .model-card .card-action:active .link-arrow-icon,
+      .model-card .card-action:focus-visible .link-arrow-icon {
+        transform: translateX(3px);
+      }
+
+      .footer {
+        padding: 48px 16px calc(32px + var(--safe-bottom));
+        border-top: 1px solid var(--line);
+        background:
+          radial-gradient(circle at 10% 110%, rgba(188, 232, 255, 0.62), transparent 44%),
+          radial-gradient(circle at 80% 30%, rgba(224, 220, 255, 0.52), transparent 44%),
+          #f8f5fb;
+      }
+
+      .footer-logo {
+        width: 171px;
+      }
+
+      .footer-links {
+        display: grid;
+        margin-top: 40px;
+        gap: 0;
+      }
+
+      .footer-links a {
+        display: flex;
+        min-height: 48px;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid var(--line);
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      .footer-policy {
+        display: flex;
+        margin-top: 32px;
+        gap: 8px 16px;
+        flex-wrap: wrap;
+        font-size: 12px;
+        line-height: 17px;
+      }
+
+      .footer-disclaimer,
+      .copyright {
+        margin-top: 24px;
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 17px;
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(16px);
+        transition: opacity 400ms var(--ease), transform 400ms var(--ease);
+      }
+
+      .reveal.is-visible {
+        opacity: 1;
+        transform: none;
+      }
+
+      .figma-capture .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+
+      /* Figma 6185:8465 — Technology / Mobile / 390 */
+      .shell {
+        width: 390px;
+        max-width: 100%;
+        background: #fff;
+        box-shadow: none;
+      }
+
+      .topbar {
+        width: min(390px, 100%);
+        height: calc(56px + var(--safe-top));
+        align-items: flex-end;
+        padding: var(--safe-top) 8px 0 16px;
+        border-bottom-color: transparent;
+      }
+
+      .brand {
+        width: 92px;
+        min-width: 92px;
+        height: 56px;
+      }
+
+      .brand img {
+        width: 84px;
+      }
+
+      .topbar .icon-button {
+        width: 48px;
+        height: 56px;
+        border-radius: 0;
+      }
+
+      .menu-glyph,
+      .menu-glyph::before {
+        width: 16px;
+        height: 1px;
+      }
+
+      .menu-glyph::before {
+        transform: translateY(-5px);
+      }
+
+      .hero {
+        width: 100%;
+        height: 742px;
+        min-height: 742px;
+        max-height: 742px;
+        padding: 0;
+      }
+
+      .hero-media {
+        height: 748px;
+      }
+
+      .hero-media video,
+      .hero-media img {
+        object-position: center;
+      }
+
+      .hero::after {
+        background-size: 64px 64px;
+        mask-image: none;
+        opacity: .24;
+      }
+
+      .hero-copy {
+        position: absolute;
+        top: 477px;
+        right: 16px;
+        left: 16px;
+        padding-right: 12px;
+      }
+
+      .hero .eyebrow {
+        color: #fff;
+        font-size: 12px;
+        font-weight: 400;
+        letter-spacing: 0;
+        line-height: 1.4;
+        text-transform: none;
+      }
+
+      .hero h1 {
+        width: 340px;
+        max-width: 100%;
+        margin-top: 12px;
+        font-size: 24px;
+        letter-spacing: 1.2px;
+        line-height: 1.2;
+        text-transform: uppercase;
+      }
+
+      .hero-actions {
+        width: 100%;
+        min-height: 61px;
+        margin-top: 32px;
+        padding-top: 17px;
+      }
+
+      .explore-link {
+        min-height: 44px;
+        gap: 12px;
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 1.4;
+      }
+
+      .explore-link .arrow {
+        color: var(--blue);
+        font-size: 20px;
+        transform: rotate(-45deg);
+      }
+
+      .video-control {
+        display: none;
+      }
+
+      .section {
+        width: 100%;
+        padding: 72px 16px;
+      }
+
+      .section:not(.hero) .eyebrow {
+        color: var(--blue);
+        font-size: 16px;
+        font-weight: 500;
+        letter-spacing: 0;
+        line-height: 1.4;
+        text-transform: uppercase;
+      }
+
+      .section-title {
+        margin-top: 16px;
+        color: #000;
+        font-size: 28px;
+        letter-spacing: 0;
+        line-height: 1.1;
+        text-transform: uppercase;
+      }
+
+      .section-copy {
+        margin-top: 16px;
+        color: #5a5a5a;
+        font-size: 16px;
+        line-height: 1.4;
+      }
+
+      .overview {
+        height: 1156px;
+        overflow: hidden;
+        background: #fff;
+      }
+
+      .overview::before {
+        display: none;
+      }
+
+      .overview > .reveal:first-child {
+        min-height: 297px;
+      }
+
+      .stats {
+        height: 415px;
+        margin-top: 36px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-rows: 168px 246px;
+      }
+
+      .stat {
+        min-height: 0;
+        padding: 16px;
+      }
+
+      .stat:first-child {
+        grid-column: 1 / -1;
+      }
+
+      .stat strong {
+        margin-top: 20px;
+        overflow-wrap: normal;
+        font-size: 24px;
+        letter-spacing: 1.2px;
+        line-height: 1.2;
+        white-space: nowrap;
+      }
+
+      .stat sup {
+        margin-left: 24px;
+        font-size: 16px;
+        font-weight: 400;
+        letter-spacing: 0;
+        line-height: 1.4;
+      }
+
+      .stat p {
+        margin-top: 6px;
+        font-size: 14px;
+        line-height: 1.4;
+      }
+
+      .stat small {
+        margin-top: 8px;
+        font-size: 12px;
+        line-height: 17px;
+      }
+
+      .standards {
+        margin-top: 26px;
+        padding-top: 0;
+      }
+
+      .standards h3 {
+        width: 358px;
+        max-width: 100%;
+        font-family: var(--display);
+        font-size: 20px;
+        font-weight: 400;
+        letter-spacing: 1px;
+        line-height: 1.2;
+      }
+
+      .standards-grid {
+        margin-top: 16px;
+        gap: 8px;
+      }
+
+      .standard {
+        min-height: 108px;
+        padding: 16px;
+        border-radius: 4px;
+        background: #f6f5f5;
+      }
+
+      .standard strong {
+        font-size: 18px;
+        letter-spacing: .9px;
+        line-height: 1.2;
+      }
+
+      .standard p {
+        margin-top: 8px;
+        font-size: 14px;
+        line-height: 1.4;
+      }
+
+      .pillars {
+        position: relative;
+        height: 1560px;
+        overflow: hidden;
+        background: #fff;
+      }
+
+      .pillars .scroll-head {
+        min-height: 131px;
+        align-items: flex-start;
+      }
+
+      .pillars .scroll-head > div {
+        width: 100%;
+      }
+
+      .pillars .section-title {
+        width: 365px;
+        max-width: calc(100% + 7px);
+      }
+
+      #pillarRail {
+        display: grid;
+        width: 358px;
+        height: auto;
+        margin: 29px 0 0;
+        padding: 0;
+        gap: 12px;
+        overflow: visible;
+        scroll-snap-type: none;
+      }
+
+      .pillar-card {
+        width: 358px;
+        min-width: 358px;
+        height: 428px;
+        padding: 16px;
+        border-radius: 4px;
+      }
+
+      .pillar-meta {
+        width: max-content;
+        justify-content: flex-start;
+        gap: 16px;
+        font-size: 16px;
+        font-weight: 500;
+        letter-spacing: 0;
+        line-height: 1.4;
+        text-transform: none;
+      }
+
+      .pillar-card h3 {
+        font-size: 18px;
+        letter-spacing: .9px;
+        line-height: 1.2;
+      }
+
+      .pillar-card p {
+        width: 286px;
+        max-width: 100%;
+        margin-top: 12px;
+        font-size: 12px;
+        line-height: 1.4;
+      }
+
+      .pillar-card .card-action {
+        min-height: 44px;
+        margin-top: 20px;
+        padding-top: 13px;
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 1.4;
+      }
+
+      .pillar-card .card-action .link-arrow-icon,
+      .source-link .link-arrow-icon,
+      .model-card .card-action .link-arrow-icon {
+        position: static;
+        z-index: auto;
+        inset: auto;
+        width: 20px;
+        height: 20px;
+        flex: 0 0 20px;
+        padding: 0;
+        background: none;
+        object-fit: contain;
+      }
+
+      .pillars > .rail-meter {
+        display: none;
+      }
+
+      .pillars::after {
+        position: absolute;
+        right: 16px;
+        bottom: -2px;
+        left: 16px;
+        height: 2px;
+        background: rgba(16, 18, 21, .12);
+        content: "";
+      }
+
+      .evidence {
+        position: relative;
+        height: 783px;
+        overflow: hidden;
+        background: #f0f0f0;
+        color: #000;
+      }
+
+      .evidence .section-copy {
+        color: #000;
+      }
+
+      .evidence-list {
+        display: flex;
+        width: calc(100% + 16px);
+        height: 414px;
+        margin-top: 24px;
+        gap: 16px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-padding-left: 0;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+      }
+
+      .evidence-list::-webkit-scrollbar {
+        display: none;
+      }
+
+      .evidence-card {
+        width: 309px;
+        min-width: 309px;
+        height: 414px;
+        flex: 0 0 309px;
+        overflow: hidden;
+        border: 0;
+        border-radius: 4px;
+        background: rgba(255, 255, 255, .04);
+        color: #000;
+        scroll-snap-align: start;
+      }
+
+      .evidence-media {
+        width: 100%;
+        height: 222.5px;
+        aspect-ratio: auto;
+      }
+
+      .evidence-copy {
+        height: 191.5px;
+        padding: 20px 16px 24px;
+      }
+
+      .evidence-label {
+        gap: 12px;
+        color: #000;
+        font-size: 16px;
+        font-weight: 500;
+        letter-spacing: 0;
+        line-height: 1.4;
+        text-transform: none;
+      }
+
+      .evidence-card h3 {
+        margin-top: 16px;
+        color: #2f302f;
+        font-size: 18px;
+        letter-spacing: .9px;
+        line-height: 1.2;
+      }
+
+      .evidence-card p:last-child {
+        margin-top: 8px;
+        color: #000;
+        font-size: 12px;
+        line-height: 1.4;
+      }
+
+      .rail-next {
+        position: absolute;
+        z-index: 5;
+        display: grid;
+        width: 40px;
+        height: 40px;
+        place-items: center;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, .94);
+        box-shadow: 0 4px 11px rgba(0, 0, 0, .08), 0 1px 3px rgba(0, 0, 0, .08);
+      }
+
+      .rail-next img {
+        width: 16px;
+        height: 16px;
+      }
+
+      .evidence-next {
+        top: 509px;
+        right: 34px;
+      }
+
+      .timeline {
+        height: 900px;
+        padding: 72px 16px 0;
+        overflow: hidden;
+        background:
+          radial-gradient(circle at 82% 8%, rgba(201, 164, 75, .12), transparent 34%),
+          #fff;
+      }
+
+      .timeline-rail {
+        width: 543px;
+        height: 551px;
+        margin: 24px 0 0;
+        padding: 0;
+        gap: 14px;
+        scroll-snap-type: none;
+      }
+
+      .timeline-card {
+        display: grid;
+        width: 360px;
+        min-width: 360px;
+        height: 551px;
+        grid-template-rows: 72px minmax(0, 1fr);
+        border: 1px solid #cfd4da;
+        border-radius: 6px;
+        opacity: 1;
+        transform: none;
+      }
+
+      .timeline-card.is-multiple {
+        width: 760px;
+        min-width: 760px;
+      }
+
+      .timeline-card.is-active {
+        border-color: var(--blue);
+        box-shadow: 0 18px 46px rgba(43, 61, 83, .13);
+      }
+
+      .timeline-group-header {
+        height: 72px;
+        padding: 16px 20px 17px;
+      }
+
+      .timeline-year {
+        font-size: 20px;
+        letter-spacing: 1px;
+        line-height: 1.2;
+      }
+
+      .timeline-event-scroll {
+        overflow: hidden;
+        scroll-snap-type: none;
+      }
+
+      .timeline-card.is-multiple .timeline-event-scroll {
+        display: flex;
+        align-items: stretch;
+        gap: 12px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding: 14px 14px 39px;
+        scrollbar-width: none;
+      }
+
+      .timeline-event {
+        height: 100%;
+        min-height: 0;
+        grid-template-rows: 230.8px minmax(0, 1fr);
+      }
+
+      .timeline-card.is-multiple .timeline-event {
+        width: 276px;
+        min-width: 276px;
+        height: 100%;
+        flex: 0 0 276px;
+        grid-template-rows: 201.9px minmax(0, 1fr);
+        border: 1px solid #cfd4da;
+        border-radius: 4px;
+        overflow: hidden;
+      }
+
+      .timeline-event-copy {
+        padding: 24px 22px 20px;
+      }
+
+      .timeline-card.is-multiple .timeline-event-copy {
+        padding: 20px;
+      }
+
+      .timeline-event-category {
+        min-height: 24px;
+        font-size: 12px;
+        font-weight: 400;
+        letter-spacing: 0;
+        line-height: 1.4;
+        text-transform: none;
+      }
+
+      .timeline-event h3 {
+        margin-top: 0;
+        font-size: 20px;
+        letter-spacing: 1px;
+        line-height: 1.2;
+        text-transform: none;
+      }
+
+      .timeline-event-copy > p {
+        margin-top: 12px;
+        color: #34373b;
+        font-size: 16px;
+        line-height: 1.4;
+      }
+
+      .timeline-card.is-multiple .timeline-event-copy > p {
+        font-size: 12px;
+      }
+
+      .source-link {
+        min-height: 20px;
+        color: var(--blue);
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 1.4;
+      }
+
+      .timeline-event-meter,
+      .timeline > .rail-meter,
+      .timeline-status,
+      .source-note {
+        display: none;
+      }
+
+      .models {
+        position: relative;
+        height: 957px;
+        padding: 72px 16px 0;
+        overflow: hidden;
+        background:
+          radial-gradient(circle at 82% 14%, rgba(58, 127, 248, .18), transparent 35%),
+          #f6f5f5;
+      }
+
+      .models > .scroll-head {
+        min-height: 124px;
+        align-items: center;
+      }
+
+      .models > .section-copy {
+        min-height: 82px;
+        margin-top: 0;
+        padding-top: 16px;
+      }
+
+      #modelRail {
+        width: calc(100% + 32px);
+        height: 661px;
+        margin: 0 -16px;
+        padding: 32px 16px 8px;
+        gap: 12px;
+      }
+
+      .model-card {
+        width: 357px;
+        min-width: 357px;
+        height: 621px;
+        flex: 0 0 357px;
+        padding: 17px;
+        border-radius: 4px;
+      }
+
+      .model-head {
+        font-size: 12px;
+        line-height: 17px;
+      }
+
+      .model-card h3 {
+        margin-top: 20px;
+        font-size: 20px;
+        letter-spacing: 1px;
+        line-height: 1.2;
+      }
+
+      .model-visual {
+        height: 190px;
+        margin: 16px -8px 0;
+      }
+
+      .spec strong {
+        font-family: var(--display);
+        font-size: 18px;
+        font-weight: 400;
+        letter-spacing: .9px;
+        line-height: 1.2;
+      }
+
+      .tech-tags span {
+        border-radius: 999px;
+        font-size: 12px;
+        line-height: 1.4;
+      }
+
+      .model-card .card-action {
+        min-height: 64px;
+        margin-top: 20px;
+        padding-top: 13px;
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 1.4;
+      }
+
+      .model-next {
+        top: 575px;
+        right: 28px;
+      }
+
+      .models > .rail-meter {
+        position: absolute;
+        right: 16px;
+        bottom: 16px;
+        left: 16px;
+        width: auto;
+        margin: 0;
+      }
+
+      .footer {
+        display: flex;
+        width: 100%;
+        height: 580px;
+        flex-direction: column;
+        gap: 40px;
+        padding: 40px 16px;
+        border: 0;
+        background:
+          radial-gradient(circle at 8% 108%, rgba(188, 232, 255, .66), transparent 46%),
+          radial-gradient(circle at 86% 26%, rgba(224, 220, 255, .56), transparent 46%),
+          #fff;
+      }
+
+      .footer-logo {
+        width: 171.4px;
+        height: 16px;
+        object-fit: contain;
+        object-position: left center;
+      }
+
+      .footer-link-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 32px;
+        margin: 0;
+      }
+
+      .footer-link-grid > div {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .footer-link-grid a {
+        display: block;
+        min-height: 0;
+        border: 0;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 1.4;
+        white-space: nowrap;
+      }
+
+      .footer-social {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+      }
+
+      .footer-social a,
+      .footer-social img {
+        display: block;
+        width: 20px;
+        height: 20px;
+      }
+
+      .footer .copyright {
+        order: 4;
+        margin: 0;
+        color: #828282;
+        font-size: 14px;
+        line-height: 1.4;
+      }
+
+      .footer-policy {
+        order: 5;
+        margin: -28px 0 0;
+        gap: 4px 12px;
+        font-size: 14px;
+        line-height: 1.4;
+      }
+
+      .footer-disclaimer {
+        order: 6;
+        margin: -8px 0 0;
+        color: #828282;
+        font-size: 14px;
+        line-height: 1.4;
+      }
+
+      /* Figma 9153:22017 — mobile technology chapter dialog. */
+      .sheet-dialog {
+        width: min(390px, 100%);
+        max-width: none;
+        height: min(760px, 100dvh);
+        max-height: 100dvh;
+        margin: auto;
+        overflow: hidden;
+        border-radius: 0;
+        background: #fff;
+      }
+
+      .sheet-dialog[open] {
+        animation: sheet-in 280ms var(--ease) both;
+      }
+
+      .sheet {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 100%;
+        max-height: none;
+        overflow: hidden;
+        background: #fff;
+      }
+
+      .scene-visual {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 293px;
+        margin: 0;
+        overflow: hidden;
+        background: #fff;
+      }
+
+      .scene-visual::after {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(270deg, rgba(0, 0, 0, .1), transparent 11%, transparent 89%, rgba(0, 0, 0, .1));
+        content: "";
+        pointer-events: none;
+      }
+
+      .scene-visual > img {
+        width: 100%;
+        height: 100%;
+        max-width: none;
+        padding: 0;
+        object-fit: cover;
+        object-position: center;
+      }
+
+      .scene-visual.fit-contain > img,
+      .scene-visual.fit-contain-product-light > img,
+      .scene-visual.fit-contain-product-dark > img {
+        padding: 0;
+        object-fit: contain;
+      }
+
+      .scene-visual.fit-contain,
+      .scene-visual.fit-contain-product-light {
+        background: #fff;
+      }
+
+      .scene-visual.fit-contain-product-dark {
+        background: #100603;
+      }
+
+      .scene-controls {
+        position: absolute;
+        z-index: 2;
+        top: 131px;
+        right: 16px;
+        left: 16px;
+        display: flex;
+        justify-content: space-between;
+        pointer-events: none;
+      }
+
+      .scene-controls button {
+        display: grid;
+        width: 32px;
+        height: 32px;
+        padding: 0;
+        place-items: center;
+        border-radius: 4px;
+        background: #fff;
+        pointer-events: auto;
+      }
+
+      .scene-controls button:disabled {
+        opacity: .5;
+      }
+
+      .scene-controls button img {
+        width: 16px;
+        height: 16px;
+        padding: 0;
+        object-fit: contain;
+      }
+
+      .scene-controls button:first-child img {
+        transform: rotate(180deg);
+      }
+
+      .scene-copy {
+        position: absolute;
+        top: 317px;
+        right: 16px;
+        left: 16px;
+        padding: 0;
+      }
+
+      .scene-copy h2 {
+        width: 100%;
+        margin: 0;
+        color: #000;
+        font-family: var(--display);
+        font-size: 20px;
+        font-weight: 400;
+        letter-spacing: 1px;
+        line-height: 1.2;
+        text-transform: uppercase;
+        white-space: pre-line;
+      }
+
+      .scene-copy .scene-body {
+        width: 100%;
+        margin-top: 16px;
+        color: #000;
+        font-size: 16px;
+        line-height: 1.4;
+      }
+
+      .sheet-close {
+        position: absolute;
+        bottom: 32px;
+        left: calc(50% - 16px);
+        display: grid;
+        width: 32px;
+        height: 32px;
+        padding: 0;
+        place-items: center;
+        border-radius: 4px;
+        background: #aaa;
+        color: #fff;
+      }
+
+      .sheet-close .close-glyph,
+      .sheet-close .close-glyph::after {
+        width: 14px;
+        height: 1px;
+        background: #fff;
+      }
+
+      @keyframes sheet-in {
+        from { opacity: 0; transform: translateY(36px); }
+        to { opacity: 1; transform: none; }
+      }
+
+      @media (max-width: 370px) {
+        .hero h1 {
+          font-size: 31px;
+          line-height: 36px;
+        }
+
+        .pillar-card {
+          min-width: 84vw;
+        }
+
+        .stat {
+          padding: 14px;
+        }
+
+        .stat strong {
+          font-size: 30px;
+          line-height: 34px;
+        }
+
+        .spec {
+          padding-inline: 5px;
+        }
+      }
+
+      @media (min-width: 431px) {
+        body {
+          background: #dde1e4;
+        }
+      }
+
+      @media (max-height: 650px) {
+        .hero {
+          min-height: 620px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+
+        *,
+        *::before,
+        *::after {
+          scroll-behavior: auto !important;
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+
+        .reveal {
+          opacity: 1;
+          transform: none;
+        }
+      }
+    </style>
+    <script>
+      if (window.location.hash.includes("figmacapture=")) {
+        const captureScript = document.createElement("script");
+        captureScript.src = "https://mcp.figma.com/mcp/html-to-design/capture.js";
+        captureScript.async = true;
+        document.head.appendChild(captureScript);
+      }
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+
+    <header class="topbar" id="topbar">
+      <a class="brand" href="/geely-design-showcase/#" aria-label="Geely home">
+        <img alt="GEELY" data-asset="logo-black.svg" data-light="logo-black.svg" data-dark="logo-black.svg" />
+      </a>
+      <button class="icon-button" id="menuOpen" type="button" aria-label="Open main menu" aria-haspopup="dialog">
+        <span class="menu-glyph" aria-hidden="true"></span>
+      </button>
+    </header>
+
+    <main class="shell" id="main">
+      <section class="hero" id="top" aria-labelledby="heroTitle">
+        <div class="hero-media">
+          <video id="heroVideo" data-poster="technology/gea-banner-poster.jpg" preload="metadata" autoplay muted loop playsinline aria-label="Geely intelligent and electrified mobility film">
+            <source data-asset="technology/gea-banner-clean-720p.mp4" type="video/mp4" />
+            <img data-asset="technology/gea-banner-poster.jpg" alt="GEELY technology vehicle in motion" />
+          </video>
+        </div>
+        <div class="hero-copy reveal">
+          <p class="eyebrow">Integrated · Intelligent · Electric</p>
+          <h1 id="heroTitle"><span>Smart technology.</span><span>Redefined experience.</span></h1>
+          <div class="hero-actions">
+            <a class="explore-link" href="#overview"><span>Explore technology</span><span class="arrow" aria-hidden="true">↘</span></a>
+            <button class="video-control" id="videoToggle" type="button" aria-label="Pause background video" aria-pressed="false">Ⅱ</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="section overview" id="overview" aria-labelledby="overviewTitle">
+        <div class="reveal">
+          <p class="eyebrow">Global R&amp;D, shared standards</p>
+          <h2 class="section-title" id="overviewTitle">From research investment to global engineering standards.</h2>
+          <p class="section-copy">Geely connects sustained R&amp;D investment, intellectual property, standards development and accredited validation across a global engineering network.</p>
+        </div>
+        <div class="stats reveal" aria-label="Global research and development scale">
+          <article class="stat">
+            <span class="stat-index">01</span>
+            <strong>250B+<sup>RMB</sup></strong>
+            <p>R&amp;D investment over the past decade</p>
+            <small>Reported in 2025</small>
+          </article>
+          <article class="stat">
+            <span class="stat-index">02</span>
+            <strong>29,819<sup>+</sup></strong>
+            <p>Granted patents across core technologies</p>
+            <small>As of February 2024</small>
+          </article>
+          <article class="stat">
+            <span class="stat-index">03</span>
+            <strong>5<sup>GLOBAL</sup></strong>
+            <p>R&amp;D centres across China and Europe</p>
+            <small>Hangzhou · Ningbo · Gothenburg · Coventry · Frankfurt</small>
+          </article>
+        </div>
+        <section class="standards reveal" aria-labelledby="standardsTitle">
+          <h3 id="standardsTitle">Engineering standards at global scale</h3>
+          <div class="standards-grid">
+            <article class="standard"><strong>1ST</strong><p>Asian member of IATF</p></article>
+            <article class="standard"><strong>682</strong><p>Standards led or contributed to</p></article>
+            <article class="standard"><strong>436</strong><p>Standards officially published</p></article>
+            <article class="standard"><strong>10</strong><p>CNAS-accredited laboratories</p></article>
+          </div>
+        </section>
+      </section>
+
+      <section class="section pillars" id="pillars" aria-labelledby="pillarsTitle">
+        <div class="scroll-head reveal">
+          <div>
+            <p class="eyebrow">Three engineering pillars</p>
+            <h2 class="section-title" id="pillarsTitle">A connected technology system.</h2>
+          </div>
+        </div>
+        <div class="horizontal-rail" id="pillarRail" tabindex="0" aria-label="Technology pillars. Swipe or use the arrow keys."></div>
+        <div class="rail-meter" aria-hidden="true"><i id="pillarMeter"></i></div>
+      </section>
+
+      <section class="section evidence" id="evidence" aria-labelledby="evidenceTitle">
+        <div class="reveal">
+          <p class="eyebrow">Proof</p>
+          <h2 class="section-title" id="evidenceTitle">Technology earns trust through evidence.</h2>
+          <p class="section-copy">Simulation, laboratories, global testing and continuous validation connect digital development with the realities of the road.</p>
+        </div>
+        <div class="evidence-list" id="evidenceList"></div>
+        <button class="rail-next evidence-next" id="evidenceNext" type="button" aria-label="Show next proof card">
+          <img data-asset="icon-vehicle-arrow.svg" alt="" aria-hidden="true" />
+        </button>
+      </section>
+
+      <section class="section timeline" id="timeline" aria-labelledby="timelineTitle">
+        <div class="reveal">
+          <p class="eyebrow">Technology milestones</p>
+          <h2 class="section-title" id="timelineTitle">From building cars to engineering intelligent mobility.</h2>
+          <p class="section-copy">Selected, source-backed milestones trace how Geely's engineering capability developed.</p>
+        </div>
+        <div class="horizontal-rail timeline-rail" id="timelineRail" tabindex="0" aria-label="Technology timeline. Swipe or use the arrow keys."></div>
+        <div class="rail-meter" aria-hidden="true"><i id="timelineMeter"></i></div>
+        <div class="timeline-status" aria-live="polite"><span id="timelineCount">10 / 12</span><span>Swipe years →</span></div>
+        <p class="source-note">Each milestone links to a Geely official page or published report. Claims remain subject to Brand / PR / Legal approval for global publication.</p>
+      </section>
+
+      <section class="section models" id="models" aria-labelledby="modelsTitle">
+        <div class="scroll-head reveal">
+          <div>
+            <p class="eyebrow">Technology in motion</p>
+            <h2 class="section-title" id="modelsTitle">Where technology meets the road.</h2>
+          </div>
+        </div>
+        <p class="section-copy reveal">Architecture, energy and intelligence become tangible across a growing range of vehicles. Capabilities vary by model and market.</p>
+        <div class="horizontal-rail" id="modelRail" tabindex="0" aria-label="Vehicle technology profiles. Swipe or use the arrow keys."></div>
+        <div class="rail-meter" aria-hidden="true"><i id="modelMeter"></i></div>
+        <button class="rail-next model-next" id="modelNext" type="button" aria-label="Show next vehicle">
+          <img data-asset="icon-vehicle-arrow.svg" alt="" aria-hidden="true" />
+        </button>
+      </section>
+
+      <footer class="footer">
+        <img class="footer-logo" data-asset="logo-black.svg" alt="GEELY" />
+        <nav class="footer-links footer-link-grid" aria-label="Footer navigation">
+          <div><a href="/geely-design-showcase/#model">E22H</a><a href="/geely-design-showcase/#model">EX5</a><a href="/geely-design-showcase/#model">KX11</a><a href="/geely-design-showcase/#model">KX11</a></div>
+          <div><a href="/geely-design-showcase/#model">P145</a><a href="/geely-design-showcase/#model">SX21</a><a href="/geely-design-showcase/#model">P145</a></div>
+          <div>
+            <a href="/geely-design-showcase/#brand">Our Brand</a>
+            <a href="https://global.geely.com/en/contact" target="_blank" rel="noreferrer">Contact Us</a>
+            <a href="https://global.geely.com/dealer/" target="_blank" rel="noreferrer">Find a Dealer</a>
+          </div>
+        </nav>
+        <nav class="footer-social" aria-label="Social media">
+          <a href="#" aria-label="Instagram"><img data-asset="social-instagram.svg" alt="" /></a>
+          <a href="#" aria-label="LinkedIn"><img data-asset="social-linkedin.svg" alt="" /></a>
+          <a href="#" aria-label="Facebook"><img data-asset="social-facebook.svg" alt="" /></a>
+          <a href="#" aria-label="YouTube"><img data-asset="social-youtube.svg" alt="" /></a>
+          <a href="#" aria-label="TikTok"><img data-asset="social-tiktok.svg" alt="" /></a>
+        </nav>
+        <p class="copyright">© 2022 zeekr and/or its affiliates. All rights reserved.</p>
+        <nav class="footer-policy" aria-label="Policies">
+          <a href="/geely-design-showcase/#privacy-policy">Privacy Policy</a>
+          <a href="/geely-design-showcase/#cookie-policy">Cookie Policy</a>
+          <a href="/geely-design-showcase/#terms-of-use">Terms of Use</a>
+          <a href="/geely-design-showcase/#impressum">Impressum</a>
+          <a href="/geely-design-showcase/#cookie-settings">Cookies Settings</a>
+        </nav>
+        <p class="footer-disclaimer">Disclaimer: The availability of vehicle models, options, specifications and colours may vary from market to market and Zeekr reserves the right to make changes without notice. Vehicles may be shown with optional equipment that is not available in all markets. Images and videos are for illustrative purposes only. This website is governed by Zeekr’s Terms of use.</p>
+      </footer>
+    </main>
+
+    <dialog class="menu-dialog" id="menuDialog" aria-labelledby="menuTitle">
+      <div class="menu-inner">
+        <div class="dialog-head">
+          <img data-asset="logo-black.svg" alt="GEELY" />
+          <button class="icon-button" id="menuClose" type="button" aria-label="Close main menu"><span class="close-glyph" aria-hidden="true"></span></button>
+        </div>
+        <nav class="menu-links" id="menuTitle" aria-label="Primary navigation">
+          <a href="/geely-design-showcase/#model">Models</a>
+          <a href="/geely-design-showcase/#brand">Brand</a>
+          <a href="#top" aria-current="page">Technology</a>
+          <a href="/geely-design-showcase/#news">Newsroom</a>
+          <a href="/geely-design-showcase/#network">Network</a>
+          <a href="/geely-design-showcase/#dealer">Dealer</a>
+        </nav>
+        <div class="menu-footer">
+          <a href="/geely-design-showcase/#dealer">Test Drive</a>
+          <a href="/geely-design-showcase/#market">Select Market</a>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog class="sheet-dialog" id="pillarSheet" aria-labelledby="sceneTitle">
+      <div class="sheet">
+        <figure class="scene-visual" id="sceneVisual">
+          <img id="sceneImage" alt="" />
+          <div class="scene-controls" aria-label="Technology scene controls">
+            <button id="scenePrevious" type="button" aria-label="Previous scene"><img data-asset="icon-vehicle-arrow.svg" alt="" /></button>
+            <button id="sceneNext" type="button" aria-label="Next scene"><img data-asset="icon-vehicle-arrow.svg" alt="" /></button>
+          </div>
+        </figure>
+        <section class="scene-copy">
+          <h2 id="sceneTitle"></h2>
+          <p class="scene-body" id="sceneBody"></p>
+        </section>
+        <button class="sheet-close" id="sheetClose" type="button" aria-label="Close technology details"><span class="close-glyph" aria-hidden="true"></span></button>
+      </div>
+    </dialog>
+
+    <script>
+      const isLocalFile = window.location.protocol === "file:";
+      const isLocalPreview = isLocalFile || ["localhost", "127.0.0.1"].includes(window.location.hostname);
+      const isFigmaCapture = window.location.hash.includes("figmacapture=");
+const A = "./assets/";
+      const T = A + "technology/";
+      const TV3 = A + "technology-v3/";
+
+      if (isFigmaCapture) document.documentElement.classList.add("figma-capture");
+
+      document.querySelector("#favicon").href = "./favicon.svg";
+      document.querySelectorAll("[data-asset]").forEach((element) => {
+        element.src = A + element.dataset.asset;
+      });
+      document.querySelectorAll("[data-poster]").forEach((element) => {
+        element.poster = A + element.dataset.poster;
+      });
+
+      const pillars = [
+        {
+          id: "architecture",
+          index: "01",
+          eyebrow: "Global intelligent architecture",
+          title: "One architecture.\nEvery possibility.",
+          summary: "GEA unifies the vehicle's physical and digital foundations so space, energy, safety and intelligence can be developed as one system.",
+          proof: "GEA · GLOBAL INTELLIGENT NEW ENERGY ARCHITECTURE",
+          previewImage: A + "home-tech-chassis.png",
+          scenes: [
+            {
+              code: "01A",
+              modalTitle: "One Architecture.\nEvery System in Sync.",
+              modalBody: "GEA unifies hardware, software, energy management and intelligence on one foundation—giving every vehicle a consistent base for faster integration, continuous upgrades and dependable performance.",
+              modalFit: "contain",
+              image: T + "gea-angle.png",
+              alt: "GEA vehicle architecture shown at an angle"
+            },
+            {
+              code: "01B",
+              modalTitle: "Built to Scale.\nReady to Evolve.",
+              modalBody: "A flexible architecture adapts across vehicle sizes, powertrains and markets, while shared interfaces make new technologies easier to integrate as mobility needs change.",
+              modalFit: "contain",
+              image: T + "gea-top.png",
+              alt: "GEA vehicle architecture viewed from above"
+            },
+            {
+              code: "01C",
+              modalTitle: "From Global Platform\nto Everyday Road.",
+              modalBody: "Engineering turns architecture into real vehicles through packaging, validation and production readiness—delivering a consistent driving experience wherever the road leads.",
+              modalFit: "cover",
+              image: A + "figma-capture/tech-engineering-1.jpg",
+              alt: "Vehicle engineering validation on road"
+            }
+          ]
+        },
+        {
+          id: "intelligence",
+          index: "02",
+          eyebrow: "Full-domain intelligence",
+          title: "Intelligence that\nworks in context.",
+          summary: "Vehicle, cloud and interface work together to reduce friction for the driver — from everyday interaction to assisted-driving support.",
+          proof: "CLOUD COMPUTING · SMART COCKPIT · DRIVER ASSISTANCE",
+          previewImage: A + "home-tech-screen.png",
+          scenes: [
+            {
+              code: "02A",
+              modalTitle: "Vehicle and Cloud,\nWorking as One.",
+              modalBody: "Vehicle data, cloud computing and AI development stay connected across the lifecycle, enabling services and capabilities to improve long after delivery.",
+              modalFit: "cover",
+              image: T + "xingrui-centre.jpg",
+              alt: "Inside the Xingrui cloud computing centre"
+            },
+            {
+              code: "02B",
+              modalTitle: "Intelligence That\nFeels Instinctive.",
+              modalBody: "A clearer digital cockpit brings information, entertainment and connected services into one natural interaction flow—designed to reduce effort and keep attention on the road.",
+              modalFit: "cover",
+              image: T + "flyme-auto.png",
+              alt: "Flyme Auto intelligent cockpit interface"
+            },
+            {
+              code: "02C",
+              modalTitle: "Proven in\nReal-World Complexity.",
+              modalBody: "Simulation, closed-course testing and road validation expose systems to the unpredictability of daily traffic, helping intelligent features respond with greater confidence.",
+              modalFit: "cover",
+              image: T + "adas-lab.jpg",
+              alt: "Virtual city environment used for driver assistance validation"
+            }
+          ]
+        },
+        {
+          id: "electrification",
+          index: "03",
+          eyebrow: "Efficient electrification",
+          title: "Energy engineered\nas a complete system.",
+          summary: "Battery, electric drive and intelligent energy management are developed together to balance confidence, efficiency and everyday usability.",
+          proof: "BATTERY · ELECTRIC DRIVE · ENERGY MANAGEMENT",
+          previewImage: A + "model/charging.jpg",
+          scenes: [
+            {
+              code: "03A",
+              modalTitle: "Safety Engineered\nfrom the Cell Up.",
+              modalBody: "Cell chemistry, structural protection and thermal control work together to support long life, stable charging and dependable safety across the vehicle.",
+              modalFit: "contain-product-light",
+              image: T + "short-blade-battery.jpg",
+              alt: "Latest Geely Short Blade Battery design"
+            },
+            {
+              code: "03B",
+              modalTitle: "Compact Power.\nIntegrated Performance.",
+              modalBody: "Geely’s 11-in-1 electric drive combines key functions in a single compact unit, improving packaging efficiency, energy coordination and responsive power delivery.",
+              modalFit: "contain-product-dark",
+              image: T + "eleven-in-one-drive.png",
+              alt: "Geely 11-in-1 intelligent electric drive unit"
+            },
+            {
+              code: "03C",
+              modalTitle: "Engineered for Every\nModel and Market.",
+              modalBody: "Fast charging, intelligent thermal management and energy control are calibrated around different vehicles and real travel patterns, reducing downtime wherever capability is available.",
+              modalFit: "cover",
+              image: A + "figma-capture/tech-electric.jpg",
+              alt: "Electric mobility road environment"
+            }
+          ]
+        }
+      ];
+
+      const evidence = [
+        { number: "01", label: "Physical safety validation", title: "Tested beyond a single scenario", body: "Vehicle, battery and intelligent safety development connect through a comprehensive physical validation system.", image: T + "safety-crash-lab.jpg", alt: "GEELY physical safety validation laboratory" },
+        { number: "02", label: "Human-centred intelligence", title: "Intelligence becomes useful in context", body: "Cockpit, cloud and vehicle systems are developed together so connected functions remain clear and useful in motion.", image: A + "figma-capture/tech-cockpit.jpg", alt: "GEELY intelligent cockpit and connected displays" },
+        { number: "03", label: "Technology on the road", title: "Proof continues in everyday motion", body: "Electric performance, energy control and intelligent functions are refined through real-world vehicle validation.", image: A + "figma-capture/tech-engineering-2.jpg", alt: "GEELY vehicle undergoing real-world road validation" }
+      ];
+
+      const timeline = [
+        { year: "1997", category: "Foundation", label: "Automotive engineering begins", body: "Geely enters the automobile industry, establishing the manufacturing and engineering base for every technology milestone that follows.", image: TV3 + "1997-automotive-engineering.jpg", alt: "Geely's early automobile manufacturing operation in 1997", source: "https://zgh.com/geely-history/?lang=en", sourceLabel: "Geely official history" },
+        { year: "2007", category: "Strategy", label: "Safety, efficiency and environment", body: "The Ningbo Declaration commits Geely to developing vehicles that lead in safety, environmental protection and energy efficiency.", image: TV3 + "2007-ningbo-declaration.jpg", alt: "The 2007 Ningbo Declaration signing ceremony", source: "https://zgh.com/geely-history/?lang=en", sourceLabel: "Geely official history" },
+        { year: "2011", category: "Safety", label: "Dedicated safety R&D", body: "The Automobile Safety Technology Laboratory brings integrated vehicle and component testing capabilities into one R&D facility.", image: TV3 + "2011-safety-laboratory.jpg", alt: "Inside Geely's official safety technology laboratory", source: "https://global.geely.com/en/news/2025/geely-auto-safety-technology-laboratory-media-tour", sourceLabel: "Geely safety technology laboratory" },
+        { year: "2015", category: "Electrification", label: "New-energy technology roadmap", body: "The Blue Geely Initiative sets an electrification and efficiency roadmap backed by new-energy technology development.", image: TV3 + "2015-blue-geely.jpg", alt: "Geely's 2015 new-energy strategy launch", source: "https://zgh.com/media-center/news/20151119_1/", sourceLabel: "Geely new-energy strategy" },
+        { year: "2016", category: "Safety", label: "Security Identification Circle", body: "Geely pioneers the Security Identification Circle as its vehicle safety system expands beyond single crash scenarios.", image: TV3 + "2016-g-safety.jpg", alt: "A Geely engineer presenting the G-Safety system", source: "https://zgh.com/media-center/news/20170512_1/", sourceLabel: "Geely safety technology history" },
+        { year: "2018", category: "Architecture", label: "Self-developed modular architecture", body: "BMA is unveiled after four years of development, bringing flexible, scalable vehicle development under Geely's own architecture capability.", image: TV3 + "2018-bma.jpg", alt: "Official Geely BMA architecture visual", source: "https://global.geely.com/en/models/new-coolray", sourceLabel: "Official Geely BMA reference" },
+        { year: "2020", category: "Architecture", label: "Architecture 4.0", body: "BMA, CMA, SPA and SEA form a comprehensive architecture system spanning vehicle sizes and multiple energy pathways.", image: TV3 + "2020-architecture-4.png", alt: "The 2020 SEA architecture concept vehicle", source: "https://zgh.com/vehicle-architecture/?lang=en", sourceLabel: "Geely vehicle architecture" },
+        { year: "2021", category: "Ecosystem", label: "Smart technology ecosystem", body: "Smart Geely 2025 connects intelligent architectures, powertrains, cockpit software, chips and cloud capability in one R&D roadmap.", image: TV3 + "2021-smart-geely.jpg", alt: "Smart Geely 2025 technology ecosystem diagram", source: "https://zgh.com/media-center/news/2021-11-01/?lang=en", sourceLabel: "Smart Geely 2025 release" },
+        { year: "2023", category: "Computing", label: "Cloud, data and intelligence", body: "Xingrui Intelligent Computing Center connects computing, data, vehicle software and intelligent-driving development.", image: "", alt: "", source: "https://zgh.com/wp-content/uploads/Geely-Holding-Group-Sustainability-Report-2023-EN.pdf", sourceLabel: "Geely 2023 sustainability report" },
+        { year: "2024", category: "Architecture", label: "GEA reaches global products", body: "The Global Intelligent New Energy Architecture brings hardware, energy and software capability into a unified vehicle foundation.", image: TV3 + "2024-gea.jpg", alt: "Official GEA global intelligent new-energy architecture visual", source: "https://global.geely.com/en/news/2024/geely-auto-unveils-smart-geely-2025-strategy-auto-china", sourceLabel: "GEA official release" },
+        { year: "2024", category: "Energy", label: "Short Blade Battery", body: "A compact lithium iron phosphate battery advances packaging efficiency, durability and safety for global electric products.", image: TV3 + "2024-short-blade-battery.jpg", alt: "Geely's official Short Blade Battery product display", source: "https://global.geely.com/en/news/2024/geely-auto-unveils-new-short-blade-ev-battery-technology", sourceLabel: "Short Blade Battery official release" },
+        { year: "2024", category: "Electric drive", label: "11-in-1 intelligent E-drive", body: "Eleven electric-drive functions are integrated into one compact system to improve efficiency, packaging and vehicle control.", image: TV3 + "2024-eleven-in-one-drive.png", alt: "Geely 11-in-1 intelligent electric-drive film still", source: "https://global.geely.com/en/models/ex5", sourceLabel: "GEELY EX5 official model page" },
+        { year: "2024", category: "Cockpit", label: "Flyme Auto", body: "A connected cockpit system brings phone-like interaction, ecosystem continuity and intelligent services into the vehicle.", image: TV3 + "2024-flyme-auto.jpg", alt: "Official GEELY EX5 Flyme Auto cockpit interface", source: "https://global.geely.com/en/models/ex5", sourceLabel: "GEELY EX5 official model page" },
+        { year: "2025", category: "Artificial intelligence", label: "Full-domain AI", body: "Full-Domain AI connects the digital chassis, Xingrui AI, smart cockpit and intelligent driving across the vehicle system.", image: TV3 + "2025-full-domain-ai.png", alt: "Official Geely Full-Domain AI technology system diagram", source: "https://global.geely.com/en/news/2025/geely-unveiled-full-domain-ai-smart-vehicles", sourceLabel: "Full-Domain AI official release" },
+        { year: "2026", category: "Artificial intelligence", label: "Full-domain AI 2.0", body: "WAM and the 1+2+N intelligent-agent architecture coordinate cockpit and assisted-driving capability across domains.", image: TV3 + "2026-full-domain-ai-2.jpg", alt: "Geely presenting Full-Domain AI 2.0 at CES 2026", source: "https://global.geely.com/en/news/2026/geely-ces-2026-full-domain-ai", sourceLabel: "Full-Domain AI 2.0 official release" }
+      ];
+
+      const models = [
+        { name: "GEELY EX5", type: "Global intelligent electric SUV", image: A + "car-ex5.png", alt: "GEELY EX5 electric SUV", specs: [["BEV", "Energy system"], ["60.2–68.4 kWh", "Battery capacity"], ["430+ km", "Published range*"]], technologies: ["GEA architecture", "Short Blade Battery", "11-in-1 E-drive", "Flyme Auto"] },
+        { name: "STARRAY EM-i", type: "Intelligent super hybrid SUV", image: A + "media-car-1.png", alt: "STARRAY EM-i hybrid SUV", specs: [["PHEV", "Energy system"], ["18.4–29.8 kWh", "Battery capacity"], ["1,002+ km", "Published range*"]], technologies: ["GEA architecture", "EM-i Super Hybrid", "Intelligent energy management"] },
+        { name: "GEELY E5", type: "Intelligent electric SUV", image: A + "media-car-2.png", alt: "GEELY E5 electric SUV", specs: [["BEV", "Energy system"], ["49.5–60.2 kWh", "Battery capacity"], ["440–530 km", "Published range*"]], technologies: ["Electric architecture", "Cell-to-body safety", "Connected intelligent cockpit"] }
+      ];
+
+      const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" })[character]);
+
+      const pillarRail = document.querySelector("#pillarRail");
+      pillarRail.innerHTML = pillars.map((pillar) => `
+        <button class="pillar-card reveal" type="button" data-pillar="${pillar.id}" aria-label="Explore ${escapeHtml(pillar.eyebrow)}">
+          <img src="${pillar.previewImage}" alt="" aria-hidden="true" />
+          <div class="pillar-meta micro"><span>${pillar.index} / 03</span><span>${escapeHtml(pillar.eyebrow)}</span></div>
+          <div>
+            <h3>${escapeHtml(pillar.title)}</h3>
+            <p>${escapeHtml(pillar.summary)}</p>
+            <div class="card-action"><span>Open chapter</span><img class="link-arrow-icon" src="${A}icon-link-arrow.svg" alt="" aria-hidden="true" /></div>
+          </div>
+        </button>
+      `).join("");
+
+      document.querySelector("#evidenceList").innerHTML = evidence.map((item) => `
+        <article class="evidence-card reveal">
+          <div class="evidence-media"><img src="${item.image}" alt="${escapeHtml(item.alt)}" loading="lazy" /></div>
+          <div class="evidence-copy">
+            <div class="evidence-label micro"><span>${item.number}</span><p>${escapeHtml(item.label)}</p></div>
+            <h3>${escapeHtml(item.title)}</h3>
+            <p>${escapeHtml(item.body)}</p>
+          </div>
+        </article>
+      `).join("");
+
+      const timelineRail = document.querySelector("#timelineRail");
+      const timelineGroups = [...new Set(timeline.map((item) => item.year))].map((year) => ({
+        year,
+        items: timeline.filter((item) => item.year === year)
+      }));
+      const timelineFocusIndex = timelineGroups.findIndex((group) => group.year === "2024");
+
+      timelineRail.innerHTML = timelineGroups.map((group, groupIndex) => `
+        <article class="timeline-card${group.items.length > 1 ? " is-multiple" : " is-single"}${groupIndex === timelineFocusIndex ? " is-active" : ""}" data-timeline-index="${groupIndex}">
+          <header class="timeline-group-header">
+            <strong class="timeline-year">${group.year}</strong>
+            ${group.items.length > 1 ? `<span class="timeline-event-count">${String(group.items.length).padStart(2, "0")} technologies</span>` : ""}
+          </header>
+          <div class="timeline-event-stage">
+            <div class="timeline-event-scroll">
+              ${group.items.map((item) => `
+                <section class="timeline-event${item.image ? " has-image" : " no-image"}" aria-label="${group.year}: ${escapeHtml(item.label)}">
+                  ${item.image ? `<figure class="timeline-event-media"><img src="${item.image}" alt="${escapeHtml(item.alt)}" loading="lazy" /></figure>` : ""}
+                  <div class="timeline-event-copy">
+                    <span class="timeline-event-category">${escapeHtml(item.category)}</span>
+                    <h3>${escapeHtml(item.label)}</h3>
+                    <p>${escapeHtml(item.body)}</p>
+                    <footer><a class="source-link" href="${item.source}" target="_blank" rel="noreferrer" aria-label="${escapeHtml(item.sourceLabel)}, opens in a new window"><span>Official source</span><img class="link-arrow-icon" src="${A}icon-link-arrow.svg" alt="" aria-hidden="true" /></a></footer>
+                  </div>
+                </section>
+              `).join("")}
+            </div>
+            ${group.items.length > 1 ? `<span class="timeline-event-meter" style="--event-count:${group.items.length};--event-progress:0" aria-hidden="true"><i></i></span>` : ""}
+          </div>
+        </article>
+      `).join("");
+
+      timelineRail.querySelectorAll(".timeline-event-scroll").forEach((scroller) => {
+        const meter = scroller.parentElement.querySelector(".timeline-event-meter");
+        if (!meter) return;
+        const syncVerticalMeter = () => {
+          const maximum = Math.max(1, scroller.scrollHeight - scroller.clientHeight);
+          meter.style.setProperty("--event-progress", Math.min(1, scroller.scrollTop / maximum));
+        };
+        scroller.addEventListener("scroll", syncVerticalMeter, { passive: true });
+        requestAnimationFrame(syncVerticalMeter);
+      });
+
+      const modelRail = document.querySelector("#modelRail");
+      modelRail.innerHTML = models.map((model, index) => `
+        <article class="model-card">
+          <div class="model-head micro"><span>0${index + 1}</span><p>${escapeHtml(model.type)}</p></div>
+          <h3>${escapeHtml(model.name)}</h3>
+          <div class="model-visual"><img src="${model.image}" alt="${escapeHtml(model.alt)}" loading="lazy" /></div>
+          <div class="specs" aria-label="Key specifications for ${escapeHtml(model.name)}">
+            ${model.specs.map(([value, label]) => `<div class="spec"><strong>${escapeHtml(value)}</strong><small>${escapeHtml(label)}</small></div>`).join("")}
+          </div>
+          <div class="tech-tags" aria-label="Key technologies">${model.technologies.map((technology) => `<span>${escapeHtml(technology)}</span>`).join("")}</div>
+              <a class="card-action" href="/geely-design-showcase/#model" aria-label="Explore ${escapeHtml(model.name)}"><span>Explore ${escapeHtml(model.name)}</span><img class="link-arrow-icon" src="${A}icon-link-arrow.svg" alt="" aria-hidden="true"></a>
+        </article>
+      `).join("");
+
+      if (isFigmaCapture) {
+        const captureVideo = document.querySelector("#heroVideo");
+        captureVideo.pause();
+        captureVideo.removeAttribute("autoplay");
+        captureVideo.querySelectorAll("source").forEach((source) => source.remove());
+        captureVideo.load();
+        const captureAssets = new Map([
+          ["home-tech-chassis.png", "figma-capture/home-tech-chassis-1400.png"],
+          ["technology/safety-crash-lab.jpg", "figma-capture/safety-crash-lab-1600.jpg"],
+          ["car-ex5.png", "figma-capture/car-ex5-1200.png"],
+          ["media-car-1.png", "figma-capture/media-car-1-1200.png"],
+          ["media-car-2.png", "figma-capture/media-car-2-1200.png"]
+        ]);
+        document.querySelectorAll("img").forEach((image) => {
+          for (const [source, captureSource] of captureAssets) {
+            if (image.src.endsWith(source)) image.src = A + captureSource;
+          }
+          image.loading = "eager";
+        });
+      }
+
+      const topbar = document.querySelector("#topbar");
+      const brandImage = topbar.querySelector(".brand img");
+      const syncHeader = () => {
+        const scrolled = window.scrollY > 24;
+        topbar.classList.toggle("is-scrolled", scrolled);
+        brandImage.src = A + (scrolled ? brandImage.dataset.dark : brandImage.dataset.light);
+      };
+      syncHeader();
+      window.addEventListener("scroll", syncHeader, { passive: true });
+
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+      const heroVideo = document.querySelector("#heroVideo");
+      const videoToggle = document.querySelector("#videoToggle");
+      const setVideoState = (paused) => {
+        if (paused) heroVideo.pause();
+        else heroVideo.play().catch(() => {});
+        videoToggle.textContent = paused ? "▶" : "Ⅱ";
+        videoToggle.setAttribute("aria-label", paused ? "Play background video" : "Pause background video");
+        videoToggle.setAttribute("aria-pressed", String(paused));
+      };
+      if (reduceMotion.matches) setVideoState(true);
+      videoToggle.addEventListener("click", () => setVideoState(!heroVideo.paused));
+      heroVideo.addEventListener("ended", () => setVideoState(true));
+      heroVideo.addEventListener("waiting", () => videoToggle.setAttribute("aria-label", "Background video loading"));
+      heroVideo.addEventListener("playing", () => videoToggle.setAttribute("aria-label", "Pause background video"));
+      reduceMotion.addEventListener?.("change", (event) => setVideoState(event.matches));
+
+      const menuDialog = document.querySelector("#menuDialog");
+      const menuOpen = document.querySelector("#menuOpen");
+      const menuClose = document.querySelector("#menuClose");
+      let lastTrigger = null;
+
+      const lockPage = (locked) => document.body.classList.toggle("is-locked", locked);
+      const openDialog = (dialog, trigger) => {
+        lastTrigger = trigger;
+        dialog.showModal();
+        lockPage(true);
+      };
+      const closeDialog = (dialog) => {
+        dialog.close();
+        lockPage(false);
+        lastTrigger?.focus();
+      };
+
+      menuOpen.addEventListener("click", () => openDialog(menuDialog, menuOpen));
+      menuClose.addEventListener("click", () => closeDialog(menuDialog));
+      menuDialog.addEventListener("click", (event) => {
+        if (event.target === menuDialog) closeDialog(menuDialog);
+      });
+      menuDialog.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => closeDialog(menuDialog)));
+
+      const sheet = document.querySelector("#pillarSheet");
+      const sheetClose = document.querySelector("#sheetClose");
+      const scenePrevious = document.querySelector("#scenePrevious");
+      const sceneNext = document.querySelector("#sceneNext");
+      let activePillar = pillars[0];
+      let activeSceneIndex = 0;
+
+      const renderScene = () => {
+        const scene = activePillar.scenes[activeSceneIndex];
+        document.querySelector("#sceneTitle").textContent = scene.modalTitle;
+        document.querySelector("#sceneBody").textContent = scene.modalBody;
+        const sceneImage = document.querySelector("#sceneImage");
+        sceneImage.src = scene.image;
+        sceneImage.alt = scene.alt;
+        document.querySelector("#sceneVisual").className = `scene-visual fit-${scene.modalFit}`;
+        scenePrevious.disabled = activeSceneIndex === 0;
+        sceneNext.disabled = activeSceneIndex === activePillar.scenes.length - 1;
+      };
+
+      const moveScene = (direction) => {
+        activeSceneIndex = Math.min(Math.max(activeSceneIndex + direction, 0), activePillar.scenes.length - 1);
+        renderScene();
+      };
+
+      document.querySelectorAll(".pillar-card").forEach((card) => card.addEventListener("click", () => {
+        activePillar = pillars.find((pillar) => pillar.id === card.dataset.pillar);
+        activeSceneIndex = 0;
+        renderScene();
+        openDialog(sheet, card);
+      }));
+      scenePrevious.addEventListener("click", () => moveScene(-1));
+      sceneNext.addEventListener("click", () => moveScene(1));
+      sheet.addEventListener("keydown", (event) => {
+        if (event.key === "ArrowLeft") moveScene(-1);
+        if (event.key === "ArrowRight") moveScene(1);
+      });
+      sheetClose.addEventListener("click", () => closeDialog(sheet));
+      sheet.addEventListener("click", (event) => {
+        if (event.target === sheet) closeDialog(sheet);
+      });
+
+      [menuDialog, sheet].forEach((dialog) => dialog.addEventListener("close", () => {
+        lockPage(false);
+        lastTrigger?.focus();
+      }));
+
+      const bindRail = (rail, meter, onChange) => {
+        const sync = () => {
+          const max = Math.max(1, rail.scrollWidth - rail.clientWidth);
+          const progress = Math.min(1, rail.scrollLeft / max);
+          meter.style.transform = `scaleX(${progress})`;
+          onChange?.(progress);
+        };
+        rail.addEventListener("scroll", sync, { passive: true });
+        rail.addEventListener("keydown", (event) => {
+          if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+          event.preventDefault();
+          const card = rail.querySelector(":scope > *");
+          const step = (card?.getBoundingClientRect().width || rail.clientWidth * 0.82) + 12;
+          rail.scrollBy({ left: event.key === "ArrowRight" ? step : -step, behavior: reduceMotion.matches ? "auto" : "smooth" });
+        });
+        window.addEventListener("resize", sync);
+        requestAnimationFrame(sync);
+      };
+
+      bindRail(pillarRail, document.querySelector("#pillarMeter"));
+      bindRail(modelRail, document.querySelector("#modelMeter"));
+      bindRail(timelineRail, document.querySelector("#timelineMeter"), () => {
+        const timelineAnchor = timelineRail.scrollLeft + 180;
+        const index = [...timelineRail.querySelectorAll(".timeline-card")].reduce((closestIndex, card, cardIndex, cards) => {
+          const closestDistance = Math.abs(cards[closestIndex].offsetLeft - timelineAnchor);
+          const cardDistance = Math.abs(card.offsetLeft - timelineAnchor);
+          return cardDistance < closestDistance ? cardIndex : closestIndex;
+        }, 0);
+        document.querySelector("#timelineCount").textContent = `${String(index + 1).padStart(2, "0")} / ${String(timelineGroups.length).padStart(2, "0")}`;
+        timelineRail.querySelectorAll(".timeline-card").forEach((card, cardIndex) => {
+          card.classList.toggle("is-active", cardIndex === index);
+        });
+      });
+
+      const scrollRailForward = (rail) => {
+        const card = rail.querySelector(":scope > *");
+        rail.scrollBy({
+          left: (card?.getBoundingClientRect().width || rail.clientWidth * 0.82) + 16,
+          behavior: reduceMotion.matches ? "auto" : "smooth"
+        });
+      };
+      document.querySelector("#evidenceNext").addEventListener("click", () => scrollRailForward(document.querySelector("#evidenceList")));
+      document.querySelector("#modelNext").addEventListener("click", () => scrollRailForward(modelRail));
+
+      requestAnimationFrame(() => {
+        const focusCard = timelineRail.querySelector(`[data-timeline-index="${timelineFocusIndex}"]`);
+        if (!focusCard) return;
+        timelineRail.scrollLeft = focusCard.offsetLeft - 181.5;
+      });
+
+      if ("IntersectionObserver" in window && !reduceMotion.matches) {
+        const revealObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add("is-visible");
+            revealObserver.unobserve(entry.target);
+          });
+        }, { threshold: 0.08, rootMargin: "0px 0px -5% 0px" });
+        document.querySelectorAll(".reveal").forEach((element) => revealObserver.observe(element));
+      } else {
+        document.querySelectorAll(".reveal").forEach((element) => element.classList.add("is-visible"));
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#090d15" />
+    <link rel="icon" href="/geely-design-showcase/favicon.svg" />
+    <title>GEELY Brand · Pad 834×1194</title>
+    <style>
+      html[data-figma-capturing="heritage"]
+        #brand-heritage
+        .heritage-v3-card:not(.is-active) {
+        display: none !important;
+      }
+
+      html[data-figma-capturing="heritage"]
+        #brand-heritage
+        .heritage-v3-rail {
+        justify-content: center;
+      }
+    </style>
+    <script type="module" crossorigin src="/geely-design-showcase/assets/brand-pad-18HjGv5M.js"></script>
+    <link rel="modulepreload" crossorigin href="/geely-design-showcase/assets/modulepreload-polyfill-pages.js">
+    <link rel="modulepreload" crossorigin href="/geely-design-showcase/assets/GdsButton-DJlIkFhp.js">
+    <link rel="modulepreload" crossorigin href="/geely-design-showcase/assets/index--3Q02-nt.js">
+    <link rel="modulepreload" crossorigin href="/geely-design-showcase/assets/brand-content-BYVO01ZI.js">
+    <link rel="modulepreload" crossorigin href="/geely-design-showcase/assets/TechnologyPage-BTQKs7Mj.js">
+    <link rel="stylesheet" crossorigin href="/geely-design-showcase/assets/brand-pad-BYpW72j2.css">
+  </head>
+  <body data-page="brand">
+    <div id="root"></div>
+    <script>
+      window.__figmaCaptureHash = window.location.hash;
+      if (window.__figmaCaptureHash.startsWith("#figmacapture")) {
+        const captureParams = new URLSearchParams(
+          window.__figmaCaptureHash.slice(1),
+        );
+        if (captureParams.get("figmaselector") === "#brand-heritage") {
+          document.documentElement.dataset.figmaCapturing = "heritage";
+        }
+        window.history.replaceState(
+          null,
+          "",
+          window.location.pathname + window.location.search,
+        );
+      }
+    </script>
+    <script>
+      window.addEventListener("load", () => {
+        const captureHash = window.__figmaCaptureHash || window.location.hash;
+        const params = new URLSearchParams(captureHash.slice(1));
+        const captureId = params.get("figmacapture");
+        const endpoint = params.get("figmaendpoint");
+        const selector = params.get("figmaselector") || "body";
+        if (!captureId || !endpoint || !window.figma?.captureForDesign) {
+          return;
+        }
+        const delay = Number(params.get("figmadelay")) || 1500;
+        window.setTimeout(async () => {
+          document.documentElement.classList.remove("pad-motion-ready");
+          const captureNode = document.querySelector(selector);
+          captureNode?.classList.add("is-visible");
+
+          if (selector === "#brand-heritage") {
+            captureNode
+              ?.querySelectorAll(".heritage-v3-card:not(.is-active)")
+              .forEach((node) => node.remove());
+          }
+
+          const storyNodes = Array.from(
+            document.querySelectorAll(".brand-story-screen"),
+          );
+          const storyIndex = storyNodes.indexOf(captureNode);
+          if (storyIndex >= 0) {
+            const captureImages = [
+              "/geely-design-showcase/assets/pad/brand/story-universe.jpg",
+              "/geely-design-showcase/assets/pad/brand/story-nature.jpg",
+              "/geely-design-showcase/assets/figma-capture/brand-human.jpg",
+            ];
+            const image = captureNode.querySelector(".brand-story-image");
+            if (image) {
+              image.src = captureImages[storyIndex];
+              await image.decode().catch(() => undefined);
+            }
+          }
+
+          window.history.replaceState(
+            null,
+            "",
+            window.location.pathname + window.location.search + captureHash,
+          );
+          window.figma
+            .captureForDesign({
+              captureId,
+              endpoint,
+              selector,
+              verbose: true,
+            })
+            .then((result) => console.info("[figma-capture] complete", result))
+            .catch((error) => console.error("[figma-capture] failed", error));
+        }, delay);
+      });
+    </script>
+  </body>
+</html>

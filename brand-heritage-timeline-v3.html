@@ -1,0 +1,788 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Geely Brand Heritage — Archive Chapters</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%233a7ff8'/%3E%3C/svg%3E" />
+  <style>
+    @font-face {
+      font-family: "GEELY Bold 20250530";
+      src: url("/geely-design-showcase/assets/GEELYBold20250530-CFHws5-8.otf") format("opentype");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "Inter";
+      src: url("/geely-design-showcase/assets/InterVariable-DiVDrmQJ.woff2") format("woff2");
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      --blue: #3a7ff8;
+      --ink: #070707;
+      --secondary: #343534;
+      --paper: #f6f5f5;
+      --white: #fff;
+      --line: #d3d3d3;
+      --display: "GEELY Bold 20250530", "Arial Narrow", sans-serif;
+      --body: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      --card-width: clamp(440px, 38vw, 540px);
+      --card-height: clamp(500px, 64vh, 590px);
+    }
+
+    * { box-sizing: border-box; }
+
+    html,
+    body {
+      min-width: 320px;
+      min-height: 100%;
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--body);
+    }
+
+    button {
+      border: 0;
+      background: transparent;
+      color: inherit;
+      font: inherit;
+      cursor: pointer;
+    }
+
+    .archive {
+      min-height: 100svh;
+      padding: clamp(26px, 4vh, 44px) clamp(20px, 4vw, 64px) 18px;
+      overflow: hidden;
+      background: var(--paper);
+    }
+
+    .archive-header {
+      width: min(1280px, 100%);
+      margin: 0 auto;
+      padding-bottom: clamp(20px, 3vh, 30px);
+      display: grid;
+      grid-template-columns: minmax(420px, 1fr) minmax(280px, 380px);
+      align-items: end;
+      gap: 64px;
+      border-bottom: 1px solid var(--ink);
+    }
+
+    .archive-kicker {
+      margin: 0;
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 17px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 12px 0 0;
+      font: 400 clamp(36px, 3.4vw, 48px) / 1.08 var(--display);
+      letter-spacing: .045em;
+      text-transform: uppercase;
+    }
+
+    .archive-intro {
+      margin: 0;
+      color: var(--secondary);
+      font-size: 15px;
+      line-height: 21px;
+    }
+
+    .rail-heading {
+      width: min(1280px, 100%);
+      min-height: 62px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .rail-instruction {
+      margin: 0;
+      color: #676867;
+      font-size: 13px;
+      line-height: 18px;
+    }
+
+    .rail-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .rail-controls button {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      transition: border-color 180ms ease, background 180ms ease, color 180ms ease, opacity 180ms ease;
+    }
+
+    .rail-controls button:hover:not(:disabled) {
+      border-color: var(--ink);
+      background: var(--ink);
+      color: var(--white);
+    }
+
+    .rail-controls button:disabled {
+      opacity: .28;
+      cursor: default;
+    }
+
+    .rail-controls svg {
+      width: 17px;
+      height: 17px;
+      fill: none;
+      stroke: currentColor;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 1.5;
+    }
+
+    .year-rail-shell {
+      width: 100vw;
+      margin-left: calc(50% - 50vw);
+      overflow: hidden;
+    }
+
+    .year-rail {
+      width: 100%;
+      display: flex;
+      gap: clamp(16px, 1.8vw, 26px);
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding: 0 calc((100vw - var(--card-width)) / 2) 12px;
+      scroll-behavior: smooth;
+      scroll-snap-type: x proximity;
+      scrollbar-width: none;
+      overscroll-behavior-inline: contain;
+    }
+
+    .year-rail::-webkit-scrollbar { display: none; }
+
+    .year-card {
+      width: var(--card-width);
+      min-width: var(--card-width);
+      height: var(--card-height);
+      display: grid;
+      grid-template-rows: minmax(0, 1fr);
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: var(--white);
+      opacity: .28;
+      filter: grayscale(.7);
+      transform: scale(.975);
+      transform-origin: center;
+      scroll-snap-align: center;
+      transition: opacity 260ms ease, filter 260ms ease, transform 260ms ease, border-color 260ms ease;
+      cursor: pointer;
+    }
+
+    .year-card.active {
+      border-color: #b7b7b7;
+      opacity: 1;
+      filter: none;
+      transform: scale(1);
+      cursor: default;
+    }
+
+    .event-stage {
+      position: relative;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    .event-scroll {
+      width: 100%;
+      height: 100%;
+      overflow-x: hidden;
+      overflow-y: auto;
+      scrollbar-width: none;
+      overscroll-behavior-block: contain;
+      scroll-snap-type: y proximity;
+    }
+
+    .event-scroll::-webkit-scrollbar { display: none; }
+
+    .year-card:not(.active) .event-scroll { pointer-events: none; }
+
+    .event {
+      min-height: 100%;
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: minmax(250px, 64%) minmax(0, 1fr);
+      overflow: hidden;
+      background: var(--white);
+      scroll-snap-align: start;
+    }
+
+    .year-card.multi .event {
+      min-height: 100%;
+      height: 100%;
+      grid-template-columns: 1fr;
+      grid-template-rows: minmax(250px, 64%) minmax(0, 1fr);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .event.no-visual,
+    .year-card.multi .event.no-visual {
+      grid-template-rows: 1fr;
+    }
+
+    .event-media {
+      position: relative;
+      container-type: size;
+      min-width: 0;
+      min-height: 0;
+      margin: 0;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      border-radius: 0;
+      background: #eceff2;
+    }
+
+    .event-media img {
+      position: absolute;
+      z-index: 1;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: center;
+      filter: none;
+    }
+
+    .event-image-frame {
+      position: relative;
+      z-index: 1;
+      width: max(100cqw, 140.5556cqh);
+      height: max(100cqh, 71.1462cqw);
+      display: block;
+      overflow: hidden;
+      border-radius: 0;
+    }
+
+    .event-image-frame img {
+      top: 50%;
+      right: auto;
+      bottom: auto;
+      left: 50%;
+      width: 114%;
+      height: 114%;
+      max-width: none;
+      border-radius: 0;
+      object-fit: fill;
+      transform: translate(-50%, -50%);
+    }
+
+    .event-copy {
+      min-width: 0;
+      min-height: 0;
+      grid-column: 1;
+      grid-row: 2;
+      padding: clamp(22px, 2.4vw, 32px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-top: 1px solid var(--line);
+      background: var(--white);
+    }
+
+    .event.no-visual .event-copy {
+      grid-row: 1;
+      border-top: 0;
+    }
+
+    .event-copy h2 {
+      max-width: 430px;
+      margin: 0;
+      font: 400 clamp(24px, 2vw, 30px) / 1.16 var(--display);
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+
+    .event-copy p {
+      max-width: 440px;
+      margin: 13px 0 0;
+      color: var(--secondary);
+      font-size: 15px;
+      line-height: 21px;
+    }
+
+    .year-card.multi .event-copy {
+      padding: clamp(22px, 2.4vw, 32px);
+    }
+
+    .year-card.multi .event-copy h2 {
+      font-size: clamp(24px, 2vw, 30px);
+      line-height: 1.16;
+    }
+
+    .year-card.multi .event-copy p {
+      margin-top: 13px;
+      font-size: 15px;
+      line-height: 21px;
+    }
+
+    .event-meter {
+      position: absolute;
+      z-index: 3;
+      top: 8px;
+      right: 8px;
+      bottom: 8px;
+      width: 8px;
+      background: #c8cdd2;
+      pointer-events: none;
+    }
+
+    .event-meter i {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      min-height: 64px;
+      background: var(--blue);
+      transform: translateY(0);
+    }
+
+    .year-index {
+      position: relative;
+      width: min(1280px, 100%);
+      margin: 16px auto 0;
+      display: grid;
+      grid-template-columns: repeat(12, minmax(54px, 1fr));
+    }
+
+    .year-index::before {
+      position: absolute;
+      top: 8px;
+      right: 0;
+      left: 0;
+      height: 1px;
+      background: var(--line);
+      content: "";
+    }
+
+    .year-index button {
+      position: relative;
+      min-width: 0;
+      padding: 24px 4px 8px;
+      color: #898a89;
+      font-size: 13px;
+      line-height: 18px;
+      text-align: left;
+      transition: color 180ms ease;
+    }
+
+    .year-index button::before {
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      width: 9px;
+      height: 9px;
+      border: 2px solid var(--paper);
+      border-radius: 50%;
+      background: #b7b8b7;
+      content: "";
+      transition: background 180ms ease, transform 180ms ease;
+    }
+
+    .year-index button[data-multiple="true"]::after {
+      position: absolute;
+      top: 4px;
+      left: 11px;
+      width: 9px;
+      height: 9px;
+      border: 2px solid var(--paper);
+      border-radius: 50%;
+      background: #b7b8b7;
+      content: "";
+    }
+
+    .year-index button:hover,
+    .year-index button[aria-current="step"] {
+      color: var(--ink);
+    }
+
+    .year-index button[aria-current="step"]::before,
+    .year-index button[aria-current="step"]::after {
+      background: var(--blue);
+      transform: scale(1.15);
+    }
+
+    .rail-controls button:focus-visible,
+    .year-index button:focus-visible,
+    .year-card:focus-visible,
+    .year-rail:focus-visible {
+      outline: 2px solid var(--blue);
+      outline-offset: 2px;
+    }
+
+    @media (max-width: 840px) {
+      :root {
+        --card-width: 86vw;
+        --card-height: 540px;
+      }
+
+      .archive {
+        padding: 28px 20px 18px;
+        overflow: hidden;
+      }
+
+      .archive-header {
+        display: block;
+      }
+
+      h1 {
+        font-size: 36px;
+        line-height: 40px;
+      }
+
+      .archive-intro {
+        max-width: 520px;
+        margin-top: 20px;
+      }
+
+      .rail-heading {
+        min-height: 66px;
+      }
+
+      .rail-instruction {
+        max-width: 210px;
+        font-size: 12px;
+      }
+
+      .event,
+      .year-card.multi .event {
+        min-height: 100%;
+        height: 100%;
+        grid-template-columns: 1fr;
+        grid-template-rows: 225px minmax(0, 1fr);
+      }
+
+      .event.no-visual,
+      .year-card.multi .event.no-visual {
+        grid-template-rows: 1fr;
+      }
+
+      .event-copy,
+      .year-card.multi .event-copy {
+        grid-column: 1;
+        grid-row: 2;
+        padding: 24px 22px 28px;
+        justify-content: flex-start;
+        border-top: 1px solid var(--line);
+        border-left: 0;
+      }
+
+      .event.no-visual .event-copy {
+        grid-row: 1;
+        justify-content: center;
+        border-top: 0;
+      }
+
+      .event-copy h2,
+      .year-card.multi .event-copy h2 {
+        font-size: 23px;
+        line-height: 27px;
+      }
+
+      .event-copy p,
+      .year-card.multi .event-copy p {
+        margin-top: 12px;
+        font-size: 14px;
+        line-height: 20px;
+      }
+
+      .year-index {
+        display: flex;
+        overflow-x: auto;
+        scrollbar-width: none;
+      }
+
+      .year-index::-webkit-scrollbar { display: none; }
+
+      .year-index::before {
+        width: calc(12 * 76px);
+      }
+
+      .year-index button {
+        width: 76px;
+        min-width: 76px;
+        flex: 0 0 76px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .year-rail { scroll-behavior: auto; }
+      .year-card { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="archive">
+    <header class="archive-header">
+      <div>
+        <p class="archive-kicker">Brand archive · 1986—2025</p>
+        <h1>Built forward<br />since 1986.</h1>
+      </div>
+      <p class="archive-intro">Move through several chapters at once. The selected year stays clear while the surrounding years remain visible as context; years with multiple stories scroll inside their card.</p>
+    </header>
+
+    <div class="rail-heading">
+      <p class="rail-instruction">Drag the chapters or select a year below.</p>
+      <div class="rail-controls">
+        <button type="button" id="previousYear" aria-label="Previous year">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5" /></svg>
+        </button>
+        <button type="button" id="nextYear" aria-label="Next year">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m7.5 4.5 5.5 5.5-5.5 5.5" /></svg>
+        </button>
+      </div>
+    </div>
+
+    <section class="year-rail-shell" aria-label="Brand heritage chapters">
+      <div class="year-rail" id="yearRail" tabindex="0"></div>
+    </section>
+
+    <nav class="year-index" id="yearIndex" aria-label="Brand archive years"></nav>
+  </main>
+
+  <script>
+    const years = [
+      { year: "1986", events: [{ title: "A belief begins.", copy: "Geely is founded in Taizhou, Zhejiang, beginning a four-decade journey of entrepreneurship and progress.", image: "1986.webp" }] },
+      { year: "1997", events: [{ title: "The road opens.", copy: "Geely enters the automotive industry and begins building its own engineering and manufacturing capabilities.", image: "1997.webp" }] },
+      { year: "1998", events: [{ title: "The first Geely car.", copy: "The first Geely vehicle rolls off the line at the Linhai factory, turning ambition into mobility.", image: "1998.webp" }] },
+      { year: "2005", events: [{ title: "A public commitment.", copy: "Geely Automobile Holdings Limited is listed on the Hong Kong Stock Exchange under stock code 0175.HK.", image: "2005.webp" }] },
+      { year: "2010", events: [{ title: "A wider world.", copy: "The acquisition of Volvo Cars opens a new chapter of global knowledge, talent and collaboration.", image: "2010.webp" }] },
+      { year: "2012", events: [{ title: "Global scale recognised.", copy: "Geely enters the Fortune Global 500, marking a new level of international scale and momentum.", image: "2012.webp" }] },
+      { year: "2016", events: [{ title: "A new global brand.", copy: "Lynk & Co is launched as a global premium brand, created for a new generation of connected mobility.", image: "2016.webp" }] },
+      {
+        year: "2017",
+        events: [
+          { title: "A regional partnership.", copy: "Geely acquires a stake in Proton, connecting industrial capability and market knowledge across Asia.", image: "2017.webp" },
+          { title: "A performance icon joins.", copy: "A stake in Lotus extends Geely's global portfolio into performance engineering and specialist craftsmanship.", image: "2017-lotus.jpg" },
+          { title: "Flying mobility joins.", copy: "Geely acquires Terrafugia, extending the group's exploration from road vehicles into future mobility.", image: null }
+        ]
+      },
+      { year: "2020", events: [{ title: "Ten million journeys.", copy: "Geely's cumulative global vehicle sales pass 10 million—an important milestone earned owner by owner.", image: "2020.webp" }] },
+      {
+        year: "2021",
+        events: [
+          { title: "Electric ambition grows.", copy: "Zeekr is established as a premium intelligent electric mobility brand.", image: "2021.webp" },
+          { title: "The first ZEEKR 001.", copy: "The brand's first premium intelligent EV begins a new electric chapter for the wider Geely ecosystem.", image: null }
+        ]
+      },
+      { year: "2022", events: [{ title: "Mobility reaches orbit.", copy: "GEESPACE completes its first nine-satellite launch, advancing Geely's connected mobility ecosystem.", image: "2022.webp" }] },
+      { year: "2025", events: [{ title: "Safety without limits.", copy: "The Geely Global Safety Center opens as the world's largest independent automotive safety laboratory.", image: "2025.webp" }] }
+    ];
+
+const imageRoot = "./assets/heritage/";
+
+    const rail = document.querySelector("#yearRail");
+    const yearIndex = document.querySelector("#yearIndex");
+    const previousButton = document.querySelector("#previousYear");
+    const nextButton = document.querySelector("#nextYear");
+    let activeIndex = 7;
+    let railFrame = 0;
+    let isCentering = false;
+
+    function eventMarkup(event) {
+      const removeColorRail = event.image?.endsWith(".webp");
+      return `
+        <article class="event ${event.image ? "has-visual" : "no-visual"}">
+          ${event.image ? `
+            <figure class="event-media">
+              ${removeColorRail ? `
+                <span class="event-image-frame">
+                  <img src="${imageRoot}${event.image}" alt="" />
+                </span>
+              ` : `<img src="${imageRoot}${event.image}" alt="" />`}
+            </figure>
+          ` : ""}
+          <div class="event-copy">
+            <h2>${event.title}</h2>
+            <p>${event.copy}</p>
+          </div>
+        </article>
+      `;
+    }
+
+    function cardMarkup(period, index) {
+      const multiple = period.events.length > 1;
+      return `
+        <article
+          class="year-card ${multiple ? "multi" : "single"} ${index === activeIndex ? "active" : ""}"
+          data-index="${index}"
+          aria-label="${period.year}, ${period.events.length} ${period.events.length === 1 ? "story" : "stories"}"
+          aria-current="${index === activeIndex ? "true" : "false"}"
+          tabindex="${index === activeIndex ? "0" : "-1"}"
+        >
+          <div class="event-stage">
+            <div class="event-scroll">${period.events.map(eventMarkup).join("")}</div>
+            ${multiple ? '<span class="event-meter" aria-hidden="true"><i></i></span>' : ""}
+          </div>
+        </article>
+      `;
+    }
+
+    function render() {
+      rail.innerHTML = years.map(cardMarkup).join("");
+      yearIndex.innerHTML = years.map((period, index) => `
+        <button
+          type="button"
+          data-index="${index}"
+          data-multiple="${period.events.length > 1}"
+          ${index === activeIndex ? 'aria-current="step"' : ""}
+          aria-label="${period.year}${period.events.length > 1 ? `, ${period.events.length} stories` : ""}"
+        >${period.year}</button>
+      `).join("");
+
+      rail.querySelectorAll(".year-card").forEach((card) => {
+        card.addEventListener("click", () => {
+          const index = Number(card.dataset.index);
+          if (index !== activeIndex) setActive(index, true);
+        });
+
+        const eventScroll = card.querySelector(".event-scroll");
+        eventScroll.addEventListener("scroll", () => syncEventMeter(card), { passive: true });
+      });
+
+      yearIndex.querySelectorAll("button").forEach((button) => {
+        button.addEventListener("click", () => setActive(Number(button.dataset.index), true));
+      });
+
+      requestAnimationFrame(() => {
+        setActive(activeIndex, "instant");
+        rail.querySelectorAll(".year-card.multi").forEach(syncEventMeter);
+      });
+    }
+
+    function centerCard(card, smooth) {
+      const target = card.offsetLeft - (rail.clientWidth - card.offsetWidth) / 2;
+      isCentering = true;
+
+      if (smooth) {
+        rail.scrollTo({ left: target, behavior: "smooth" });
+        window.setTimeout(() => { isCentering = false; }, 420);
+        return;
+      }
+
+      const previousBehavior = rail.style.scrollBehavior;
+      rail.style.scrollBehavior = "auto";
+      rail.scrollLeft = target;
+      rail.style.scrollBehavior = previousBehavior;
+      requestAnimationFrame(() => { isCentering = false; });
+    }
+
+    function syncIndexPosition() {
+      const activeButton = yearIndex.querySelector('[aria-current="step"]');
+      if (activeButton && innerWidth <= 840) {
+        yearIndex.scrollTo({
+          left: Math.max(0, activeButton.offsetLeft - (yearIndex.clientWidth - activeButton.offsetWidth) / 2),
+          behavior: "smooth"
+        });
+      }
+    }
+
+    function setActive(index, shouldCenter) {
+      activeIndex = Math.max(0, Math.min(years.length - 1, index));
+      const cards = [...rail.querySelectorAll(".year-card")];
+
+      cards.forEach((card, cardIndex) => {
+        const isActive = cardIndex === activeIndex;
+        card.classList.toggle("active", isActive);
+        card.setAttribute("aria-current", String(isActive));
+        card.tabIndex = isActive ? 0 : -1;
+      });
+
+      yearIndex.querySelectorAll("button").forEach((button, buttonIndex) => {
+        if (buttonIndex === activeIndex) button.setAttribute("aria-current", "step");
+        else button.removeAttribute("aria-current");
+      });
+
+      previousButton.disabled = activeIndex === 0;
+      nextButton.disabled = activeIndex === years.length - 1;
+      if (shouldCenter !== false) centerCard(cards[activeIndex], shouldCenter === true);
+      syncIndexPosition();
+      syncEventMeter(cards[activeIndex]);
+    }
+
+    function syncActiveFromRail() {
+      const railCenter = rail.scrollLeft + rail.clientWidth / 2;
+      const cards = [...rail.querySelectorAll(".year-card")];
+      let closestIndex = activeIndex;
+      let closestDistance = Infinity;
+
+      cards.forEach((card, index) => {
+        const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+        const distance = Math.abs(cardCenter - railCenter);
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          closestIndex = index;
+        }
+      });
+
+      if (closestIndex !== activeIndex) setActive(closestIndex, false);
+    }
+
+    function syncEventMeter(card) {
+      if (!card) return;
+      const eventScroll = card.querySelector(".event-scroll");
+      const meter = card.querySelector(".event-meter");
+      if (!eventScroll || !meter) return;
+
+      const thumb = meter.querySelector("i");
+      const maxScroll = Math.max(0, eventScroll.scrollHeight - eventScroll.clientHeight);
+      const trackHeight = meter.clientHeight;
+      const thumbHeight = Math.max(40, trackHeight * (eventScroll.clientHeight / eventScroll.scrollHeight));
+      const travel = Math.max(0, trackHeight - thumbHeight);
+      const offset = maxScroll ? (eventScroll.scrollTop / maxScroll) * travel : 0;
+      thumb.style.height = `${thumbHeight}px`;
+      thumb.style.transform = `translateY(${offset}px)`;
+    }
+
+    previousButton.addEventListener("click", () => setActive(activeIndex - 1, true));
+    nextButton.addEventListener("click", () => setActive(activeIndex + 1, true));
+
+    rail.addEventListener("scroll", () => {
+      if (isCentering) return;
+      cancelAnimationFrame(railFrame);
+      railFrame = requestAnimationFrame(syncActiveFromRail);
+    }, { passive: true });
+
+    rail.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        setActive(activeIndex - 1, true);
+      }
+      if (event.key === "ArrowRight") {
+        event.preventDefault();
+        setActive(activeIndex + 1, true);
+      }
+    });
+
+    addEventListener("resize", () => {
+      const activeCard = rail.querySelector(".year-card.active");
+      if (activeCard) centerCard(activeCard, false);
+      rail.querySelectorAll(".year-card.multi").forEach(syncEventMeter);
+    });
+
+    render();
+  </script>
+</body>
+</html>
