@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#111418" />
     <meta name="color-scheme" content="light dark" />
-    <link id="favicon" rel="icon" href="./favicon.svg" />
+    <link id="favicon" rel="icon" href="/geely-design-showcase/assets/favicon-DuUfLRwy.svg" />
     <title>Technology | Geely Global — Mobile</title>
     <style>
       @font-face {
@@ -2461,17 +2461,13 @@
     <main class="shell" id="main">
       <section class="hero" id="top" aria-labelledby="heroTitle">
         <div class="hero-media">
-          <video id="heroVideo" data-poster="technology/gea-banner-poster.jpg" preload="metadata" autoplay muted loop playsinline aria-label="Geely intelligent and electrified mobility film">
-            <source data-asset="technology/gea-banner-clean-720p.mp4" type="video/mp4" />
-            <img data-asset="technology/gea-banner-poster.jpg" alt="GEELY technology vehicle in motion" />
-          </video>
+          <img data-asset="technology/gea-long-range-hero.jpg" alt="GEELY vehicle crossing a desert landscape" />
         </div>
         <div class="hero-copy reveal">
           <p class="eyebrow">Integrated · Intelligent · Electric</p>
           <h1 id="heroTitle"><span>Smart technology.</span><span>Redefined experience.</span></h1>
           <div class="hero-actions">
             <a class="explore-link" href="#overview"><span>Explore technology</span><span class="arrow" aria-hidden="true">↘</span></a>
-            <button class="video-control" id="videoToggle" type="button" aria-label="Pause background video" aria-pressed="false">Ⅱ</button>
           </div>
         </div>
       </section>
@@ -2637,15 +2633,15 @@
 
     <script>
       const isLocalFile = window.location.protocol === "file:";
-      const isLocalPreview = isLocalFile || ["localhost", "127.0.0.1"].includes(window.location.hostname);
       const isFigmaCapture = window.location.hash.includes("figmacapture=");
-      const A = "./assets/";
+      const A = isLocalFile ? "./public/assets/" : "./assets/";
       const T = A + "technology/";
       const TV3 = A + "technology-v3/";
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
       if (isFigmaCapture) document.documentElement.classList.add("figma-capture");
 
-      document.querySelector("#favicon").href = "./favicon.svg";
+      document.querySelector("#favicon").href = isLocalFile ? "./public/favicon.svg" : "./favicon.svg";
       document.querySelectorAll("[data-asset]").forEach((element) => {
         element.src = A + element.dataset.asset;
       });
@@ -2661,7 +2657,7 @@
           title: "One architecture.\nEvery possibility.",
           summary: "GEA unifies the vehicle's physical and digital foundations so space, energy, safety and intelligence can be developed as one system.",
           proof: "GEA · GLOBAL INTELLIGENT NEW ENERGY ARCHITECTURE",
-          previewImage: A + "figma-capture/home-tech-chassis-1400.png",
+          previewImage: A + "home-tech-chassis.png",
           scenes: [
             {
               code: "01A",
@@ -2737,9 +2733,9 @@
               code: "03A",
               modalTitle: "Safety Engineered\nfrom the Cell Up.",
               modalBody: "Cell chemistry, structural protection and thermal control work together to support long life, stable charging and dependable safety across the vehicle.",
-              modalFit: "contain-product-light",
-              image: T + "short-blade-battery.jpg",
-              alt: "Latest Geely Short Blade Battery design"
+              modalFit: "contain",
+              image: T + "short-blade-battery-exploded.png",
+              alt: "Exploded view of the Geely Short Blade Battery structure"
             },
             {
               code: "03B",
@@ -2762,7 +2758,7 @@
       ];
 
       const evidence = [
-        { number: "01", label: "Physical safety validation", title: "Tested beyond a single scenario", body: "Vehicle, battery and intelligent safety development connect through a comprehensive physical validation system.", image: A + "figma-capture/safety-crash-lab-1600.jpg", alt: "GEELY physical safety validation laboratory" },
+        { number: "01", label: "Physical safety validation", title: "Tested beyond a single scenario", body: "Vehicle, battery and intelligent safety development connect through a comprehensive physical validation system.", image: T + "safety-crash-lab.jpg", alt: "GEELY physical safety validation laboratory" },
         { number: "02", label: "Human-centred intelligence", title: "Intelligence becomes useful in context", body: "Cockpit, cloud and vehicle systems are developed together so connected functions remain clear and useful in motion.", image: A + "figma-capture/tech-cockpit.jpg", alt: "GEELY intelligent cockpit and connected displays" },
         { number: "03", label: "Technology on the road", title: "Proof continues in everyday motion", body: "Electric performance, energy control and intelligent functions are refined through real-world vehicle validation.", image: A + "figma-capture/tech-engineering-2.jpg", alt: "GEELY vehicle undergoing real-world road validation" }
       ];
@@ -2777,18 +2773,18 @@
         { year: "2020", category: "Architecture", label: "Architecture 4.0", body: "BMA, CMA, SPA and SEA form a comprehensive architecture system spanning vehicle sizes and multiple energy pathways.", image: TV3 + "2020-architecture-4.png", alt: "The 2020 SEA architecture concept vehicle", source: "https://zgh.com/vehicle-architecture/?lang=en", sourceLabel: "Geely vehicle architecture" },
         { year: "2021", category: "Ecosystem", label: "Smart technology ecosystem", body: "Smart Geely 2025 connects intelligent architectures, powertrains, cockpit software, chips and cloud capability in one R&D roadmap.", image: TV3 + "2021-smart-geely.jpg", alt: "Smart Geely 2025 technology ecosystem diagram", source: "https://zgh.com/media-center/news/2021-11-01/?lang=en", sourceLabel: "Smart Geely 2025 release" },
         { year: "2023", category: "Computing", label: "Cloud, data and intelligence", body: "Xingrui Intelligent Computing Center connects computing, data, vehicle software and intelligent-driving development.", image: "", alt: "", source: "https://zgh.com/wp-content/uploads/Geely-Holding-Group-Sustainability-Report-2023-EN.pdf", sourceLabel: "Geely 2023 sustainability report" },
-        { year: "2024", category: "Architecture", label: "GEA reaches global products", body: "The Global Intelligent New Energy Architecture brings hardware, energy and software capability into a unified vehicle foundation.", image: TV3 + "2024-gea.jpg", alt: "Official GEA global intelligent new-energy architecture visual", source: "https://global.geely.com/en/news/2024/geely-auto-unveils-smart-geely-2025-strategy-auto-china", sourceLabel: "GEA official release" },
-        { year: "2024", category: "Energy", label: "Short Blade Battery", body: "A compact lithium iron phosphate battery advances packaging efficiency, durability and safety for global electric products.", image: TV3 + "2024-short-blade-battery.jpg", alt: "Geely's official Short Blade Battery product display", source: "https://global.geely.com/en/news/2024/geely-auto-unveils-new-short-blade-ev-battery-technology", sourceLabel: "Short Blade Battery official release" },
-        { year: "2024", category: "Electric drive", label: "11-in-1 intelligent E-drive", body: "Eleven electric-drive functions are integrated into one compact system to improve efficiency, packaging and vehicle control.", image: TV3 + "2024-eleven-in-one-drive.png", alt: "Geely 11-in-1 intelligent electric-drive film still", source: "https://global.geely.com/en/models/ex5", sourceLabel: "GEELY EX5 official model page" },
+        { year: "2024", category: "Architecture", label: "GEA reaches global products", body: "The Global Intelligent New Energy Architecture brings hardware, energy and software capability into a unified vehicle foundation.", image: TV3 + "2024-gea-body-structure.png", alt: "GEA eight-horizontal and two-vertical body structure", source: "https://global.geely.com/en/news/2024/geely-auto-unveils-smart-geely-2025-strategy-auto-china", sourceLabel: "GEA official release" },
+        { year: "2024", category: "Energy", label: "Short Blade Battery", body: "A compact lithium iron phosphate battery advances packaging efficiency, durability and safety for global electric products.", image: TV3 + "2024-short-blade-battery-product.jpg", alt: "Geely's official Short Blade Battery product", source: "https://global.geely.com/en/news/2024/geely-auto-unveils-new-short-blade-ev-battery-technology", sourceLabel: "Short Blade Battery official release" },
+        { year: "2024", category: "Electric drive", label: "11-in-1 intelligent E-drive", body: "Eleven electric-drive functions are integrated into one compact system to improve efficiency, packaging and vehicle control.", image: TV3 + "2024-eleven-in-one-drive-unit.png", alt: "Geely 11-in-1 intelligent electric-drive unit", source: "https://global.geely.com/en/models/ex5", sourceLabel: "GEELY EX5 official model page" },
         { year: "2024", category: "Cockpit", label: "Flyme Auto", body: "A connected cockpit system brings phone-like interaction, ecosystem continuity and intelligent services into the vehicle.", image: TV3 + "2024-flyme-auto.jpg", alt: "Official GEELY EX5 Flyme Auto cockpit interface", source: "https://global.geely.com/en/models/ex5", sourceLabel: "GEELY EX5 official model page" },
         { year: "2025", category: "Artificial intelligence", label: "Full-domain AI", body: "Full-Domain AI connects the digital chassis, Xingrui AI, smart cockpit and intelligent driving across the vehicle system.", image: TV3 + "2025-full-domain-ai.png", alt: "Official Geely Full-Domain AI technology system diagram", source: "https://global.geely.com/en/news/2025/geely-unveiled-full-domain-ai-smart-vehicles", sourceLabel: "Full-Domain AI official release" },
         { year: "2026", category: "Artificial intelligence", label: "Full-domain AI 2.0", body: "WAM and the 1+2+N intelligent-agent architecture coordinate cockpit and assisted-driving capability across domains.", image: TV3 + "2026-full-domain-ai-2.jpg", alt: "Geely presenting Full-Domain AI 2.0 at CES 2026", source: "https://global.geely.com/en/news/2026/geely-ces-2026-full-domain-ai", sourceLabel: "Full-Domain AI 2.0 official release" }
       ];
 
       const models = [
-        { name: "GEELY EX5", type: "Global intelligent electric SUV", image: A + "figma-capture/car-ex5-1200.png", alt: "GEELY EX5 electric SUV", specs: [["BEV", "Energy system"], ["60.2–68.4 kWh", "Battery capacity"], ["430+ km", "Published range*"]], technologies: ["GEA architecture", "Short Blade Battery", "11-in-1 E-drive", "Flyme Auto"] },
-        { name: "STARRAY EM-i", type: "Intelligent super hybrid SUV", image: A + "figma-capture/media-car-1-1200.png", alt: "STARRAY EM-i hybrid SUV", specs: [["PHEV", "Energy system"], ["18.4–29.8 kWh", "Battery capacity"], ["1,002+ km", "Published range*"]], technologies: ["GEA architecture", "EM-i Super Hybrid", "Intelligent energy management"] },
-        { name: "GEELY E5", type: "Intelligent electric SUV", image: A + "figma-capture/media-car-2-1200.png", alt: "GEELY E5 electric SUV", specs: [["BEV", "Energy system"], ["49.5–60.2 kWh", "Battery capacity"], ["440–530 km", "Published range*"]], technologies: ["Electric architecture", "Cell-to-body safety", "Connected intelligent cockpit"] }
+        { name: "GEELY EX5", type: "Global intelligent electric SUV", image: A + "car-ex5.png", alt: "GEELY EX5 electric SUV", specs: [["BEV", "Energy system"], ["60.2–68.4 kWh", "Battery capacity"], ["430+ km", "Published range*"]], technologies: ["GEA architecture", "Short Blade Battery", "11-in-1 E-drive", "Flyme Auto"] },
+        { name: "STARRAY EM-i", type: "Intelligent super hybrid SUV", image: A + "media-car-1.png", alt: "STARRAY EM-i hybrid SUV", specs: [["PHEV", "Energy system"], ["18.4–29.8 kWh", "Battery capacity"], ["1,002+ km", "Published range*"]], technologies: ["GEA architecture", "EM-i Super Hybrid", "Intelligent energy management"] },
+        { name: "GEELY E5", type: "Intelligent electric SUV", image: A + "media-car-2.png", alt: "GEELY E5 electric SUV", specs: [["BEV", "Energy system"], ["49.5–60.2 kWh", "Battery capacity"], ["440–530 km", "Published range*"]], technologies: ["Electric architecture", "Cell-to-body safety", "Connected intelligent cockpit"] }
       ];
 
       const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" })[character]);
@@ -2883,11 +2879,6 @@
       `).join("");
 
       if (isFigmaCapture) {
-        const captureVideo = document.querySelector("#heroVideo");
-        captureVideo.pause();
-        captureVideo.removeAttribute("autoplay");
-        captureVideo.querySelectorAll("source").forEach((source) => source.remove());
-        captureVideo.load();
         const captureAssets = new Map([
           ["home-tech-chassis.png", "figma-capture/home-tech-chassis-1400.png"],
           ["technology/safety-crash-lab.jpg", "figma-capture/safety-crash-lab-1600.jpg"],
@@ -2910,23 +2901,6 @@
       };
       syncHeader();
       window.addEventListener("scroll", syncHeader, { passive: true });
-
-      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-      const heroVideo = document.querySelector("#heroVideo");
-      const videoToggle = document.querySelector("#videoToggle");
-      const setVideoState = (paused) => {
-        if (paused) heroVideo.pause();
-        else heroVideo.play().catch(() => {});
-        videoToggle.textContent = paused ? "▶" : "Ⅱ";
-        videoToggle.setAttribute("aria-label", paused ? "Play background video" : "Pause background video");
-        videoToggle.setAttribute("aria-pressed", String(paused));
-      };
-      if (reduceMotion.matches) setVideoState(true);
-      videoToggle.addEventListener("click", () => setVideoState(!heroVideo.paused));
-      heroVideo.addEventListener("ended", () => setVideoState(true));
-      heroVideo.addEventListener("waiting", () => videoToggle.setAttribute("aria-label", "Background video loading"));
-      heroVideo.addEventListener("playing", () => videoToggle.setAttribute("aria-label", "Pause background video"));
-      reduceMotion.addEventListener?.("change", (event) => setVideoState(event.matches));
 
       const menuDialog = document.querySelector("#menuDialog");
       const menuOpen = document.querySelector("#menuOpen");
