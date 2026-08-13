@@ -1,0 +1,1 @@
+import{a as e,n as t,r as n,s as r}from"./GdsButton-A3i5FamF.js";import"./modulepreload-polyfill-Dezn_h7o.js";import{t as i}from"./TechnologyPage-BHle09eG.js";/* empty css                       *//* empty css                                   */var a=r(e()),o=n(),s=t();(0,o.createRoot)(document.getElementById(`root`)).render((0,s.jsx)(a.StrictMode,{children:(0,s.jsx)(i,{})}));
