@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#090d15" />
-    <link rel="icon" href="/geely-design-showcase/favicon.svg" />
+    <link rel="icon" href="/favicon.svg" />
     <title>GEELY Brand · Pad 834×1194</title>
     <style>
       html[data-figma-capturing="heritage"]
@@ -19,13 +19,12 @@
         justify-content: center;
       }
     </style>
-    <script type="module" crossorigin src="/geely-design-showcase/assets/brand-pad-ZtPi8UV4.js"></script>
-    <link rel="modulepreload" crossorigin href="/geely-design-showcase/assets/modulepreload-polyfill-static.js">
-    <link rel="modulepreload" crossorigin href="/geely-design-showcase/assets/GdsButton-DJlIkFhp.js">
-    <link rel="modulepreload" crossorigin href="/geely-design-showcase/assets/index--3Q02-nt.js">
-    <link rel="modulepreload" crossorigin href="/geely-design-showcase/assets/brand-content-BYVO01ZI.js">
-    <link rel="modulepreload" crossorigin href="/geely-design-showcase/assets/TechnologyPage-BTQKs7Mj.js">
-    <link rel="stylesheet" crossorigin href="/geely-design-showcase/assets/brand-pad-hb6yYkze.css">
+    <script type="module" crossorigin src="/geely-design-showcase/assets/brand-pad-Dx3NlEFu.js"></script>
+    <link rel="modulepreload" crossorigin href="/geely-design-showcase/assets/GdsButton-A3i5FamF.js">
+    <link rel="modulepreload" crossorigin href="/geely-design-showcase/assets/modulepreload-polyfill-Dezn_h7o.js">
+    <link rel="modulepreload" crossorigin href="/geely-design-showcase/assets/TechnologyPage-D3Siybmp.js">
+    <link rel="modulepreload" crossorigin href="/geely-design-showcase/assets/brand-content-BU51IlpM.js">
+    <link rel="stylesheet" crossorigin href="/geely-design-showcase/assets/brand-pad-BpiTAajB.css">
   </head>
   <body data-page="brand">
     <div id="root"></div>
@@ -45,6 +44,11 @@
         );
       }
     </script>
+    <script
+      src="/figma-capture.js"
+      onload="console.info('[figma-capture] script loaded', Boolean(window.figma?.captureForDesign))"
+      onerror="console.error('[figma-capture] script failed')"
+    ></script>
     <script>
       window.addEventListener("load", () => {
         const captureHash = window.__figmaCaptureHash || window.location.hash;
@@ -73,9 +77,9 @@
           const storyIndex = storyNodes.indexOf(captureNode);
           if (storyIndex >= 0) {
             const captureImages = [
-              "/geely-design-showcase/assets/pad/brand/story-universe.jpg",
-              "/geely-design-showcase/assets/pad/brand/story-nature.jpg",
-              "/geely-design-showcase/assets/figma-capture/brand-human.jpg",
+              "/assets/pad/brand/story-universe.jpg",
+              "/assets/pad/brand/story-nature.jpg",
+              "/assets/figma-capture/brand-human.jpg",
             ];
             const image = captureNode.querySelector(".brand-story-image");
             if (image) {

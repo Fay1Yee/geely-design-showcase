@@ -3,19 +3,28 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="/geely-design-showcase/favicon.svg" />
+    <link rel="icon" href="/favicon.svg" />
     <title>Geely Global Prototype</title>
-    <script type="module" crossorigin src="/geely-design-showcase/assets/main-CZML23pU.js"></script>
-    <link rel="modulepreload" crossorigin href="/geely-design-showcase/assets/modulepreload-polyfill-static.js">
-    <link rel="modulepreload" crossorigin href="/geely-design-showcase/assets/GdsButton-DJlIkFhp.js">
-    <link rel="modulepreload" crossorigin href="/geely-design-showcase/assets/index--3Q02-nt.js">
-    <link rel="modulepreload" crossorigin href="/geely-design-showcase/assets/GdsTab-C3LX4Sp9.js">
-    <link rel="modulepreload" crossorigin href="/geely-design-showcase/assets/TechnologyPage-BTQKs7Mj.js">
-    <link rel="modulepreload" crossorigin href="/geely-design-showcase/assets/brand-content-BYVO01ZI.js">
-    <link rel="stylesheet" crossorigin href="/geely-design-showcase/assets/main-Da_hsPMN.css">
-    <link rel="stylesheet" crossorigin href="/geely-design-showcase/assets/TechnologyPage-B5S_tYYQ.css">
+    <script type="module" crossorigin src="/geely-design-showcase/assets/main-DiCot_Vf.js"></script>
+    <link rel="modulepreload" crossorigin href="/geely-design-showcase/assets/GdsButton-A3i5FamF.js">
+    <link rel="modulepreload" crossorigin href="/geely-design-showcase/assets/modulepreload-polyfill-Dezn_h7o.js">
+    <link rel="modulepreload" crossorigin href="/geely-design-showcase/assets/GdsTab-C-uOStpn.js">
+    <link rel="modulepreload" crossorigin href="/geely-design-showcase/assets/TechnologyPage-D3Siybmp.js">
+    <link rel="modulepreload" crossorigin href="/geely-design-showcase/assets/brand-content-BU51IlpM.js">
+    <link rel="stylesheet" crossorigin href="/geely-design-showcase/assets/main-BS4SZmEE.css">
+    <link rel="stylesheet" crossorigin href="/geely-design-showcase/assets/TechnologyPage-kccNUG_n.css">
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      const captureParams = new URLSearchParams(window.location.search);
+      const needsFigmaCapture = captureParams.has("figmaCaptureId") || window.location.hash.startsWith("#figmacapture=");
+      if (needsFigmaCapture) {
+        const captureScript = document.createElement("script");
+        captureScript.src = "/figma-capture.js";
+        captureScript.defer = true;
+        document.head.appendChild(captureScript);
+      }
+    </script>
   </body>
 </html>
