@@ -6,14 +6,12 @@
     <meta name="theme-color" content="#111418" />
     <meta name="color-scheme" content="light dark" />
     <link rel="preload" href="/geely-design-showcase/fonts/GEELYDisplay.woff2" as="font" type="font/woff2" crossorigin />
-    <link id="favicon" rel="icon" href="/geely-design-showcase/assets/favicon-DuUfLRwy.svg" />
+    <link id="favicon" rel="icon" href="./favicon.svg" />
     <title>Technology | Geely Global — Mobile</title>
     <style>
       @font-face {
         font-family: "GEELY Bold 20250530";
-        src:
-          url("/geely-design-showcase/assets/GEELYDisplay-D-ijwl4X.woff2") format("woff2"),
-          url("./fonts/GEELYDisplay.woff2") format("woff2");
+        src: url("./fonts/GEELYDisplay.woff2") format("woff2");
         font-style: normal;
         font-weight: 400;
         font-display: block;
@@ -21,9 +19,7 @@
 
       @font-face {
         font-family: "Inter";
-        src:
-          url("/geely-design-showcase/assets/InterVariable-DiVDrmQJ.woff2") format("woff2-variations"),
-          url("./fonts/InterVariable.woff2") format("woff2-variations");
+        src: url("./fonts/InterVariable.woff2") format("woff2-variations");
         font-style: normal;
         font-weight: 100 900;
         font-display: swap;
@@ -2294,7 +2290,7 @@
         position: absolute;
         z-index: 2;
         top: 131px;
-        right: 16px;
+        right: 8px;
         left: 16px;
         display: flex;
         justify-content: space-between;
@@ -2303,28 +2299,40 @@
 
       .scene-controls button {
         display: grid;
-        width: 32px;
-        height: 32px;
+        width: 40px;
+        height: 40px;
         padding: 0;
         place-items: center;
-        border-radius: 4px;
+        border-radius: 50%;
         background: #fff;
         pointer-events: auto;
       }
 
       .scene-controls button:disabled {
-        opacity: .5;
+        opacity: 1;
       }
 
       .scene-controls button img {
-        width: 16px;
-        height: 16px;
+        width: 7.38333px;
+        height: 12.8667px;
         padding: 0;
         object-fit: contain;
       }
 
+      .scene-controls button:disabled img {
+        opacity: .3;
+      }
+
+      .scene-controls button:focus-visible {
+        outline: 0;
+      }
+
       .scene-controls button:first-child img {
-        transform: rotate(180deg);
+        transform: translateX(-1.1px) rotate(180deg);
+      }
+
+      .scene-controls button:last-child img {
+        transform: translateX(1.1px);
       }
 
       .scene-copy {
@@ -2462,7 +2470,9 @@
     <main class="shell" id="main">
       <section class="hero" id="top" aria-labelledby="heroTitle">
         <div class="hero-media">
-          <img data-asset="technology/gea-long-range-hero.jpg" alt="GEELY vehicle crossing a desert landscape" />
+          <video data-asset="technology/gea-banner-clean-720p.mp4" data-poster="technology/gea-banner-poster.jpg" preload="metadata" autoplay muted loop playsinline aria-label="Geely intelligent and electrified mobility film">
+            <img data-asset="technology/gea-long-range-hero.jpg" alt="GEELY vehicle crossing a desert landscape" />
+          </video>
         </div>
         <div class="hero-copy reveal">
           <p class="eyebrow">Integrated · Intelligent · Electric</p>
@@ -2620,8 +2630,8 @@
         <figure class="scene-visual" id="sceneVisual">
           <img id="sceneImage" alt="" />
           <div class="scene-controls" aria-label="Technology scene controls">
-            <button id="scenePrevious" type="button" aria-label="Previous scene"><img data-asset="icon-vehicle-arrow.svg" alt="" /></button>
-            <button id="sceneNext" type="button" aria-label="Next scene"><img data-asset="icon-vehicle-arrow.svg" alt="" /></button>
+            <button id="scenePrevious" type="button" aria-label="Previous scene"><img data-asset="icon-filled-chevron.svg" alt="" /></button>
+            <button id="sceneNext" type="button" aria-label="Next scene"><img data-asset="icon-filled-chevron.svg" alt="" /></button>
           </div>
         </figure>
         <section class="scene-copy">
