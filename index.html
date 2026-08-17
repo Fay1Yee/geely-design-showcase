@@ -4,16 +4,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="preload" href="/geely-design-showcase/fonts/GEELYDisplay.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="icon" href="/favicon.svg" />
+    <link rel="icon" href="/geely-design-showcase/favicon.svg" />
     <style>html,body,#root{min-height:100%;margin:0;background:#070a0f}</style>
     <title>Geely Global Prototype</title>
-    <script type="module" crossorigin src="/geely-design-showcase/assets/main-aEI1UgGt.js"></script>
+    <script type="module" crossorigin src="/geely-design-showcase/assets/main-CCsfko8c.js"></script>
     <link rel="modulepreload" crossorigin href="/geely-design-showcase/assets/GdsButton-A3i5FamF.js">
     <link rel="modulepreload" crossorigin href="/geely-design-showcase/assets/modulepreload-polyfill-Dezn_h7o.js">
-    <link rel="modulepreload" crossorigin href="/geely-design-showcase/assets/GdsTab-C-uOStpn.js">
+    <link rel="modulepreload" crossorigin href="/geely-design-showcase/assets/GdsTab-CFGYxb6e.js">
     <link rel="modulepreload" crossorigin href="/geely-design-showcase/assets/TechnologyPage-CW2ipcyp.js">
-    <link rel="modulepreload" crossorigin href="/geely-design-showcase/assets/brand-content-DUmmOWNg.js">
-    <link rel="stylesheet" crossorigin href="/geely-design-showcase/assets/main-Cwn_6TJ2.css">
+    <link rel="modulepreload" crossorigin href="/geely-design-showcase/assets/brand-content-DULhtNmC.js">
+    <link rel="stylesheet" crossorigin href="/geely-design-showcase/assets/main-ZHh9xI9r.css">
     <link rel="stylesheet" crossorigin href="/geely-design-showcase/assets/TechnologyPage-DE7ZjCbN.css">
   </head>
   <body>
@@ -23,7 +23,7 @@
       const needsFigmaCapture = captureParams.has("figmaCaptureId") || window.location.hash.startsWith("#figmacapture=");
       if (needsFigmaCapture) {
         const captureScript = document.createElement("script");
-        captureScript.src = "/figma-capture.js";
+        captureScript.src = new URL("./figma-capture.js", window.location.href).href;
         captureScript.defer = true;
         document.head.appendChild(captureScript);
       }
