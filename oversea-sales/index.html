@@ -974,6 +974,9 @@
     .variant-button:hover { background: rgba(255,255,255,.7); }
     .variant-button.active { color: #fff; background: #111; box-shadow: 0 1px 3px rgba(15,15,15,.14); }
     .review-top-actions { display: flex; align-items: center; gap: 8px; margin-left: 12px; }
+    .demo-role-pill { display: inline-flex; align-items: center; gap: 6px; max-width: 260px; height: 30px; padding: 0 9px; overflow: hidden; color: #75410d; background: #fff8e7; border: 1px solid #efd79f; border-radius: 4px; font-size: 10px; font-weight: 650; white-space: nowrap; }
+    .demo-role-pill::before { flex: 0 0 auto; padding: 1px 4px; content: "DEMO ONLY"; color: #fff; background: #75410d; border-radius: 2px; font-size: 8px; letter-spacing: .25px; }
+    .demo-role-pill span { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
     .review-user-account { max-width: 190px; overflow: hidden; color: var(--zds-color-text-secondary); font-size: 12px; text-overflow: ellipsis; white-space: nowrap; }
     .review-local { display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 8px; color: #8c2c20; background: var(--zds-color-brand-primary-active); border: 1px solid #ffc9bc; border-radius: 4px; font-size: 10px; font-weight: 700; letter-spacing: .25px; }
     .review-local::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--zds-color-brand-primary); }
@@ -1105,7 +1108,7 @@
     .collab-entry .entry-buttons { display: flex; gap: 5px; margin-left: auto; }
     .collab-entry .zds-button { min-width: 0; height: 30px; padding: 0 8px; font-size: 10px; }
 
-    /* One operator, asynchronous business-state progression */
+    /* Multi-role handoff with asynchronous business-state progression */
     .workflow-status-panel { min-width: 0; margin: 12px 0; padding: 14px 16px; }
     .workflow-status-head { display: flex; align-items: center; gap: 10px; margin-bottom: 11px; }
     .workflow-status-head h2 { margin: 0; font-size: 14px; }
@@ -1323,6 +1326,13 @@
     .tool-card { margin-bottom: 10px; padding: 13px; background: #f7f8f9; border: 1px solid #eceeef; border-radius: 6px; }
     .tool-card strong { display: block; font-size: 11px; }
     .tool-card p { margin: 3px 0 10px; color: var(--zds-color-text-secondary); font-size: 10px; line-height: 17px; }
+    .demo-role-options { display: grid; gap: 6px; }
+    .demo-role-option { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 3px 8px; width: 100%; min-height: 52px; padding: 8px 9px; color: var(--zds-color-text-secondary); background: #fff; border: 1px solid var(--zds-color-border-secondary); border-radius: 5px; text-align: left; }
+    .demo-role-option:hover { color: var(--zds-color-text-primary); border-color: var(--zds-color-border-primary); }
+    .demo-role-option.active { color: #7b3429; background: var(--zds-color-brand-primary-active); border-color: #ffc9bc; }
+    .demo-role-option .role-code { grid-row: 1 / span 2; align-self: center; color: var(--zds-color-text-tertiary); font-size: 9px; font-weight: 750; letter-spacing: .35px; }
+    .demo-role-option strong { overflow: hidden; color: inherit; font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
+    .demo-role-option span:last-child { color: var(--zds-color-text-tertiary); font-size: 9px; line-height: 14px; }
     .tool-state { display: inline-flex; margin-left: 6px; padding: 1px 5px; color: #fff; background: var(--zds-color-support-danger); border-radius: 3px; font-size: 8px; }
     .column-option { display: flex; align-items: center; min-height: 40px; padding: 0 5px; border-bottom: 1px solid var(--zds-color-divider-primary); font-size: 11px; }
     .column-option input { margin: 0 9px 0 0; accent-color: var(--zds-color-brand-primary); }
@@ -1524,6 +1534,7 @@
       .review-shell[data-variant="guide"], .review-shell[data-variant="efficiency"], .review-shell[data-variant="collaboration"] { --review-sidebar: 196px; }
       .variant-button { min-width: 98px; padding: 0 8px; }
       .review-product { display: none; }
+      .demo-role-pill { max-width: 210px; }
       .review-local { display: none; }
       .task-card { padding: 13px; }
       .collab-create-grid, .guide-create-grid { grid-template-columns: minmax(0, 1.25fr) minmax(270px, .55fr); }
@@ -1532,6 +1543,8 @@
     }
 
     @media (max-width: 1100px) {
+      .review-user-account { display: none; }
+      .demo-role-pill { max-width: 180px; }
       .task-grid, .collab-entry-strip { grid-template-columns: 1fr; }
       .task-card p { min-height: 0; }
       .guide-hero, .collab-hero { grid-template-columns: 1fr; }
@@ -1621,32 +1634,56 @@
         }
       };
 
+      const demoRoles = {
+        pr_creator: {
+          code: 'ROLE A',
+          label: 'PR 发起角色（待业务确认）',
+          short: '角色 A · PR 发起',
+          description: '创建和提交 PR，并在交接后查看审核进度。'
+        },
+        po_processor: {
+          code: 'ROLE B',
+          label: 'PR 审核／PO 处理角色（待业务确认）',
+          short: '角色 B · PR／PO',
+          description: '接收 PR 审核任务，并创建或处理关联 PO。'
+        },
+        dn_processor: {
+          code: 'ROLE C',
+          label: 'PO 后续／DN 交付角色（待业务确认）',
+          short: '角色 C · PO／DN',
+          description: '接收 PO 后续任务，并创建或处理 DN 与交付。'
+        }
+      };
+
       const processMeta = {
         PR: {
-          operator: '经销商业务操作员 / Dealer Operations',
-          background: 'PR 需求审核',
-          unlock: 'PR 审核通过后解锁关联 PO',
-          exception: '驳回后返回当前用户修改',
-          pendingStatus: '等待 PR 审核',
-          pendingDetail: '当前用户已完成提交，暂时无需继续操作。',
+          actorRole: 'pr_creator',
+          nextRole: 'po_processor',
+          process: 'PR 审核与 PO 前置处理',
+          unlock: 'PR 审核通过后，PO 任务进入下一角色队列',
+          exception: '退回 PR 发起角色（待业务确认）补充',
+          pendingStatus: 'PR 已移交审核',
+          pendingDetail: 'PR 已进入角色 B（待业务确认）的任务队列；发起角色可以查看进度。',
           approvedStatus: 'PR 已审核通过'
         },
         PO: {
-          operator: '经销商业务操作员 / Dealer Operations',
-          background: 'PO 订单确认与车辆分配',
-          unlock: '订单确认后解锁关联 DN',
-          exception: '订单异常时返回当前用户处理',
-          pendingStatus: '等待订单确认',
-          pendingDetail: '系统正在确认订单并准备车辆分配，当前用户暂无需操作。',
+          actorRole: 'po_processor',
+          nextRole: 'dn_processor',
+          process: 'PO 确认与 DN 前置处理',
+          unlock: 'PO 确认后，DN 任务进入下一角色队列',
+          exception: '退回 PO 处理角色（待业务确认）处理',
+          pendingStatus: 'PO 已移交后续处理',
+          pendingDetail: 'PO 已进入角色 C（待业务确认）的任务队列；PO 处理角色可以查看进度。',
           approvedStatus: 'PO 已确认并完成分配'
         },
         DN: {
-          operator: '经销商业务操作员 / Dealer Operations',
-          background: '交付执行与交接确认',
+          actorRole: 'dn_processor',
+          nextRole: 'dn_processor',
+          process: '交付执行与交接确认',
           unlock: 'DN 完成后结束当前关联链路',
-          exception: '车辆或交接异常时返回当前用户处理',
-          pendingStatus: '等待交付执行',
-          pendingDetail: '交付信息已提交，可在任务中心跟进后续状态。',
+          exception: '返回 DN／交付角色（待业务确认）处理',
+          pendingStatus: 'DN 已进入交付处理',
+          pendingDetail: 'DN 已进入角色 C（待业务确认）的交付队列；具体执行人与确认人仍待业务确认。',
           approvedStatus: '交付链路已完成'
         }
       };
@@ -1726,6 +1763,7 @@
 
       const state = {
         variant: 'guide',
+        demoRole: 'pr_creator',
         route: 'home',
         flow: null,
         createMode: 'standalone',
@@ -1774,14 +1812,14 @@
       ];
 
       const mockRecords = [
-        { reference: 'PR-DEMO-007', type: 'PR', source: 'Standalone', vehicleBrand: 'ZEEKR', region: 'EU', country: 'Spain', company: 'Northstar Mobility Demo', store: 'Barcelona Demo Store', dealer: 'Northstar Mobility Demo', vehicle: 'ZEEKR 7X · Demo', quantity: '8', totalAmount: '€557,128.70', currency: 'EUR', port: 'Barcelona', paymentTerm: '30 days after invoice', delivery: '18 Sep 2026', status: 'Submitted', approval: 'Pending review', owner: 'Demo Buyer', created: '20 Aug · 10:32', updated: '20 Aug · 14:18' },
-        { reference: 'PO-DEMO-004', type: 'PO', source: 'PR-DEMO-007', vehicleBrand: 'ZEEKR', region: 'EU', country: 'Spain', company: 'Northstar Mobility Demo', store: 'Barcelona Demo Store', dealer: 'Northstar Mobility Demo', vehicle: 'ZEEKR 7X · Demo', quantity: '8', totalAmount: '€557,128.70', currency: 'EUR', port: 'Barcelona', paymentTerm: '30 days after invoice', delivery: '18 Sep 2026', status: 'Pending approval', approval: 'Subsidiary review', owner: 'Demo Sales Ops', created: '20 Aug · 12:16', updated: '20 Aug · 13:42' },
-        { reference: 'DN-DEMO-002', type: 'DN', source: 'PO-DEMO-004', vehicleBrand: 'ZEEKR', region: 'EU', country: 'Spain', company: 'Northstar Mobility Demo', store: 'Barcelona Demo Store', dealer: 'Northstar Mobility Demo', vehicle: 'ZEEKR 7X · Demo', quantity: '8', totalAmount: '€557,128.70', currency: 'EUR', port: 'Barcelona', paymentTerm: '30 days after invoice', delivery: '02 Oct 2026', status: 'Pendiente de confirmación de entrega', approval: 'Approved', owner: 'Demo Logistics', created: '20 Aug · 09:45', updated: '20 Aug · 11:05' },
-        { reference: 'PR-DEMO-006', type: 'PR', source: 'Standalone', vehicleBrand: 'ZEEKR', region: 'EU', country: 'Netherlands', company: 'Aurora Dealer Demo', store: 'Amsterdam Demo Store', dealer: 'Aurora Dealer Demo', vehicle: 'ZEEKR 001 · Demo', quantity: '12', totalAmount: '€779,880.00', currency: 'EUR', port: 'Zeebrugge', paymentTerm: 'Prepayment', delivery: '22 Sep 2026', status: 'Draft', approval: '—', owner: 'Demo Buyer', created: '19 Aug · 16:54', updated: '19 Aug · 17:26' },
-        { reference: 'PO-DEMO-003', type: 'PO', source: 'PR-DEMO-005', vehicleBrand: 'ZEEKR', region: 'EU', country: 'Portugal', company: 'Costa Retail Demo', store: 'Lisbon Demo Store', dealer: 'Costa Retail Demo', vehicle: 'ZEEKR X · Demo', quantity: '5', totalAmount: '€272,189.50', currency: 'EUR', port: 'Sines', paymentTerm: 'Letter of credit', delivery: '27 Sep 2026', status: 'Approved', approval: 'Approved', owner: 'Demo Sales Ops', created: '19 Aug · 13:20', updated: '19 Aug · 15:08' },
-        { reference: 'DN-DEMO-001', type: 'DN', source: 'PO-DEMO-003', vehicleBrand: 'ZEEKR', region: 'EU', country: 'Portugal', company: 'Costa Retail Demo', store: 'Lisbon Demo Store', dealer: 'Costa Retail Demo', vehicle: 'ZEEKR X · Demo', quantity: '5', totalAmount: '€272,189.50', currency: 'EUR', port: 'Sines', paymentTerm: 'Letter of credit', delivery: '30 Sep 2026', status: 'Ready for handover', approval: 'Approved', owner: 'Demo Logistics', created: '19 Aug · 08:18', updated: '19 Aug · 10:44' },
-        { reference: 'PR-DEMO-004', type: 'PR', source: 'Standalone', vehicleBrand: 'ZEEKR', region: 'EU', country: 'Sweden', company: 'Aurora Dealer Demo', store: 'Stockholm Demo Store', dealer: 'Aurora Dealer Demo', vehicle: 'ZEEKR 7X · Demo', quantity: '6', totalAmount: '€417,846.53', currency: 'EUR', port: 'Gothenburg', paymentTerm: '30 days after invoice', delivery: '05 Oct 2026', status: 'Rejected', approval: 'Revise delivery date', owner: 'Demo Buyer', created: '18 Aug · 14:02', updated: '18 Aug · 16:31' },
-        { reference: 'PO-DEMO-002', type: 'PO', source: 'Standalone', vehicleBrand: 'ZEEKR', region: 'EU', country: 'Germany', company: 'Northstar Mobility Demo', store: 'Berlin Demo Store', dealer: 'Northstar Mobility Demo', vehicle: 'ZEEKR 001 · Demo', quantity: '10', totalAmount: '€649,900.00', currency: 'EUR', port: 'Bremerhaven', paymentTerm: '30 days after invoice', delivery: '08 Oct 2026', status: 'Draft', approval: '—', owner: 'Demo Sales Ops', created: '18 Aug · 08:24', updated: '18 Aug · 09:52' }
+        { reference: 'PR-DEMO-007', type: 'PR', source: 'Standalone', vehicleBrand: 'ZEEKR', region: 'EU', country: 'Spain', company: 'Northstar Mobility Demo', store: 'Barcelona Demo Store', dealer: 'Northstar Mobility Demo', vehicle: 'ZEEKR 7X · Demo', quantity: '8', totalAmount: '€557,128.70', currency: 'EUR', port: 'Barcelona', paymentTerm: '30 days after invoice', delivery: '18 Sep 2026', status: 'Submitted', approval: 'Pending review', owner: '角色 A（待业务确认）', created: '20 Aug · 10:32', updated: '20 Aug · 14:18' },
+        { reference: 'PO-DEMO-004', type: 'PO', source: 'PR-DEMO-007', vehicleBrand: 'ZEEKR', region: 'EU', country: 'Spain', company: 'Northstar Mobility Demo', store: 'Barcelona Demo Store', dealer: 'Northstar Mobility Demo', vehicle: 'ZEEKR 7X · Demo', quantity: '8', totalAmount: '€557,128.70', currency: 'EUR', port: 'Barcelona', paymentTerm: '30 days after invoice', delivery: '18 Sep 2026', status: 'Pending approval', approval: '待处理角色审核（待业务确认）', owner: '角色 B（待业务确认）', created: '20 Aug · 12:16', updated: '20 Aug · 13:42' },
+        { reference: 'DN-DEMO-002', type: 'DN', source: 'PO-DEMO-004', vehicleBrand: 'ZEEKR', region: 'EU', country: 'Spain', company: 'Northstar Mobility Demo', store: 'Barcelona Demo Store', dealer: 'Northstar Mobility Demo', vehicle: 'ZEEKR 7X · Demo', quantity: '8', totalAmount: '€557,128.70', currency: 'EUR', port: 'Barcelona', paymentTerm: '30 days after invoice', delivery: '02 Oct 2026', status: 'Pendiente de confirmación de entrega', approval: 'Approved', owner: '角色 C（待业务确认）', created: '20 Aug · 09:45', updated: '20 Aug · 11:05' },
+        { reference: 'PR-DEMO-006', type: 'PR', source: 'Standalone', vehicleBrand: 'ZEEKR', region: 'EU', country: 'Netherlands', company: 'Aurora Dealer Demo', store: 'Amsterdam Demo Store', dealer: 'Aurora Dealer Demo', vehicle: 'ZEEKR 001 · Demo', quantity: '12', totalAmount: '€779,880.00', currency: 'EUR', port: 'Zeebrugge', paymentTerm: 'Prepayment', delivery: '22 Sep 2026', status: 'Draft', approval: '—', owner: '角色 A（待业务确认）', created: '19 Aug · 16:54', updated: '19 Aug · 17:26' },
+        { reference: 'PO-DEMO-003', type: 'PO', source: 'PR-DEMO-005', vehicleBrand: 'ZEEKR', region: 'EU', country: 'Portugal', company: 'Costa Retail Demo', store: 'Lisbon Demo Store', dealer: 'Costa Retail Demo', vehicle: 'ZEEKR X · Demo', quantity: '5', totalAmount: '€272,189.50', currency: 'EUR', port: 'Sines', paymentTerm: 'Letter of credit', delivery: '27 Sep 2026', status: 'Approved', approval: 'Approved', owner: '角色 B（待业务确认）', created: '19 Aug · 13:20', updated: '19 Aug · 15:08' },
+        { reference: 'DN-DEMO-001', type: 'DN', source: 'PO-DEMO-003', vehicleBrand: 'ZEEKR', region: 'EU', country: 'Portugal', company: 'Costa Retail Demo', store: 'Lisbon Demo Store', dealer: 'Costa Retail Demo', vehicle: 'ZEEKR X · Demo', quantity: '5', totalAmount: '€272,189.50', currency: 'EUR', port: 'Sines', paymentTerm: 'Letter of credit', delivery: '30 Sep 2026', status: 'Ready for handover', approval: 'Approved', owner: '角色 C（待业务确认）', created: '19 Aug · 08:18', updated: '19 Aug · 10:44' },
+        { reference: 'PR-DEMO-004', type: 'PR', source: 'Standalone', vehicleBrand: 'ZEEKR', region: 'EU', country: 'Sweden', company: 'Aurora Dealer Demo', store: 'Stockholm Demo Store', dealer: 'Aurora Dealer Demo', vehicle: 'ZEEKR 7X · Demo', quantity: '6', totalAmount: '€417,846.53', currency: 'EUR', port: 'Gothenburg', paymentTerm: '30 days after invoice', delivery: '05 Oct 2026', status: 'Rejected', approval: 'Revise delivery date', owner: '角色 A（待业务确认）', created: '18 Aug · 14:02', updated: '18 Aug · 16:31' },
+        { reference: 'PO-DEMO-002', type: 'PO', source: 'Standalone', vehicleBrand: 'ZEEKR', region: 'EU', country: 'Germany', company: 'Northstar Mobility Demo', store: 'Berlin Demo Store', dealer: 'Northstar Mobility Demo', vehicle: 'ZEEKR 001 · Demo', quantity: '10', totalAmount: '€649,900.00', currency: 'EUR', port: 'Bremerhaven', paymentTerm: '30 days after invoice', delivery: '08 Oct 2026', status: 'Draft', approval: '—', owner: '角色 B（待业务确认）', created: '18 Aug · 08:24', updated: '18 Aug · 09:52' }
       ];
 
       const reviewStyle = document.getElementById('isales-three-variant-styles');
@@ -1797,9 +1835,10 @@
                 ${Object.entries(variants).map(([key, item]) => `<button class="variant-button" data-variant="${key}" type="button" role="tab">${item.name}</button>`).join('')}
               </div>
               <div class="review-top-actions">
+                <button class="demo-role-pill" id="demoRolePill" data-action="open-tools" type="button" title="仅供评审：切换角色视角"><span>角色 A · PR 发起</span></button>
                 <button class="zds-button icon-only" data-action="open-tools" type="button" title="Demo control" aria-label="Demo control">⋯</button>
-                <span class="review-user-account" title="xuefei.zhou1@geely.com">xuefei.zhou1@geely.com</span>
-                <span class="review-avatar" title="xuefei.zhou1@geely.com">XZ</span>
+                <span class="review-user-account" title="demo.user@local">demo.user@local</span>
+                <span class="review-avatar" title="demo.user@local">DU</span>
               </div>
             </header>
             <aside class="review-sidebar" id="reviewSidebar" aria-label="方案主导航"></aside>
