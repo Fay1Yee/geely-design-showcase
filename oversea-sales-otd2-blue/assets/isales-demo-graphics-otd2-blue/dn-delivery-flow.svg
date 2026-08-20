@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="220" viewBox="0 0 720 220" fill="none">
+  <defs>
+    <marker id="dn-arrow" markerWidth="8" markerHeight="8" refX="6.5" refY="4" orient="auto" markerUnits="strokeWidth">
+      <path d="M1 1.25 6.5 4 1 6.75" fill="none" stroke="#8C8C8C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <style>
+      .card{fill:#fff;stroke:#1F1F1F;stroke-width:2}.soft{fill:#F6F6F6}.ink{stroke:#1F1F1F}.muted{stroke:#B8B8B8}.accent{stroke:#316BF6}.line{fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}.connector{fill:none;stroke:#8C8C8C;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}.dash{stroke-dasharray:4 6}
+    </style>
+  </defs>
+  <g id="source-paths" aria-hidden="true">
+    <path d="M128 61h26c18 0 21 40 42 40h18" class="connector" marker-end="url(#dn-arrow)"/>
+    <path d="M128 159h26c18 0 21-40 42-40h18" class="connector dash" marker-end="url(#dn-arrow)"/>
+    <path d="M260 110h32" class="connector" marker-end="url(#dn-arrow)"/>
+    <path d="M438 110h28" class="connector" marker-end="url(#dn-arrow)"/>
+    <path d="M574 110h25" class="connector" marker-end="url(#dn-arrow)"/>
+  </g>
+  <g id="po-source" data-entry="linked">
+    <rect x="24" y="22" width="104" height="78" rx="14" class="card"/>
+    <path d="M43 37h42l17 17v31H43V37Z" class="soft" stroke="#1F1F1F" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M85 37v17h17M57 64h29m-29 10h22" class="line ink"/>
+    <path d="M106 82h10" class="line accent" stroke-width="2.5"/>
+  </g>
+  <g id="standalone-source" data-entry="standalone">
+    <rect x="24" y="120" width="104" height="78" rx="14" fill="#fff" stroke="#8C8C8C" stroke-width="2" stroke-dasharray="5 5"/>
+    <path d="M47 137h38l17 17v27H47v-44Z" class="soft" stroke="#8C8C8C" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M85 137v17h17M60 165h28" class="line muted"/>
+    <circle cx="106" cy="180" r="10" fill="#fff" stroke="#8C8C8C" stroke-width="2"/>
+    <path d="M101 180h10m-5-5v10" class="line muted"/>
+  </g>
+  <g id="source-merge">
+    <rect x="214" y="83" width="46" height="54" rx="14" fill="#EEF3FF" stroke="#316BF6" stroke-width="2"/>
+    <path d="M227 99h20v22h-20z" fill="#fff" stroke="#1F1F1F" stroke-width="2"/>
+    <path d="M232 106h10m-10 7h10" class="line muted"/>
+  </g>
+  <g id="warehouse-vin" data-step="1">
+    <rect x="292" y="49" width="146" height="122" rx="16" class="card"/>
+    <rect x="305" y="62" width="120" height="96" rx="10" class="soft"/>
+    <path d="m316 91 27-16 27 16v40h-54V91Z" fill="#fff" stroke="#1F1F1F" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M326 101h34v30h-34zM326 110h34" class="line ink"/>
+    <path d="M374 120h4l5-13c1-3 4-4 7-4h16c3 0 6 2 7 5l5 12h3c3 0 5 2 5 5v5h-7m-38 0h31m-31 0h-6v-5c0-3 2-5 5-5Z" class="line ink"/>
+    <circle cx="388" cy="130" r="4" fill="#fff" stroke="#1F1F1F" stroke-width="2"/>
+    <circle cx="409" cy="130" r="4" fill="#fff" stroke="#1F1F1F" stroke-width="2"/>
+    <path d="M377 83h37" class="line accent" stroke-width="2.5"/>
+    <path d="M379 89h26" class="line muted"/>
+  </g>
+  <g id="shipment" data-step="2">
+    <rect x="466" y="57" width="108" height="106" rx="16" class="card"/>
+    <rect x="479" y="70" width="82" height="80" rx="10" class="soft"/>
+    <path d="M487 116h45v22h-45zM532 123h14l10 10v5h-24z" fill="#fff" stroke="#1F1F1F" stroke-width="2" stroke-linejoin="round"/>
+    <circle cx="500" cy="140" r="6" fill="#fff" stroke="#1F1F1F" stroke-width="2"/>
+    <circle cx="544" cy="140" r="6" fill="#fff" stroke="#1F1F1F" stroke-width="2"/>
+    <path d="M489 94h42m-34-9-9 9 9 9" class="line accent" stroke-width="2.5"/>
+    <path d="M511 104h38" class="line muted"/>
+  </g>
+  <g id="delivery" data-step="3">
+    <rect x="599" y="57" width="97" height="106" rx="16" fill="#fff" stroke="#1F1F1F" stroke-width="2"/>
+    <rect x="612" y="70" width="71" height="80" rx="10" class="soft"/>
+    <path d="M614 131h65" stroke="#1F1F1F" stroke-width="2" stroke-linecap="round"/>
+    <path d="M622 131v-33l24-16 24 16v33" fill="none" stroke="#1F1F1F" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M633 131v-23h27v23M639 114h15" stroke="#1F1F1F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="673" cy="82" r="9" fill="#316BF6"/>
+    <path d="m669 82 3 3 6-7" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>

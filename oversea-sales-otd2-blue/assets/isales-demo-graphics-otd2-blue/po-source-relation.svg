@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="220" viewBox="0 0 720 220" fill="none">
+  <defs>
+    <style>
+      .card{fill:#fff;stroke:#1F1F1F;stroke-width:2}.soft{fill:#F6F6F6}.ink{stroke:#1F1F1F}.muted{stroke:#B8B8B8}.line,.shape{stroke-width:2;stroke-linecap:round;stroke-linejoin:round}.line{fill:none}.shape{fill:#fff}.connector{fill:none;stroke:#8C8C8C;stroke-width:1.5;stroke-linecap:round}
+    </style>
+  </defs>
+
+  <g id="sequence" aria-hidden="true">
+    <path d="M151 110H201m-6-6 6 6-6 6M331 110H381m-6-6 6 6-6 6M511 110H561m-6-6 6 6-6 6" class="connector"/>
+  </g>
+
+  <g id="po-organization" data-step="0">
+    <rect x="29" y="57" width="122" height="106" rx="16" class="card"/>
+    <rect x="42" y="70" width="96" height="80" rx="10" class="soft"/>
+    <path d="M62 134V100l28-17 28 17v34M74 134v-24h32v24M90 110v24" class="line ink"/>
+  </g>
+
+  <g id="vehicle-quantity" data-step="1">
+    <rect x="209" y="57" width="122" height="106" rx="16" class="card"/>
+    <rect x="222" y="70" width="96" height="80" rx="10" class="soft"/>
+    <path d="M234 111h5l6-14c2-4 6-6 11-6h28c5 0 9 2 11 6l6 14h5c4 0 7 3 7 7v5h-8m-57 0h49m-49 0h-8v-5c0-4 3-7 7-7Z" class="line ink"/>
+    <path d="M247 108h46" class="line ink"/>
+    <circle cx="253" cy="127" r="6" class="shape ink"/>
+    <circle cx="295" cy="127" r="6" class="shape ink"/>
+  </g>
+
+  <g id="commercial-terms" data-step="2">
+    <rect x="389" y="57" width="122" height="106" rx="16" class="card"/>
+    <rect x="402" y="70" width="96" height="80" rx="10" class="soft"/>
+    <path d="M420 83h40l20 20v36h-60V83Z" class="shape ink"/>
+    <path d="M460 83v20h20" class="line muted"/>
+    <path d="M432 115h36M432 126h29" class="line muted"/>
+  </g>
+
+  <g id="submit-po" data-step="3">
+    <rect x="569" y="57" width="122" height="106" rx="16" class="card"/>
+    <rect x="582" y="70" width="96" height="80" rx="10" class="soft"/>
+    <path d="M600 86h41l19 19v33h-60V86Z" class="shape ink"/>
+    <path d="M641 86v19h19" class="line muted"/>
+    <path d="m615 118 9 9 20-22" class="line ink"/>
+  </g>
+</svg>
