@@ -1093,15 +1093,18 @@
     .metric-card span { display: block; color: var(--zds-color-text-tertiary); font-size: 10px; }
     .metric-card strong { display: block; margin-top: 4px; font-size: 22px; line-height: 28px; }
     .metric-card em { color: var(--zds-color-support-danger); font-size: 9px; font-style: normal; }
-    .eff-workbench { display: grid; grid-template-columns: minmax(290px, .38fr) minmax(0, 1fr); gap: 12px; }
-    .quick-list { padding: 6px 12px; }
-    .quick-row { display: grid; grid-template-columns: 32px minmax(0, 1fr) auto; align-items: center; gap: 9px; min-height: 62px; border-bottom: 1px solid var(--zds-color-divider-primary); }
+    .eff-workbench { display: grid; grid-template-columns: minmax(340px, 420px) minmax(0, 1fr); gap: 12px; }
+    .quick-list { padding: 4px 16px; }
+    .quick-row { display: grid; grid-template-columns: 32px minmax(0, 1fr) max-content; align-items: center; gap: 12px; min-height: 70px; border-bottom: 1px solid var(--zds-color-divider-primary); }
     .quick-row:last-child { border-bottom: 0; }
-    .quick-row .quick-code { display: grid; place-items: center; width: 30px; height: 30px; color: #fff; background: #111; border-radius: 4px; font-size: 10px; font-weight: 700; }
-    .quick-row strong { display: block; font-size: 12px; }
-    .quick-row span { display: block; color: var(--zds-color-text-tertiary); font-size: 10px; }
-    .quick-row-actions { display: flex; gap: 5px; }
-    .quick-row-actions .zds-button { min-width: 0; height: 30px; padding: 0 8px; font-size: 10px; }
+    .quick-row .quick-code { display: grid; place-items: center; width: 32px; height: 32px; color: #fff; background: #111; border-radius: 4px; font-size: 10px; font-weight: 700; }
+    .quick-row-copy { min-width: 0; }
+    .quick-row strong { display: block; overflow: hidden; font-size: 12px; line-height: 20px; text-overflow: ellipsis; white-space: nowrap; }
+    .quick-row .quick-note { display: block; overflow: hidden; color: var(--zds-color-text-tertiary); font-size: 10px; line-height: 18px; text-overflow: ellipsis; white-space: nowrap; }
+    .quick-row-actions { display: flex; min-width: 76px; justify-content: flex-end; gap: 5px; }
+    .quick-row-actions .zds-button { min-width: 72px; height: 30px; padding: 0 9px; font-size: 10px; white-space: nowrap; }
+    .quick-availability { display: inline-flex; align-items: center; gap: 6px; min-height: 28px; padding: 0 8px; color: var(--zds-color-text-tertiary); background: #f5f6f7; border: 1px solid var(--zds-color-divider-primary); border-radius: 2px; font-size: 11px; line-height: 18px; white-space: nowrap; }
+    .quick-availability::before { width: 6px; height: 6px; background: #a8adb5; border-radius: 50%; content: ''; }
 
     /* Collaboration home / map */
     .collab-overview { margin-bottom: 12px; padding: 18px 20px 16px; }
@@ -1900,6 +1903,99 @@
       .module-filters { min-height: 34px; }
       .module-toolbar-meta { margin-left: 0; }
     }
+
+    @media (max-width: 720px) {
+      .review-shell,
+      .review-shell[data-variant="guide"],
+      .review-shell[data-variant="efficiency"],
+      .review-shell[data-language="en"],
+      .review-shell.sidebar-collapsed { --review-sidebar: 0px !important; --review-topbar: 92px; }
+      .review-shell { grid-template-columns: minmax(0, 1fr); grid-template-rows: var(--review-topbar) minmax(0, 1fr); }
+      .review-topbar { display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: 44px 44px; column-gap: 8px; height: var(--review-topbar); padding: 0 12px; }
+      .review-brand { width: auto; min-width: 0; font-size: 14px; }
+      .review-product { display: none; }
+      .variant-switch { justify-self: end; margin-left: 0; }
+      .variant-button { min-width: 86px; height: 30px; padding: 0 8px; }
+      .review-top-actions { grid-column: 1 / -1; grid-row: 2; width: 100%; min-width: 0; margin-left: 0; overflow-x: auto; scrollbar-width: none; }
+      .review-top-actions::-webkit-scrollbar,
+      .review-nav::-webkit-scrollbar { display: none; }
+      .end-switch { min-width: 188px; flex: 1 1 auto; }
+      .end-button { min-width: 76px; flex: 1 1 auto; }
+      .language-switch { flex: 0 0 auto; }
+      .review-user-account,
+      .review-avatar { display: none; }
+
+      .review-sidebar { position: fixed; right: 0; bottom: 0; left: 0; z-index: 45; display: block; width: 100%; height: 56px; min-height: 56px; overflow: hidden; background: rgba(255,255,255,.98); border-top: 1px solid var(--zds-color-divider-primary); border-right: 0; box-shadow: 0 -3px 12px rgba(24,35,56,.08); backdrop-filter: blur(8px); }
+      .review-nav { display: flex; height: 56px; padding: 6px 8px; overflow-x: auto; overflow-y: hidden; flex-direction: row; gap: 4px; scrollbar-width: none; }
+      .review-nav-group,
+      .review-nav-children { display: flex !important; flex: 0 0 auto; flex-direction: row; gap: 4px; }
+      .review-nav-parent { display: none; }
+      .review-nav-item,
+      .review-shell[data-variant="efficiency"] .review-nav-item { width: auto; min-width: max-content; height: 44px; min-height: 44px; padding: 0 12px; }
+      .review-nav-item.review-nav-child,
+      .review-shell[data-variant="efficiency"] .review-nav-item.review-nav-child { padding: 0 12px; }
+      .review-nav-children::before,
+      .review-nav-dot,
+      .review-sidebar-footer { display: none; }
+      .review-workspace { grid-column: 1; grid-row: 2; }
+      .review-scroll,
+      .review-shell[data-variant="efficiency"] .review-scroll { padding: 10px 12px 76px; }
+
+      .review-breadcrumb { overflow-x: auto; white-space: nowrap; }
+      .review-page-header { align-items: flex-start; flex-direction: column; gap: 8px; }
+      .review-page-header h1 { font-size: 18px; line-height: 26px; }
+      .review-page-header p { font-size: 13px; line-height: 20px; }
+      .review-page-actions { width: 100%; margin-left: 0; flex-wrap: wrap; }
+      .review-page-actions .zds-button { min-width: 0; flex: 1 1 auto; }
+      .review-section-head { align-items: flex-start; min-height: 0; padding: 12px; flex-direction: column; gap: 8px; }
+      .review-section-actions { width: 100%; margin-left: 0; flex-wrap: wrap; }
+
+      .metric-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .metric-card:last-child { grid-column: 1 / -1; }
+      .quick-list { padding: 4px 12px; }
+      .quick-row { grid-template-columns: 32px minmax(0, 1fr); gap: 2px 10px; min-height: 84px; padding: 9px 0; }
+      .quick-row-actions { grid-column: 2; min-width: 0; justify-content: flex-start; }
+      .quick-row-actions .zds-button { min-width: 86px; }
+      .priority-row { grid-template-columns: minmax(0, 1fr) auto; gap: 3px 8px; min-height: 62px; padding: 7px 0; }
+      .priority-row > strong { grid-column: 1; grid-row: 1; }
+      .priority-row > span:nth-child(2) { grid-column: 1; grid-row: 2; }
+      .priority-row > span:nth-child(3) { grid-column: 2; grid-row: 1; justify-self: end; }
+      .priority-row > .zds-button { grid-column: 2; grid-row: 2; }
+
+      .home-filter-grid,
+      .review-shell[data-language="en"] .home-filter-grid,
+      .form-grid-review,
+      .pr-picker-filters,
+      .record-info-grid,
+      .detail-key-info,
+      .commercial-summary-grid { grid-template-columns: minmax(0, 1fr); }
+      .home-filter-actions { justify-content: stretch; }
+      .home-filter-actions .zds-button { flex: 1 1 0; }
+      .workflow-status-grid,
+      .processing-context,
+      .result-processing { grid-template-columns: minmax(0, 1fr); }
+      .eff-summary-strip,
+      .fulfillment-source-summary,
+      .fulfillment-metrics,
+      .module-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .fulfillment-source-summary .source-identity { grid-column: 1 / -1; }
+      .module-metrics > div:nth-child(odd) { border-left: 0; }
+      .record-info-grid { gap: 1px; }
+      .record-detail-tabs,
+      .module-filters { width: 100%; overflow-x: auto; white-space: nowrap; scrollbar-width: none; }
+      .module-toolbar-meta { width: 100%; justify-content: space-between; }
+
+      .create-action-bar { align-items: center; min-height: 0; padding: 10px; flex-wrap: wrap; }
+      .create-action-bar .action-note { width: 100%; margin-right: 0; }
+      .create-action-bar .zds-button { min-width: 0; flex: 1 1 88px; }
+      .result-hero { grid-template-columns: minmax(0, 1fr); padding: 22px 18px; }
+      .result-art { display: none; }
+      .result-progress { overflow-x: auto; padding: 16px 18px; }
+      .result-footer { padding: 18px; }
+      .result-actions { width: 100%; }
+      .result-actions .zds-button { flex: 1 1 auto; }
+      .review-drawer { width: min(100%, 420px); }
+    }
   </style>
   <script id="isales-otd2-blue-app">
     (() => {
@@ -2298,14 +2394,31 @@
         ['取消', 'Cancel'], ['带入 PR 信息', 'Import PR Context'],
         ['交付管理 Poseidon', 'Delivery Mgmt Poseidon'], ['预测', 'Forecast'], ['车辆数据平台', 'Vehicle Data Platform'], ['下载中心', 'Download Center'],
         ['运营', 'Operations'], ['上传中心', 'Upload Center'], ['车辆管理', 'Vehicle Mgmt'], ['系统配置', 'System Config'], ['交付管理', 'Delivery Mgmt'],
+        ['数据交换', 'Data Exchange'], ['全部记录', 'All records'], ['进行中', 'In progress'], ['车辆 / 数据量', 'Vehicles / Data'], ['单据 / 任务', 'Document / Task'], ['来源 / 类别', 'Source / Category'], ['公司', 'Company'], ['车辆 / 内容', 'Vehicle / Content'], ['目的地', 'Destination'], ['交付 / 更新时间', 'Delivery / Updated'],
         ['销售', 'Sales'], ['收起', 'Collapse'], ['展开', 'Expand'], ['PR 审核', 'PR Review'], ['新建 DN', 'New DN'], ['发运', 'Shipment'], ['车辆数据', 'Vehicle Data'], ['订单列表', 'Orders'], ['异常处理', 'Exceptions'], ['入库', 'Inbound'],
         ['任务首页', 'Task home'], ['任务工作台', 'Task workbench'], ['任务工作台', 'Task Workbench'], ['业务全流程', 'Business lifecycle'],
         ['PR 快速创建', 'PR quick create'], ['DN 快速创建', 'DN quick create'], ['PO 快速创建', 'PO quick create'],
         ['采购申请 · PR', 'Purchase Request · PR'], ['采购订单 · PO', 'Purchase Order · PO'], ['采购申请审核', 'PR review'], ['交付单 · DN', 'Delivery Note · DN'],
+        ['申请列表', 'Request List'], ['交付单列表', 'Delivery Notes'], ['履约与交付', 'Fulfillment & Delivery'],
+        ['集中导入 VIN、交付附件和零售数据，并追踪校验结果。', 'Import VIN, delivery attachments and retail data, and track validation results.'], ['上传文件', 'Upload file'], ['查看校验结果', 'View validation'],
+        ['查询 PR、查看审核状态，并从列表进入单据详情。', 'Search PRs, review approval status and open document details.'], ['+ 新建 PR', '+ New PR'], ['查看详情', 'View details'],
+        ['集中处理待审核、已通过和退回补充的采购申请。', 'Process pending, approved and returned purchase requests.'], ['批量分配审核人', 'Assign reviewers'], ['进入审核', 'Open review'],
+        ['查看全部 DN、履约来源、车辆数量及当前交付状态。', 'View DNs, fulfillment sources, vehicle quantities and delivery status.'], ['+ 创建 DN', '+ Create DN'],
+        ['跟进 VIN、订舱、装运和预计到港节点。', 'Track VIN, booking, shipment and estimated arrival milestones.'], ['更新发运状态', 'Update shipment'], ['跟进发运', 'Track shipment'],
+        ['登记到港、车辆交接和异常验收结果。', 'Record arrival, vehicle handover and acceptance exceptions.'], ['登记验收结果', 'Record acceptance'], ['处理验收', 'Handle acceptance'],
+        ['维护经销商零售上报、缺失数据和报告状态。', 'Maintain dealer retail reports, missing data and report status.'], ['新增零售报告', 'Add retail report'], ['维护报告', 'Maintain report'],
+        ['按 DN 查询车辆、VIN、仓库及交付状态。', 'Query vehicles, VINs, warehouses and delivery status by DN.'], ['导出车辆清单', 'Export vehicle list'], ['查看车辆', 'View vehicles'],
+        ['查看导出任务、下载状态和文件有效期。', 'View export tasks, download status and file expiry.'], ['新建导出任务', 'New export task'], ['下载文件', 'Download file'],
+        ['查询 PO、商务条款和订单确认状态。', 'Search POs, commercial terms and order confirmation status.'], ['+ 新建 PO', '+ New PO'],
+        ['跟踪 PO 商务审核、确认进度和待处理节点。', 'Track PO commercial review, confirmation progress and pending steps.'], ['批量催办', 'Send reminders'], ['查看审核', 'View review'],
+        ['查看 PO 余额、关联 DN 和分批交付进度。', 'View PO balance, linked DNs and partial delivery progress.'], ['+ 按 PO 创建 DN', '+ Create DN from PO'], ['查看履约', 'View fulfillment'],
+        ['处理草稿、退回、数量差异和履约异常。', 'Handle drafts, returns, quantity differences and fulfillment exceptions.'], ['创建处理单', 'Create handling task'], ['处理异常', 'Handle exception'],
+        ['核对已确认订单、车辆到仓及入库结果。', 'Verify confirmed orders, vehicle arrival and inbound results.'], ['确认入库', 'Confirm inbound'], ['查看入库', 'View inbound'],
         ['交付与销售', 'Delivery & Retail'], ['配货与发运', 'Shipment'], ['验收与异常', 'Acceptance & exceptions'], ['零售报告', 'Retail report'], ['车辆状态与数据查询', 'Vehicle status and data query'],
         ['PO 采购流程', 'PO procurement'], ['创建采购订单 · PO', 'Create Purchase Order · PO'], ['采购订单', 'Orders'], ['审核跟进', 'Review follow-up'], ['异常修改', 'Exception revision'], ['入库记录', 'Inbound records'],
         ['提交采购需求', 'Submit purchase request'], ['说明门店需要什么车辆，以及希望何时交付。', 'Specify the vehicles the store needs and the requested delivery date.'],
         ['创建采购订单', 'Create purchase order'], ['在 PO 端独立录入、确认并跟进采购订单。', 'Create, confirm and follow up purchase orders independently on the PO side.'],
+        ['创建分批交付单', 'Create partial delivery note'], ['从已审核 PR 或已确认 PO 中选择来源，按剩余数量分批创建多个 DN。', 'Select an approved PR or confirmed PO and create multiple DNs against the remaining quantity.'],
         ['安排车辆交付', 'Arrange vehicle delivery'], ['根据审核通过的 PR 创建 DN，并继续支付、标记与零售报告。', 'Create a DN from an approved PR, then continue with payment, vehicle marking and retail reporting.'],
         ['确定需求主体', 'Confirm request owner'], ['选择经销商与门店', 'Select dealer and store'], ['选择车辆', 'Select vehicles'], ['确认车型与数量', 'Confirm model and quantity'], ['安排交付', 'Plan delivery'], ['填写日期与地址', 'Enter date and address'],
         ['填写订单信息', 'Enter order information'], ['确认申请公司与订单来源', 'Confirm applicant company and order source'], ['核对车辆', 'Review vehicles'], ['确认商务条款', 'Confirm commercial terms'], ['提交采购订单', 'Submit purchase order'],
@@ -2320,12 +2433,14 @@
         ['分配 VIN、仓库、港口、运输方式和承运商。', 'Allocate VINs, warehouse, ports, transport method and carrier.'],
         ['确认发运与交接信息；提交后继续支付、车辆标记和零售上报。', 'Confirm shipment and handover information; continue payment, vehicle marking and retail reporting after submission.'],
         ['PR / DN 及后续全流程', 'PR / DN lifecycle'], ['业务任务', 'Business tasks'], ['单独创建', 'Create standalone'], ['根据 PR 创建', 'Create from PR'], ['根据 PR 创建 DN', 'Create DN from PR'], ['创建单据', 'Create document'],
+        ['PR 创建与审核 → 按剩余数量分批创建多个 DN → 发运、交接与零售报告', 'PR creation and review → Create multiple DNs from the remaining balance → Shipment, handover and retail reporting'],
+        ['PO 创建与确认 → 按订单余额分批创建多个 DN → 跟进交付', 'PO creation and confirmation → Create multiple DNs from the order balance → Delivery follow-up'],
         ['新建 PR', 'New PR'], ['新建 PO', 'New PO'], ['从 PR 新建 DN', 'New DN from PR'], ['快速新建 PR', 'Quick PR'], ['快速新建 PO', 'Quick PO'],
         ['已创建', 'Created'], ['草稿已保存', 'Draft saved'], ['申请已提交', 'Request submitted'], ['已批准', 'Approved'], ['分批履约', 'Partial fulfillment'], ['履约关闭', 'Closed'], ['仍有可交付余额', 'Balance remains'], ['已全部分配', 'Fully allocated'],
         ['PO 已生成', 'PO generated'], ['商务审核', 'Commercial review'], ['已确认', 'Confirmed'], ['来源已锁定', 'Source locked'], ['数量已分配', 'Quantity allocated'], ['VIN 与物流', 'VIN & logistics'], ['暂无 DN', 'No DN'], ['编辑单据', 'Edit document'],
         ['待处理', 'To-do'], ['草稿', 'Drafts'], ['驳回', 'Rejected'], ['异常', 'Errors'], ['最近创建', 'Recently created'],
         ['今天到期 2 项', '2 due today'], ['今日到期', 'Due today'], ['需要处理', 'Needs action'], ['网络重试', 'Network retry'], ['近 7 天', '7 days'], ['快速创建', 'Quick create'],
-        ['新建', 'New'], ['从 PR 创建', 'From PR'], ['重点任务', 'Priority queue'], ['今日', 'Today'], ['明日', 'Tomorrow'], ['打开', 'Open'], ['跟进', 'Track'], ['上报', 'Report'], ['只读', 'Read only'],
+        ['新建', 'New'], ['从 PR 创建', 'From PR'], ['按来源创建', 'From source'], ['暂无可用余额', 'No available balance'], ['重点任务', 'Priority queue'], ['今日', 'Today'], ['明日', 'Tomorrow'], ['打开', 'Open'], ['跟进', 'Track'], ['上报', 'Report'], ['只读', 'Read only'],
         ['退回补充', 'Revision required'], ['等待 PR 审核', 'Awaiting PR review'], ['发运状态跟进', 'Shipment follow-up'], ['待零售上报', 'Retail report pending'], ['待确认', 'Pending confirmation'], ['已审核', 'Approved'],
         ['PO 全流程', 'PO lifecycle'], ['PR / DN 全流程', 'PR / DN lifecycle'], ['流程总览', 'Lifecycle overview'], ['PO 单据', 'PO documents'], ['PR / DN 单据', 'PR / DN documents'], ['创建 PO', 'Create PO'],
         ['审核', 'Review'], ['验收', 'Acceptance'], ['零售', 'Retail'], ['PR · 提交采购需求', 'PR · Submit purchase request'], ['DN · 安排车辆交付', 'DN · Arrange vehicle delivery'],
@@ -2375,6 +2490,11 @@
         ['当前任务：', 'Current task:'], ['创建进度', 'creation progress'], ['当前单据', 'Current document'], ['当前草稿', 'draft'], ['本单据已填写或继承的字段。', 'Values entered or inherited for this document.'], ['摘要会随步骤完成实时更新。', 'This summary updates as each step is completed.'], ['实时摘要', 'Live summary'], ['单据信息', 'Document information'],
         ['单据', 'Document'], ['来源', 'Source'], ['交易条款', 'Trade term'], ['VIN 分配', 'VIN allocation'], ['交接', 'Handover'],
         ['从 PR 继承', 'Inherited from PR'], ['经销商、车辆和数量已从来源单据自动带入。', 'Dealer, vehicle and quantity were carried forward from the source document.'], ['关联上下文', 'Linked context'],
+        ['PR / PO 分批履约', 'PR / PO partial fulfillment'], ['选择履约来源', 'Select fulfillment source'], ['分配车辆与物流', 'Allocate vehicles and logistics'], ['确认交付', 'Confirm delivery'], ['更换来源', 'Change source'],
+        ['PO 来源单', 'PO source document'], ['PR 来源单', 'PR source document'], ['需求 / 订单总量', 'Request / Order total'], ['已有 DN 占用', 'Allocated to DNs'], ['剩余可交付', 'Remaining'], ['已建 DN', 'Created DNs'], ['来源总量', 'Source total'], ['全部 DN 占用', 'Allocated to all DNs'], ['履约进度', 'Fulfillment progress'],
+        ['按商品行填写本次交付数量，系统自动计算创建后的余额。', 'Enter this delivery quantity by goods line; the remaining balance updates automatically.'], ['本批合计', 'This DN total'], ['一对多履约', 'One-to-many fulfillment'],
+        ['支持已审核 PR 或已确认 PO；同一来源可分批创建多个 DN。', 'Supports approved PRs and confirmed POs; one source can create multiple DNs.'], ['由下方商品行的“本批数量”自动汇总。', 'Automatically totals the quantity entered in the goods rows below.'],
+        ['+ 新建 DN', '+ New DN'], ['+ 创建下一张 DN', '+ Create next DN'], ['按商品行追踪来源数量、全部 DN 占用和剩余可交付数量。', 'Track source quantity, allocation across all DNs and the remaining balance by goods line.'],
         ['请选择订单来源', '— Order source —'], ['请选择已审核 PR', '— Select approved PR —'], ['暂无已分配 VIN', '— No VIN allocated —'], ['请选择', '— Please select —'],
         ['尚未选择已审核 PR', 'No approved PR selected'], ['请选择来源 PR，以带入经销商、车辆与交付信息。', 'Select a source PR to carry dealer, vehicle and delivery details into this DN.'], ['暂无可分配 VIN', 'No VIN available to allocate'], ['请选择可用 VIN 批次或更新仓库。', 'Choose an available VIN batch or update the warehouse selection.'],
         ['必填字段标记为 *', 'Required fields are marked *'], ['上一步', 'Back'], ['保存草稿', 'Save draft'], ['下一步', 'Next step'],
@@ -2463,6 +2583,8 @@
           if (match) return `第 ${match[1]}–${match[2]} 条，共 ${match[3]} 条`;
           match = value.match(/^(\d+) business fields$/);
           if (match) return `${match[1]} 个业务字段`;
+          match = value.match(/^(\d+) fields · PR \/ PO balance$/);
+          if (match) return `${match[1]} 个字段 · 继承 PR / PO 余额`;
           match = value.match(/^(\d+) fields · PR context can be carried forward$/);
           if (match) return `${match[1]} 个字段 · 可带入 PR 上下文`;
           match = value.match(/^Step (\d+) of 3 · (.+)$/);
@@ -2495,6 +2617,18 @@
         } else {
           let match = value.match(/^(PR \/ DN 及后续|PO 端) business information from the current walkthrough$/);
           if (match) return `${translateUiText(match[1])} business information from the current walkthrough`;
+          match = value.match(/^(\d+) 条结果$/);
+          if (match) return `${match[1]} results`;
+          match = value.match(/^同一 (PR|PO) 可分批创建多个 DN；本次数量不得超过剩余可交付数量。$/);
+          if (match) return `One ${match[1]} can create multiple DNs; this quantity cannot exceed the remaining balance.`;
+          match = value.match(/^\/ 可用 (\d+)$/);
+          if (match) return `/ ${match[1]} available`;
+          match = value.match(/^共 (\d+) 张，累计占用 (\d+) 辆。$/);
+          if (match) return `${match[1]} DNs using ${match[2]} vehicles in total.`;
+          match = value.match(/^(\d+) 已进入 DN，(\d+) 仍可继续分批交付。$/);
+          if (match) return `${match[1]} allocated to DNs; ${match[2]} remain available for partial delivery.`;
+          match = value.match(/^一张 (PR|PO) 对应 (\d+) 张 DN。$/);
+          if (match) return `One ${match[1]} is linked to ${match[2]} DNs.`;
           match = value.match(/^Step (\d+) of 3 · (.+)$/);
           if (match) return `Step ${match[1]} of 3 · ${translateUiText(match[2])}`;
           match = value.match(/^当前任务：(.+)$/);
@@ -2680,6 +2814,15 @@
 
       function activeEndFlows() {
         return businessEnds[state.businessEnd].flows;
+      }
+
+      function businessEndForFlow(flow, sourceType = 'ANY') {
+        if (flow === 'PO') return 'po';
+        if (flow === 'DN') {
+          const source = deliverySourceByRef(state.forms.DN.sourceRef);
+          if (sourceType === 'PO' || source?.type === 'PO') return 'po';
+        }
+        return 'prdn';
       }
 
       function isLinkedReady(flow, sourceType = 'ANY') {
@@ -3031,9 +3174,12 @@
       function quickRow(flow) {
         const meta = flowMeta[flow];
         const count = fieldDefinitions(flow).length;
-        const note = flow === 'DN' ? `${count} fields · PR / PO balance is carried forward` : `${count} business fields`;
-        const action = flow === 'DN' ? renderLinkedStartButton(flow, 'From source', 'primary', 'PR') : renderStandaloneStartButton(flow, 'New');
-        return `<div class="quick-row"><span class="quick-code">${flow}</span><div><strong>${meta.task}</strong><span>${note}</span></div><div class="quick-row-actions">${action}</div></div>`;
+        const note = flow === 'DN' ? `${count} fields · PR / PO balance` : `${count} business fields`;
+        const linkedReady = flow === 'DN' && isLinkedReady(flow, 'PR');
+        const action = flow === 'DN'
+          ? (linkedReady ? renderLinkedStartButton(flow, 'From source', '', 'PR') : '<span class="quick-availability">No available balance</span>')
+          : renderStandaloneStartButton(flow, 'New');
+        return `<div class="quick-row"><span class="quick-code">${flow}</span><div class="quick-row-copy"><strong>${meta.task}</strong><span class="quick-note" title="${esc(note)}">${note}</span></div><div class="quick-row-actions">${action}</div></div>`;
       }
 
       function renderPriorityQueue() {
@@ -3110,9 +3256,9 @@
       }
 
       function renderFilterPanel() {
-        const documentTypes = state.businessEnd === 'po' ? ['', 'PO'] : ['', 'PR', 'DN'];
+        const documentTypes = state.businessEnd === 'po' ? ['', 'PO', 'DN'] : ['', 'PR', 'DN'];
         return `<section class="review-surface home-filter-panel"><div class="home-filter-grid">
-          <div class="home-filter-field"><label>Document No.</label><input data-record-filter="query" type="text" value="${esc(state.recordFilters.query)}" placeholder="${state.businessEnd === 'po' ? 'PO' : 'PR / DN'}"></div>
+          <div class="home-filter-field"><label>Document No.</label><input data-record-filter="query" type="text" value="${esc(state.recordFilters.query)}" placeholder="${state.businessEnd === 'po' ? 'PO / DN' : 'PR / DN'}"></div>
           ${renderFilterSelect('brand', 'Vehicle Brand', ['', 'ZEEKR', 'Lynk & Co', 'Geely Auto'], 'All brands')}
           ${renderFilterSelect('country', 'Country', ['', 'Spain', 'Netherlands', 'Portugal', 'Sweden', 'Germany'], 'All countries')}
           ${renderFilterSelect('company', 'Company Name', ['', 'Northstar Mobility Demo', 'Aurora Dealer Demo', 'Costa Retail Demo'], 'All companies')}
@@ -3150,7 +3296,7 @@
         const start = (state.recordPage - 1) * state.recordPageSize;
         const pageRows = records.slice(start, start + state.recordPageSize);
         const tabs = (state.businessEnd === 'po'
-          ? [['ALL', 'All'], ['PO', 'Purchase Order']]
+          ? [['ALL', 'All'], ['PO', 'Purchase Order'], ['DN', 'Delivery Note']]
           : [['ALL', 'All'], ['PR', 'Purchase Request'], ['DN', 'Delivery Note']])
           .map(([value, label]) => `<button class="records-tab ${state.recordType === value ? 'active' : ''}" data-record-type="${value}" type="button">${label}</button>`).join('');
         const rows = pageRows.length
@@ -3158,15 +3304,26 @@
           : `<tr><td colspan="${columns.length}"><div class="review-empty-note">No matching documents. Adjust the filters and search again.</div></td></tr>`;
         const pages = Array.from({ length: pageCount }, (_, index) => index + 1).map(page => `<button class="zds-button ${page === state.recordPage ? 'page-current' : ''}" data-action="records-page" data-page="${page}" type="button">${page}</button>`).join('');
         const range = records.length ? `${start + 1}–${Math.min(start + state.recordPageSize, records.length)} of ${records.length}` : '0 records';
-        const table = `<section class="review-surface records-panel"><div class="review-section-head"><div><h2>${title}</h2><p>${esc(businessEnds[state.businessEnd].label)} business information from the current walkthrough</p></div><div class="review-section-actions"><span class="review-chip">${records.length} records</span><button class="zds-button small" data-action="export-records" type="button">Export</button><button class="zds-button small" data-action="open-columns" type="button">Columns</button></div></div><div class="records-tabs" role="tablist">${tabs}</div><div class="records-wrap"><table class="review-records" aria-label="${state.businessEnd === 'po' ? 'Recent PO documents' : 'Recent PR and DN documents'}"><colgroup>${columns.map(column => `<col data-record-col="${column.id}" style="width:${state.columnWidths[column.id] || column.width}px">`).join('')}</colgroup><thead><tr>${columns.map(column => `<th class="resizable" data-column="${column.id}">${column.label}<span class="record-resize-handle" data-column="${column.id}"></span></th>`).join('')}</tr></thead><tbody>${rows}</tbody></table></div><div class="table-pagination"><span>${range}</span><button class="zds-button" data-action="records-page" data-page="${Math.max(1, state.recordPage - 1)}" type="button" ${state.recordPage === 1 ? 'disabled' : ''}>‹</button>${pages}<button class="zds-button" data-action="records-page" data-page="${Math.min(pageCount, state.recordPage + 1)}" type="button" ${state.recordPage === pageCount ? 'disabled' : ''}>›</button></div></section>`;
+        const table = `<section class="review-surface records-panel"><div class="review-section-head"><div><h2>${title}</h2><p>${esc(businessEnds[state.businessEnd].label)} business information from the current walkthrough</p></div><div class="review-section-actions"><span class="review-chip">${records.length} records</span><button class="zds-button small" data-action="export-records" type="button">Export</button><button class="zds-button small" data-action="open-columns" type="button">Columns</button></div></div><div class="records-tabs" role="tablist">${tabs}</div><div class="records-wrap"><table class="review-records" aria-label="${state.businessEnd === 'po' ? 'Recent PO and linked DN documents' : 'Recent PR and linked DN documents'}"><colgroup>${columns.map(column => `<col data-record-col="${column.id}" style="width:${state.columnWidths[column.id] || column.width}px">`).join('')}</colgroup><thead><tr>${columns.map(column => `<th class="resizable" data-column="${column.id}">${column.label}<span class="record-resize-handle" data-column="${column.id}"></span></th>`).join('')}</tr></thead><tbody>${rows}</tbody></table></div><div class="table-pagination"><span>${range}</span><button class="zds-button" data-action="records-page" data-page="${Math.max(1, state.recordPage - 1)}" type="button" ${state.recordPage === 1 ? 'disabled' : ''}>‹</button>${pages}<button class="zds-button" data-action="records-page" data-page="${Math.min(pageCount, state.recordPage + 1)}" type="button" ${state.recordPage === pageCount ? 'disabled' : ''}>›</button></div></section>`;
         return table;
+      }
+
+      function recordBelongsToBusinessEnd(row) {
+        if (state.businessEnd === 'po') {
+          if (row.type === 'PO') return true;
+          if (row.type !== 'DN') return false;
+          return deliverySourceByRef(row.source)?.type === 'PO';
+        }
+        if (row.type === 'PR') return true;
+        if (row.type !== 'DN') return false;
+        return deliverySourceByRef(row.source)?.type !== 'PO';
       }
 
       function filteredRecords() {
         const filters = state.recordFilters;
         const query = filters.query.trim().toLowerCase();
         return mockRecords.filter(row => {
-          if (!activeEndFlows().includes(row.type)) return false;
+          if (!recordBelongsToBusinessEnd(row)) return false;
           if (state.recordType !== 'ALL' && row.type !== state.recordType) return false;
           if (query && ![row.reference, row.source, row.vehicle, row.company].some(value => String(value).toLowerCase().includes(query))) return false;
           if (filters.brand && row.vehicleBrand !== filters.brand) return false;
@@ -3280,9 +3437,10 @@
 
       function renderProcessingContext(flow) {
         const meta = processMeta[flow];
+        const flowEnd = businessEndForFlow(flow);
         const deliverySource = flow === 'DN' ? selectedDeliverySource() : null;
         const source = deliverySource ? `${deliverySource.type} · ${deliverySource.reference}` : '单独创建 / Standalone';
-        return `<section class="processing-context" aria-label="业务端与流程说明"><div class="processing-context-item"><span>所属业务端 / Business end</span><strong>${esc(businessEnds[meta.end].label)}</strong></div><div class="processing-context-item"><span>业务来源 / Source</span><strong>${esc(source)}</strong></div><div class="processing-context-item"><span>提交后流程 / After submit</span><strong>${esc(meta.process)}</strong></div><div class="processing-context-item"><span>异常处理 / Exception</span><strong>${esc(meta.exception)}</strong></div></section>`;
+        return `<section class="processing-context" aria-label="业务端与流程说明"><div class="processing-context-item"><span>所属业务端 / Business end</span><strong>${esc(businessEnds[flowEnd].label)}</strong></div><div class="processing-context-item"><span>业务来源 / Source</span><strong>${esc(source)}</strong></div><div class="processing-context-item"><span>提交后流程 / After submit</span><strong>${esc(meta.process)}</strong></div><div class="processing-context-item"><span>异常处理 / Exception</span><strong>${esc(meta.exception)}</strong></div></section>`;
       }
 
       function renderFlowInformation(flow, step = null, compact = false) {
@@ -3524,6 +3682,7 @@
         const flow = state.lastResult;
         const reference = state.created[flow];
         const meta = processMeta[flow];
+        const resultEnd = businessEndForFlow(flow);
         const status = state.workflow[flow];
         const completed = status === 'approved' || status === 'confirmed' || status === 'completed';
         const currentStatus = completed ? meta.approvedStatus : meta.pendingStatus;
@@ -3533,7 +3692,7 @@
           : meta.pendingDetail;
         const progress = renderLifecycleMap(null);
         const processState = completed ? 'Process updated' : 'Document submitted';
-        $('#reviewWorkspace').innerHTML = `<div class="review-scroll"><div class="review-page"><div class="result-wrap"><section class="review-surface result-card"><div class="result-hero"><div class="result-copy"><span class="result-eyebrow">${processState}</span><h1>${esc(currentStatus)}</h1><p>${flow} 已提交至${esc(businessEnds[meta.end].label)}。${completed ? '任务中心与关联流程已更新。' : esc(meta.pendingDetail)}</p><div class="result-reference"><span>Reference</span><strong>${esc(reference)}</strong><span class="review-chip">${completed ? 'Processed' : 'Submitted'}</span></div></div><img class="result-art" src="assets/isales-demo-graphics-otd2-blue/submit-success.png" alt="Submitted business document and updated process status"></div><div class="result-processing"><div class="result-processing-item"><span>业务端 / Business end</span><strong>${esc(businessEnds[meta.end].label)}</strong></div><div class="result-processing-item"><span>当前状态 / Current status</span><strong>${esc(currentStatus)}</strong></div><div class="result-processing-item"><span>提交后流程 / Process</span><strong>${esc(meta.process)}</strong></div><div class="result-processing-item"><span>下一条件 / Next condition</span><strong>${esc(unlock)}</strong></div></div><div class="result-progress journey" aria-label="Document lifecycle">${progress}</div><div class="result-footer"><div class="result-next-copy"><span>${processState}</span><strong>返回任务中心查看关联记录</strong><p>${esc(detail)}</p></div><div class="result-actions"><button class="zds-button" data-action="noop" type="button">View submitted ${flow}</button><button class="zds-button primary" data-action="go-home" type="button">Back to task home</button></div></div></section></div></div></div>`;
+        $('#reviewWorkspace').innerHTML = `<div class="review-scroll"><div class="review-page"><div class="result-wrap"><section class="review-surface result-card"><div class="result-hero"><div class="result-copy"><span class="result-eyebrow">${processState}</span><h1>${esc(currentStatus)}</h1><p>${flow} 已提交至${esc(businessEnds[resultEnd].label)}。${completed ? '任务中心与关联流程已更新。' : esc(meta.pendingDetail)}</p><div class="result-reference"><span>Reference</span><strong>${esc(reference)}</strong><span class="review-chip">${completed ? 'Processed' : 'Submitted'}</span></div></div><img class="result-art" src="assets/isales-demo-graphics-otd2-blue/submit-success.png" alt="Submitted business document and updated process status"></div><div class="result-processing"><div class="result-processing-item"><span>业务端 / Business end</span><strong>${esc(businessEnds[resultEnd].label)}</strong></div><div class="result-processing-item"><span>当前状态 / Current status</span><strong>${esc(currentStatus)}</strong></div><div class="result-processing-item"><span>提交后流程 / Process</span><strong>${esc(meta.process)}</strong></div><div class="result-processing-item"><span>下一条件 / Next condition</span><strong>${esc(unlock)}</strong></div></div><div class="result-progress journey" aria-label="Document lifecycle">${progress}</div><div class="result-footer"><div class="result-next-copy"><span>${processState}</span><strong>返回任务中心查看关联记录</strong><p>${esc(detail)}</p></div><div class="result-actions"><button class="zds-button" data-action="noop" type="button">View submitted ${flow}</button><button class="zds-button primary" data-action="go-home" type="button">Back to task home</button></div></div></section></div></div></div>`;
       }
 
       function startFlow(flow, mode = 'standalone', chain = false, sourceType = 'ANY') {
@@ -3541,7 +3700,6 @@
           toast('当前没有可用于创建 DN 的 PR / PO 剩余数量。');
           return;
         }
-        state.businessEnd = flow === 'PO' ? 'po' : 'prdn';
         state.flow = flow;
         state.route = 'create';
         state.createMode = mode;
@@ -3549,6 +3707,7 @@
         state.steps[flow] = 0;
         state.errors = {};
         applyLinkedCarry(flow, mode, sourceType);
+        state.businessEnd = businessEndForFlow(flow, sourceType);
         renderAll();
         scrollWorkspaceTop();
       }
@@ -4135,7 +4294,7 @@
       $('#reviewMask').addEventListener('click', closeOverlay);
 
       window.__ISALES_DEMO__ = Object.freeze({
-        version: 'otd2-blue-menu-workbench-v3',
+        version: 'otd2-blue-responsive-audit-v4',
         getState: () => ({
           language: state.language,
           variant: state.variant,
