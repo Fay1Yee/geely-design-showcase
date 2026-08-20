@@ -1083,13 +1083,16 @@
     .collab-flow-card h2 { margin: 0 0 18px; font-size: 15px; }
     .collab-flow-card > p { margin: 4px 0 18px; color: var(--zds-color-text-secondary); font-size: 11px; }
     .lifecycle-map { display: grid; grid-template-columns: repeat(5, minmax(70px, 1fr)); align-items: center; gap: 0; }
-    .life-node { position: relative; min-width: 0; min-height: 72px; padding: 10px 8px; background: #fff; border: 1px solid #dfe3ea; border-radius: 7px; text-align: center; }
-    .life-node.active { color: #fff; background: var(--zds-color-brand-primary); border-color: var(--zds-color-brand-primary); }
-    .life-node.done { color: #0d6947; background: var(--review-green-soft); border-color: #bfe3d4; }
-    .life-node.pending { color: #75410d; background: #fff8e7; border-color: #efd79f; }
-    .life-node.ready { color: #8c2c20; background: var(--zds-color-brand-primary-active); border-color: #ffc9bc; }
+    .life-node { position: relative; min-width: 0; min-height: 88px; padding: 9px 8px; color: var(--zds-color-text-primary); background: #fff; border: 1px solid #d4d7dc; border-radius: 7px; text-align: center; }
+    .life-node.active { color: var(--zds-color-text-primary); background: #fff; border-color: var(--zds-color-brand-primary); box-shadow: inset 0 0 0 1px rgba(255,88,65,.18); }
+    .life-node.active::before { content: ""; position: absolute; top: 7px; left: 50%; width: 6px; height: 6px; background: var(--zds-color-brand-primary); border-radius: 50%; transform: translateX(-50%); }
+    .life-node.active strong { color: var(--zds-color-brand-primary); }
+    .life-node.done { color: var(--zds-color-text-primary); background: #fafafa; border-color: #b8b8b8; }
+    .life-node.pending { color: var(--zds-color-text-secondary); background: #fff; border-color: #d4d7dc; }
+    .life-node.ready { color: #8c2c20; background: #fff8f5; border-color: #ffc9bc; }
     .life-node strong { display: block; font-size: 11px; }
     .life-node span { display: block; overflow: hidden; margin-top: 2px; font-size: 9px; opacity: .72; text-overflow: ellipsis; white-space: nowrap; }
+    .life-node small { display: block; overflow: hidden; margin-top: 3px; font-size: 8px; line-height: 12px; opacity: .66; text-overflow: ellipsis; white-space: nowrap; }
     .life-node em { display: block; margin-top: 5px; font-size: 8px; font-style: normal; font-weight: 700; opacity: .9; }
     .life-arrow { position: relative; height: 1px; background: #bfc7d3; }
     .life-arrow::after { content: ""; position: absolute; right: -1px; top: -3px; width: 6px; height: 6px; border-top: 1px solid #8892a0; border-right: 1px solid #8892a0; transform: rotate(45deg); }
@@ -2084,7 +2087,7 @@
           ['.review-sidebar', 'sidenavigation'],
           ['.review-workspace', 'shell-content'],
           ['.review-nav-item', 'side-navigation-item'],
-          ['.zds-button, .variant-button, .mode-button', 'button'],
+          ['.zds-button, .variant-button, .mode-button, .demo-role-pill, .demo-role-option', 'button'],
           ['.review-control input', 'text-input'],
           ['.review-control select, .review-select-trigger', 'select'],
           ['.review-surface', 'panel'],
@@ -2098,7 +2101,7 @@
           ['.review-toast', 'notification']
         ];
         map.forEach(([selector, component]) => $$(selector).forEach(node => node.setAttribute('data-zds-component', component)));
-        $$('.zds-button, .variant-button, .mode-button').forEach(button => {
+        $$('.zds-button, .variant-button, .mode-button, .demo-role-pill, .demo-role-option').forEach(button => {
           const variant = button.classList.contains('primary') || button.classList.contains('active') ? 'primary' : 'tertiary';
           button.setAttribute('data-zds-variant', variant);
         });
@@ -2235,11 +2238,24 @@
       }
 
       function renderPriorityQueue() {
-        const rows = [
-          ['PO-DEMO-004', 'Pending approval', 'Due today', 'Open'],
-          ['PR-DEMO-004', 'Rejected', 'Owner action', 'Review'],
-          ['DN-DEMO-002', 'Delivery confirmation', 'Tomorrow', 'Open']
-        ];
+        const rowsByRole = {
+          pr_creator: [
+            ['PR-DEMO-004', '退回补充', '当前角色处理', 'Review'],
+            ['PR-DEMO-006', 'Draft', 'Today', 'Open'],
+            ['PR-DEMO-007', '已移交审核', 'Read only', 'Track']
+          ],
+          po_processor: [
+            ['PR-DEMO-007', '等待 PR 审核', '当前角色处理', 'Review'],
+            ['PO-DEMO-004', 'PO processing', 'Due today', 'Open'],
+            ['PO-DEMO-002', 'Draft', 'Today', 'Open']
+          ],
+          dn_processor: [
+            ['PO-DEMO-004', '等待 PO 后续处理', '当前角色处理', 'Review'],
+            ['DN-DEMO-002', 'Delivery confirmation', 'Tomorrow', 'Open'],
+            ['DN-DEMO-001', 'Ready for handover', 'Today', 'Open']
+          ]
+        };
+        const rows = rowsByRole[state.demoRole];
         return `<section class="review-surface"><div class="review-section-head"><div><h2>当前角色队列 / Role queue</h2><p>${esc(roleLabel(state.demoRole))}</p></div><div class="review-section-actions"><span class="review-chip">3 items</span></div></div><div class="priority-list">${rows.map(row => `<div class="priority-row"><strong>${row[0]}</strong><span>${row[1]}</span><span class="review-muted">${row[2]}</span><button class="zds-button small" data-action="noop" type="button">${row[3]}</button></div>`).join('')}</div></section>`;
       }
 
@@ -2272,8 +2288,8 @@
           const ready = status === 'ready';
           const active = flow === activeFlow;
           const nodeClass = active ? 'active' : done ? 'done' : pending ? 'pending' : ready ? 'ready' : '';
-          const node = `<div class="life-node ${nodeClass}"><strong>${flow}</strong><span>${flowMeta[flow].task}</span><em>${workflowStatusLabel(flow)}</em></div>`;
-          const gate = flow === 'PR' ? 'PR 通过后解锁' : '订单确认后解锁';
+          const node = `<div class="life-node ${nodeClass}" title="${esc(roleLabel(processMeta[flow].actorRole))}"><strong>${flow}</strong><span>${flowMeta[flow].task}</span><small>${demoRoles[processMeta[flow].actorRole].code} · 待业务确认</small><em>${workflowStatusLabel(flow)}</em></div>`;
+          const gate = flow === 'PR' ? '审核后移交 ROLE B' : '确认后移交 ROLE C';
           return index < nodes.length - 1 ? `${node}<span class="life-arrow"><span class="life-gate">${gate}</span></span>` : node;
         }).join('')}</div>`;
       }
@@ -2409,7 +2425,7 @@
         const source = state.createMode === 'linked'
           ? `${flow === 'PO' ? 'PR' : flow === 'DN' ? 'PO' : 'Chain start'} · ${state.forms[flow].sourceRef || '待选择'}`
           : '单独创建 / Standalone';
-        return `<section class="processing-context" aria-label="当前操作与后台流转说明"><div class="processing-context-item"><span>当前操作人 / Current operator</span><strong>${esc(meta.operator)}</strong></div><div class="processing-context-item"><span>业务来源 / Source</span><strong>${esc(source)}</strong></div><div class="processing-context-item"><span>提交后 / After submission</span><strong>${esc(meta.background)}</strong></div><div class="processing-context-item"><span>异常处理 / Exception</span><strong>${esc(meta.exception)}</strong></div></section>`;
+        return `<section class="processing-context" aria-label="当前角色与任务交接说明"><div class="processing-context-item"><span>当前处理角色 / Current role</span><strong>${esc(roleLabel(meta.actorRole))}</strong></div><div class="processing-context-item"><span>业务来源 / Source</span><strong>${esc(source)}</strong></div><div class="processing-context-item"><span>提交后移交 / Handoff after submit</span><strong>${esc(roleLabel(meta.nextRole))}</strong></div><div class="processing-context-item"><span>异常返回 / Exception return</span><strong>${esc(meta.exception)}</strong></div></section>`;
       }
 
       function renderFlowInformation(flow, step = null, compact = false) {
@@ -2487,9 +2503,9 @@
 
       function guideInstruction(flow, step) {
         const copy = {
-          PR: ['先确认需求属于哪个经销商与门店，再进入车辆选择。', '只选择本次需要的车型与数量；库存提示仅为虚拟数据。', '确认期望日期与地址。提交后进入审核，通过后在任务中心解锁关联 PO。'],
-          PO: ['选择 Dealer PR 可自动带入车型与数量；也可以切换为单独创建。', '核对自动带入的数据，必要时可直接调整。', '完成贸易与付款条款。提交后等待订单确认，条件满足后解锁关联 DN。'],
-          DN: ['选择关联 PO 可带入经销商与车辆上下文；也可独立创建。', '分配虚拟 VIN 批次并选择出库仓库。', '确认交接信息后提交，后续交付状态可在任务中心跟进。']
+          PR: ['先确认需求属于哪个经销商与门店，再进入车辆选择。', '只选择本次需要的车型与数量；库存提示仅为虚拟数据。', '确认期望日期与地址。提交后移交角色 B（待业务确认）审核。'],
+          PO: ['选择 Dealer PR 可自动带入车型与数量；也可以切换为单独创建。', '核对自动带入的数据，必要时可直接调整。', '完成贸易与付款条款。提交后移交角色 C（待业务确认）处理 PO 后续任务。'],
+          DN: ['选择关联 PO 可带入经销商与车辆上下文；也可独立创建。', '分配虚拟 VIN 批次并选择出库仓库。', '确认交接信息后提交，任务进入角色 C（待业务确认）的交付队列。']
         };
         return copy[flow][step];
       }
@@ -2566,7 +2582,7 @@
           PO: {
             file: 'po-source-relation.svg?v=4',
             alt: 'Purchase order source relationship showing linked Dealer PR and standalone entry converging on review, commercial terms and purchase order',
-            labels: ['PR / Standalone', 'Subsidiary check', 'Commercial terms', 'Purchase Order']
+            labels: ['PR / Standalone', 'Review (TBC)', 'Commercial terms', 'Purchase Order']
           },
           DN: {
             file: 'dn-delivery-flow.svg?v=2',
@@ -2606,10 +2622,9 @@
         const status = state.workflow[flow];
         const completed = status === 'approved' || status === 'confirmed' || status === 'completed';
         const currentStatus = completed ? meta.approvedStatus : meta.pendingStatus;
-        const background = completed ? '后台处理已完成' : meta.background;
         const unlock = flow === 'DN' && completed ? '当前关联链路已完成' : meta.unlock;
         const detail = completed
-          ? flow === 'DN' ? '完整的 PR、PO 与 DN 关联记录已保留在任务中心。' : '条件已满足，返回任务中心后可以处理已解锁的下一阶段。'
+          ? flow === 'DN' ? '完整的 PR、PO 与 DN 关联记录已保留在任务中心。' : '条件已满足，下一阶段任务已经进入对应角色队列。'
           : meta.pendingDetail;
         const lifecycle = ['PR', 'PO', 'DN'];
         const stages = lifecycle.map((node) => {
@@ -2618,13 +2633,18 @@
           const isCurrent = node === flow || nodeStatus === 'ready';
           const stageClass = isDone ? 'done' : isCurrent ? 'next' : '';
           const label = node === 'PR' ? 'Purchase request' : node === 'PO' ? 'Purchase order' : 'Delivery note';
-          return `<div class="result-stage ${stageClass}"><span class="result-stage-mark">${node}</span><span class="result-stage-copy"><strong>${label}</strong><span>${workflowStatusLabel(node)}</span></span></div>`;
+          return `<div class="result-stage ${stageClass}"><span class="result-stage-mark">${node}</span><span class="result-stage-copy"><strong>${label} · ${demoRoles[processMeta[node].actorRole].code}</strong><span>${workflowStatusLabel(node)} · 岗位待确认</span></span></div>`;
         });
         const progress = `${stages[0]}<span class="result-progress-line ${state.workflow.PR === 'approved' ? 'done' : ''}"></span>${stages[1]}<span class="result-progress-line ${state.workflow.PO === 'confirmed' ? 'done' : ''}"></span>${stages[2]}`;
-        $('#reviewWorkspace').innerHTML = `<div class="review-scroll"><div class="review-page"><div class="result-wrap"><section class="review-surface result-card"><div class="result-hero"><div class="result-copy"><span class="result-eyebrow">${completed ? 'Background process complete' : 'Document submitted'}</span><h1>${esc(currentStatus)}</h1><p>当前登录用户的 ${flow} 操作已完成。${completed ? '后续任务已更新到任务中心。' : '系统会继续后台处理，无需切换操作人。'}</p><div class="result-reference"><span>Reference</span><strong>${esc(reference)}</strong><span class="review-chip">${completed ? 'Ready' : 'Submitted'}</span></div></div><img class="result-art" src="assets/isales-demo-graphics/submit-success.png" alt="Submitted business document waiting for background processing"></div><div class="result-processing"><div class="result-processing-item"><span>当前操作人</span><strong>${esc(meta.operator)}</strong></div><div class="result-processing-item"><span>当前状态</span><strong>${esc(currentStatus)}</strong></div><div class="result-processing-item"><span>后台处理</span><strong>${esc(background)}</strong></div><div class="result-processing-item"><span>下一解锁条件</span><strong>${esc(unlock)}</strong></div></div><div class="result-progress" aria-label="PR to PO to DN lifecycle">${progress}</div><div class="result-footer"><div class="result-next-copy"><span>${completed ? 'Task center updated' : 'Current user action'}</span><strong>${completed ? '返回任务中心查看已解锁任务' : '当前无需继续操作'}</strong><p>${esc(detail)}</p></div><div class="result-actions"><button class="zds-button" data-action="noop" type="button">View submitted ${flow}</button><button class="zds-button primary" data-action="go-home" type="button">Back to task home</button></div></div></section></div></div></div>`;
+        $('#reviewWorkspace').innerHTML = `<div class="review-scroll"><div class="review-page"><div class="result-wrap"><section class="review-surface result-card"><div class="result-hero"><div class="result-copy"><span class="result-eyebrow">${completed ? 'Role processing complete' : 'Document submitted · Role handoff'}</span><h1>${esc(currentStatus)}</h1><p>${esc(roleLabel(meta.actorRole))}的 ${flow} 操作已完成。${completed ? '任务中心与关联链路已更新。' : `任务已经移交至${roleLabel(meta.nextRole)}的队列。`}</p><div class="result-reference"><span>Reference</span><strong>${esc(reference)}</strong><span class="review-chip">${completed ? 'Processed' : 'Handed off'}</span></div></div><img class="result-art" src="assets/isales-demo-graphics/submit-success.png" alt="Submitted business document handed off to the next role queue"></div><div class="result-processing"><div class="result-processing-item"><span>本次提交角色 / Submitted by</span><strong>${esc(roleLabel(meta.actorRole))}</strong></div><div class="result-processing-item"><span>当前状态 / Current status</span><strong>${esc(currentStatus)}</strong></div><div class="result-processing-item"><span>当前任务队列 / Assigned queue</span><strong>${esc(roleLabel(meta.nextRole))}</strong></div><div class="result-processing-item"><span>下一解锁条件 / Next unlock</span><strong>${esc(unlock)}</strong></div></div><div class="result-progress" aria-label="PR to PO to DN lifecycle">${progress}</div><div class="result-footer"><div class="result-next-copy"><span>${completed ? 'Task center updated' : 'Role handoff complete'}</span><strong>${completed ? '返回任务中心查看关联任务' : '当前提交角色的任务已结束'}</strong><p>${esc(detail)}</p></div><div class="result-actions"><button class="zds-button" data-action="noop" type="button">View submitted ${flow}</button><button class="zds-button primary" data-action="go-home" type="button">Back to task home</button></div></div></section></div></div></div>`;
       }
 
       function startFlow(flow, mode = 'standalone', chain = false) {
+        if (!canActOnFlow(flow)) {
+          toast(`当前演示视角不能处理 ${flow}；需要切换至 ${roleLabel(processMeta[flow].actorRole)}。`);
+          openTools();
+          return;
+        }
         if (mode === 'linked' && !isLinkedReady(flow)) {
           toast(flow === 'PO' ? '关联 PO 将在 PR 审核通过后解锁。' : '关联 DN 将在 PO 确认后解锁。');
           return;
@@ -2749,39 +2769,61 @@
 
       function workflowSimulationData() {
         if (state.workflow.PR === 'pending_review') {
-          return { flow: 'PR', label: 'Simulate PR approved', description: '模拟后台完成 PR 审核，然后在任务中心解锁关联 PO。' };
+          return { flow: 'PR', requiredRole: 'po_processor', label: '完成 PR 审核并生成 PO 任务', description: '由角色 B（待业务确认）处理 PR 审核；完成后，关联 PO 进入该角色的任务队列。' };
         }
         if (state.workflow.PO === 'pending_confirmation') {
-          return { flow: 'PO', label: 'Simulate PO confirmed', description: '模拟订单确认和车辆分配完成，然后解锁关联 DN。' };
+          return { flow: 'PO', requiredRole: 'dn_processor', label: '完成 PO 后续处理并生成 DN 任务', description: '由角色 C（待业务确认）处理 PO 确认与车辆分配；完成后，关联 DN 进入该角色队列。' };
         }
         if (state.workflow.DN === 'pending_delivery') {
-          return { flow: 'DN', label: 'Simulate delivery completed', description: '模拟交付执行完成，结束当前关联链路。' };
+          return { flow: 'DN', requiredRole: 'dn_processor', label: '完成交付处理', description: '由角色 C（待业务确认）完成交付执行与确认，结束当前关联链路。' };
         }
-        return { flow: null, label: 'No background step pending', description: '提交单据后，这里会出现对应的后台状态推进控制。' };
+        return { flow: null, requiredRole: null, label: '暂无待处理的交接任务', description: '提交单据后，这里会显示下一角色需要完成的演示任务。' };
       }
 
       function advanceWorkflow() {
         const simulation = workflowSimulationData();
         if (!simulation.flow) return;
+        if (state.demoRole !== simulation.requiredRole) {
+          toast(`该任务属于 ${roleLabel(simulation.requiredRole)}，请先切换演示视角。`);
+          return;
+        }
         if (simulation.flow === 'PR') {
           state.workflow.PR = 'approved';
           state.workflow.PO = 'ready';
-          toast('PR 已模拟审核通过，关联 PO 已在任务中心解锁。', 'success');
+          toast('角色 B 已完成 PR 审核，关联 PO 已进入当前角色队列。', 'success');
         } else if (simulation.flow === 'PO') {
           state.workflow.PO = 'confirmed';
           state.workflow.DN = 'ready';
-          toast('PO 已模拟确认，关联 DN 已在任务中心解锁。', 'success');
+          toast('角色 C 已完成 PO 后续处理，关联 DN 已进入当前角色队列。', 'success');
         } else {
           state.workflow.DN = 'completed';
-          toast('交付已模拟完成，当前关联链路已结束。', 'success');
+          toast('角色 C 已完成交付处理，当前关联链路已结束。', 'success');
         }
         renderAll();
       }
 
+      function switchDemoRole(roleKey) {
+        if (!demoRoles[roleKey] || state.demoRole === roleKey) {
+          closeOverlay();
+          return;
+        }
+        state.demoRole = roleKey;
+        state.route = 'home';
+        state.flow = null;
+        state.errors = {};
+        closeOverlay();
+        renderAll();
+        scrollWorkspaceTop();
+        toast(`演示视角已切换：${roleLabel(roleKey)}。`, 'success');
+      }
+
       function renderTools() {
         const simulation = workflowSimulationData();
+        const canAdvance = Boolean(simulation.flow && state.demoRole === simulation.requiredRole);
+        const roleOptions = Object.entries(demoRoles).map(([roleKey, role]) => `<button class="demo-role-option ${state.demoRole === roleKey ? 'active' : ''}" data-action="switch-demo-role" data-role="${roleKey}" type="button"><span class="role-code">${role.code}</span><strong>${esc(role.label)}</strong><span>${esc(role.description)}</span></button>`).join('');
         $('#toolsBody').innerHTML = `
-          <div class="tool-card"><strong>Linked workflow timing</strong><p>${simulation.description}</p><button class="zds-button ${simulation.flow ? 'primary' : ''}" data-action="advance-workflow" type="button" ${simulation.flow ? '' : 'disabled aria-disabled="true"'}>${simulation.label}</button></div>
+          <div class="tool-card"><strong>演示角色视角 · Demo only</strong><p>此处只控制评审时看到的角色账号与任务队列，不属于正式产品功能。具体岗位名称和权限均待业务确认。</p><div class="demo-role-options">${roleOptions}</div></div>
+          <div class="tool-card"><strong>下一角色任务</strong><p>${simulation.description}</p><button class="zds-button ${canAdvance ? 'primary' : ''}" data-action="advance-workflow" type="button" ${canAdvance ? '' : 'disabled aria-disabled="true"'}>${simulation.flow && !canAdvance ? `请先切换至 ${demoRoles[simulation.requiredRole].code}` : simulation.label}</button></div>
           <div class="tool-card"><strong>Network Error ${state.networkArmed ? '<span class="tool-state">ARMED</span>' : ''}</strong><p>下一次提交返回 503。弹窗会说明原因、保留表单数据，并允许 Retry 成功。</p><button class="zds-button ${state.networkArmed ? '' : 'primary'}" data-action="arm-network" type="button">${state.networkArmed ? 'Cancel simulation' : 'Arm next submission'}</button></div>
           <div class="tool-card"><strong>Required-field validation</strong><p>进入当前流程并清空一个必填字段，便于直接评审错误说明与数据保留。</p><button class="zds-button" data-action="validation-demo" type="button">Trigger validation demo</button></div>
           <div class="tool-card"><strong>Variant state</strong><p>方案切换共用同一组 PR、PO、DN Mock Data；创建中的字段不会因切换方案丢失。</p><span class="review-chip">${variants[state.variant].name}</span> <span class="review-chip">${state.route}</span></div>
@@ -3042,6 +3084,7 @@
         if (action === 'go-home') {
           state.route = 'home'; state.flow = null; state.errors = {}; renderAll(); scrollWorkspaceTop();
         } else if (action === 'open-tools') openTools();
+        else if (action === 'switch-demo-role') switchDemoRole(actionNode.dataset.role);
         else if (action === 'open-columns') openColumns();
         else if (action === 'open-pr-picker') openPrPicker();
         else if (action === 'close-pr-picker') closeOverlay();
