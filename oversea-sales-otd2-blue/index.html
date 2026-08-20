@@ -1860,6 +1860,31 @@
     .pr-picker-table .source-fulfilled { opacity: .58; }
     .pr-picker-table .source-fulfilled .record-link { color: var(--zds-color-text-tertiary); cursor: not-allowed; }
 
+    /* Sidebar destinations use one restrained workbench shell instead of boxed placeholder pages. */
+    .module-page-header { align-items: flex-end; margin-bottom: 0; padding-bottom: 18px; border-bottom: 1px solid var(--zds-color-divider-primary); }
+    .module-page-header h1 { margin-top: 2px; }
+    .module-page-header p { max-width: 720px; }
+    .module-eyebrow { color: var(--zds-color-brand-primary); font-size: 12px; font-weight: 600; line-height: 18px; }
+    .module-metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin-bottom: 14px; border-bottom: 1px solid var(--zds-color-divider-primary); }
+    .module-metrics > div { min-height: 78px; padding: 14px 16px 14px 0; }
+    .module-metrics > div + div { padding-left: 18px; border-left: 1px solid var(--zds-color-divider-primary); }
+    .module-metrics span { display: block; color: var(--zds-color-text-tertiary); font-size: 12px; line-height: 18px; }
+    .module-metrics strong { display: block; margin-top: 3px; font-size: 24px; line-height: 32px; }
+    .module-table-panel { overflow: hidden; }
+    .module-toolbar { display: flex; min-height: 48px; align-items: center; gap: 16px; padding: 0 14px; border-bottom: 1px solid var(--zds-color-divider-primary); }
+    .module-filters { display: flex; align-self: stretch; gap: 22px; }
+    .module-filter { position: relative; display: inline-flex; align-items: center; gap: 6px; padding: 0; color: var(--zds-color-text-secondary); background: transparent; border: 0; cursor: pointer; font: inherit; }
+    .module-filter::after { position: absolute; right: 0; bottom: 0; left: 0; height: 2px; background: transparent; content: ''; }
+    .module-filter.active { color: var(--zds-color-brand-primary); font-weight: 600; }
+    .module-filter.active::after { background: var(--zds-color-brand-primary); }
+    .module-filter span { min-width: 20px; padding: 0 5px; color: var(--zds-color-text-tertiary); background: #f2f3f5; border-radius: 9px; font-size: 11px; line-height: 18px; text-align: center; }
+    .module-filter.active span { color: #2355d9; background: #eef3ff; }
+    .module-toolbar-meta { display: flex; align-items: center; gap: 10px; margin-left: auto; color: var(--zds-color-text-tertiary); font-size: 12px; }
+    .module-table { min-width: 1240px; }
+    .module-table th:last-child,
+    .module-table td:last-child { position: sticky; right: 0; min-width: 108px; background: #fff; box-shadow: -1px 0 0 var(--zds-color-divider-primary); }
+    .module-table tbody tr:hover td:last-child { background: #f4f7ff; }
+
     @media (max-width: 1100px) {
       .home-filter-grid,
       .review-shell[data-language="en"] .home-filter-grid { grid-template-columns: repeat(3, minmax(140px, 1fr)); }
@@ -1869,6 +1894,11 @@
       .fulfillment-progress-row { grid-template-columns: 90px 1fr; }
       .fulfillment-progress-row p { grid-column: 1 / -1; padding-bottom: 10px; }
       .detail-key-info { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .module-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .module-metrics > div:nth-child(3) { border-left: 0; }
+      .module-toolbar { align-items: flex-start; flex-direction: column; padding: 10px 14px; }
+      .module-filters { min-height: 34px; }
+      .module-toolbar-meta { margin-left: 0; }
     }
   </style>
   <script id="isales-otd2-blue-app">
@@ -2111,8 +2141,11 @@
         columnWidths: {},
         lastResult: null,
         selectedRecord: null,
+        detailReturnModule: null,
         recordDetailTab: 'Basic Information',
         selectedSourceCandidate: 'PR-DEMO-007',
+        activeModule: null,
+        moduleFilter: 'ALL',
         recordType: 'ALL',
         recordPage: 1,
         recordPageSize: 4,
@@ -2156,6 +2189,36 @@
         { reference: 'PR-DEMO-004', type: 'PR', source: 'Standalone', vehicleBrand: 'ZEEKR', region: 'EU', country: 'Sweden', company: 'Aurora Dealer Demo', store: 'Stockholm Demo Store', dealer: 'Aurora Dealer Demo', vehicle: 'ZEEKR 7X · Demo', quantity: '6', totalAmount: '€417,846.53', currency: 'EUR', port: 'Gothenburg', paymentTerm: '30 days after invoice', delivery: '05 Oct 2026', status: 'Rejected', approval: 'Revise delivery date', owner: '—', created: '18 Aug · 14:02', updated: '18 Aug · 16:31' },
         { reference: 'PO-DEMO-002', type: 'PO', source: 'Standalone PO', vehicleBrand: 'ZEEKR', region: 'EU', country: 'Germany', company: 'Northstar Mobility Demo', store: 'Berlin Demo Store', dealer: 'Northstar Mobility Demo', vehicle: 'ZEEKR 001 · Demo', quantity: '10', totalAmount: '€649,900.00', currency: 'EUR', port: 'Bremerhaven', paymentTerm: '30 days after invoice', delivery: '08 Oct 2026', status: 'Draft', approval: '—', owner: '—', created: '18 Aug · 08:24', updated: '18 Aug · 09:52' }
       ];
+
+      const supportModuleRows = {
+        'upload-center': [
+          { reference: 'UPLOAD-DEMO-018', type: 'FILE', source: 'VIN allocation', company: 'ZEEKR Europe Demo', vehicle: 'VIN batch · 24 records', quantity: '24', port: 'EU Hub', delivery: '20 Aug · 16:32', status: 'Completed', updated: '20 Aug · 16:34' },
+          { reference: 'UPLOAD-DEMO-017', type: 'FILE', source: 'Retail report', company: 'Northstar Mobility Demo', vehicle: 'Retail report · 8 rows', quantity: '8', port: 'Spain', delivery: '20 Aug · 14:08', status: 'Processing', updated: '20 Aug · 14:09' },
+          { reference: 'UPLOAD-DEMO-016', type: 'FILE', source: 'Delivery document', company: 'Costa Retail Demo', vehicle: 'Packing list · 1 file', quantity: '1', port: 'Portugal', delivery: '19 Aug · 17:22', status: 'Needs review', updated: '19 Aug · 17:24' }
+        ],
+        'download-center': [
+          { reference: 'EXPORT-DEMO-011', type: 'EXPORT', source: 'Vehicle data', company: 'ZEEKR Europe Demo', vehicle: 'VIN & delivery status', quantity: '36', port: 'EU', delivery: '20 Aug · 16:45', status: 'Ready', updated: '20 Aug · 16:45' },
+          { reference: 'EXPORT-DEMO-010', type: 'EXPORT', source: 'PO fulfillment', company: 'Northstar Mobility Demo', vehicle: 'PO / DN relation', quantity: '12', port: 'Spain', delivery: '20 Aug · 13:56', status: 'Completed', updated: '20 Aug · 13:58' },
+          { reference: 'EXPORT-DEMO-009', type: 'EXPORT', source: 'Retail report', company: 'Costa Retail Demo', vehicle: 'Monthly retail data', quantity: '21', port: 'Portugal', delivery: '19 Aug · 18:20', status: 'Expired', updated: '20 Aug · 09:12' }
+        ]
+      };
+
+      const moduleConfigs = {
+        'upload-center': { title: '上传中心', eyebrow: '数据交换', subtitle: '集中导入 VIN、交付附件和零售数据，并追踪校验结果。', scope: 'CUSTOM', primary: '上传文件', task: '查看校验结果' },
+        'pr-list': { title: '申请列表', eyebrow: '采购申请', subtitle: '查询 PR、查看审核状态，并从列表进入单据详情。', scope: 'PR', primary: '+ 新建 PR', flow: 'PR', mode: 'standalone', task: '查看详情' },
+        'pr-review': { title: 'PR 审核', eyebrow: '采购申请', subtitle: '集中处理待审核、已通过和退回补充的采购申请。', scope: 'PR', primary: '批量分配审核人', task: '进入审核' },
+        'dn-list': { title: '交付单列表', eyebrow: '交付管理', subtitle: '查看全部 DN、履约来源、车辆数量及当前交付状态。', scope: 'DN', primary: '+ 创建 DN', flow: 'DN', mode: 'linked', sourceType: 'ANY', task: '查看详情' },
+        shipment: { title: '发运', eyebrow: '交付管理', subtitle: '跟进 VIN、订舱、装运和预计到港节点。', scope: 'DN_ACTIVE', primary: '更新发运状态', task: '跟进发运' },
+        acceptance: { title: '验收', eyebrow: '交付管理', subtitle: '登记到港、车辆交接和异常验收结果。', scope: 'DN_ACCEPTANCE', primary: '登记验收结果', task: '处理验收' },
+        retail: { title: '零售', eyebrow: '交付管理', subtitle: '维护经销商零售上报、缺失数据和报告状态。', scope: 'DN', primary: '新增零售报告', task: '维护报告' },
+        'vehicle-data': { title: '车辆数据', eyebrow: '交付管理', subtitle: '按 DN 查询车辆、VIN、仓库及交付状态。', scope: 'DN', primary: '导出车辆清单', task: '查看车辆' },
+        'po-list': { title: '订单列表', eyebrow: '采购订单', subtitle: '查询 PO、商务条款和订单确认状态。', scope: 'PO', primary: '+ 新建 PO', flow: 'PO', mode: 'standalone', task: '查看详情' },
+        'po-review': { title: '审核跟进', eyebrow: '采购订单', subtitle: '跟踪 PO 商务审核、确认进度和待处理节点。', scope: 'PO', primary: '批量催办', task: '查看审核' },
+        'po-fulfillment': { title: '履约与交付', eyebrow: '采购订单', subtitle: '查看 PO 余额、关联 DN 和分批交付进度。', scope: 'PO_FULFILLMENT', primary: '+ 按 PO 创建 DN', flow: 'DN', mode: 'linked', sourceType: 'PO', task: '查看履约' },
+        'po-exception': { title: '异常处理', eyebrow: '采购订单', subtitle: '处理草稿、退回、数量差异和履约异常。', scope: 'PO_EXCEPTION', primary: '创建处理单', task: '处理异常' },
+        inbound: { title: '入库', eyebrow: '采购订单', subtitle: '核对已确认订单、车辆到仓及入库结果。', scope: 'PO_APPROVED', primary: '确认入库', task: '查看入库' },
+        'download-center': { title: '下载中心', eyebrow: '数据交换', subtitle: '查看导出任务、下载状态和文件有效期。', scope: 'CUSTOM', primary: '新建导出任务', task: '下载文件' }
+      };
 
       const reviewStyle = document.getElementById('isales-otd2-blue-styles');
       if (reviewStyle) document.head.appendChild(reviewStyle);
@@ -2757,29 +2820,29 @@
       function renderSidebar() {
         const nav = state.businessEnd === 'prdn'
           ? `
-            ${sidebarLeaf('上传中心')}
-            ${sidebarGroup('pr', '采购申请', state.flow === 'PR' && state.route !== 'home', `
-              ${sidebarChild('申请列表')}
-              ${sidebarChild('PR 审核')}
+            ${sidebarLeaf('上传中心', 'upload-center')}
+            ${sidebarGroup('pr', '采购申请', (state.flow === 'PR' && state.route !== 'home') || ['pr-list', 'pr-review'].includes(state.activeModule), `
+              ${sidebarChild('申请列表', 'pr-list')}
+              ${sidebarChild('PR 审核', 'pr-review')}
             `)}
-            ${sidebarGroup('dn', '交付管理', state.flow === 'DN' && state.route !== 'home', `
-              ${sidebarChild('交付单列表')}
-              ${sidebarChild('发运')}
-              ${sidebarChild('验收')}
-              ${sidebarChild('零售')}
-              ${sidebarChild('车辆数据')}
+            ${sidebarGroup('dn', '交付管理', (state.flow === 'DN' && state.route !== 'home') || ['dn-list', 'shipment', 'acceptance', 'retail', 'vehicle-data'].includes(state.activeModule), `
+              ${sidebarChild('交付单列表', 'dn-list')}
+              ${sidebarChild('发运', 'shipment')}
+              ${sidebarChild('验收', 'acceptance')}
+              ${sidebarChild('零售', 'retail')}
+              ${sidebarChild('车辆数据', 'vehicle-data')}
             `)}
-            ${sidebarLeaf('下载中心')}`
+            ${sidebarLeaf('下载中心', 'download-center')}`
           : `
-            ${sidebarLeaf('上传中心')}
-            ${sidebarGroup('po', '采购订单', state.flow === 'PO' && state.route !== 'home', `
-              ${sidebarChild('订单列表')}
-              ${sidebarChild('审核跟进')}
-              ${sidebarChild('履约与交付')}
-              ${sidebarChild('异常处理')}
-              ${sidebarChild('入库')}
+            ${sidebarLeaf('上传中心', 'upload-center')}
+            ${sidebarGroup('po', '采购订单', (state.flow === 'PO' && state.route !== 'home') || ['po-list', 'po-review', 'po-fulfillment', 'po-exception', 'inbound'].includes(state.activeModule), `
+              ${sidebarChild('订单列表', 'po-list')}
+              ${sidebarChild('审核跟进', 'po-review')}
+              ${sidebarChild('履约与交付', 'po-fulfillment')}
+              ${sidebarChild('异常处理', 'po-exception')}
+              ${sidebarChild('入库', 'inbound')}
             `)}
-            ${sidebarLeaf('下载中心')}`;
+            ${sidebarLeaf('下载中心', 'download-center')}`;
         $('#reviewSidebar').innerHTML = `
           <nav class="review-nav">
             <button class="review-nav-item review-nav-root" data-action="go-home" type="button" title="销售">
@@ -2809,8 +2872,9 @@
         return `<span class="review-nav-chevron" aria-hidden="true"><svg preserveAspectRatio="none" overflow="visible" width="7" height="4" viewBox="0 0 6.66667 3.33333" fill="none"><path d="M0 3.33333L3.33333 0L6.66667 3.33333H0Z" fill="#316BF6"/></svg></span>`;
       }
 
-      function sidebarLeaf(label, action = 'noop', extraClass = '') {
-        return `<button class="review-nav-item review-nav-level-2 ${extraClass}" data-action="${action}" type="button" title="${label}"><span class="review-nav-icon review-nav-dot" aria-hidden="true"></span><span class="review-nav-text">${label}</span></button>`;
+      function sidebarLeaf(label, moduleId, extraClass = '') {
+        const active = state.route === 'module' && state.activeModule === moduleId;
+        return `<button class="review-nav-item review-nav-level-2 ${extraClass} ${active ? 'active' : ''}" data-action="open-module" data-module="${moduleId}" type="button" title="${label}"><span class="review-nav-icon review-nav-dot" aria-hidden="true"></span><span class="review-nav-text">${label}</span></button>`;
       }
 
       function sidebarStart(flow, label) {
@@ -2818,8 +2882,9 @@
         return `<button class="review-nav-item review-nav-child ${active ? 'active' : ''}" data-start="${flow}" data-mode="standalone" type="button" title="${label}"><span class="review-nav-text">${label}</span></button>`;
       }
 
-      function sidebarChild(label) {
-        return `<button class="review-nav-item review-nav-child" data-action="go-home" type="button" title="${label}"><span class="review-nav-text">${label}</span></button>`;
+      function sidebarChild(label, moduleId) {
+        const active = state.route === 'module' && state.activeModule === moduleId;
+        return `<button class="review-nav-item review-nav-child ${active ? 'active' : ''}" data-action="open-module" data-module="${moduleId}" type="button" title="${label}"><span class="review-nav-text">${label}</span></button>`;
       }
 
       function sidebarGroup(id, label, current, children) {
@@ -2838,10 +2903,74 @@
         if (state.route === 'create') return renderCreate();
         if (state.route === 'result') return renderResult();
         if (state.route === 'detail') return renderRecordDetail();
+        if (state.route === 'module') return renderModulePage();
         if (state.variant === 'guide') return renderGuideHome();
         if (state.variant === 'efficiency') return renderEfficiencyHome();
         state.variant = 'guide';
         return renderGuideHome();
+      }
+
+      function moduleRows(moduleId = state.activeModule) {
+        const config = moduleConfigs[moduleId];
+        if (!config) return [];
+        if (config.scope === 'CUSTOM') return [...(supportModuleRows[moduleId] || [])];
+        if (config.scope === 'PR' || config.scope === 'PO' || config.scope === 'DN') return mockRecords.filter(row => row.type === config.scope);
+        if (config.scope === 'DN_ACTIVE') return mockRecords.filter(row => row.type === 'DN' && row.status !== 'Draft');
+        if (config.scope === 'DN_ACCEPTANCE') return mockRecords.filter(row => row.type === 'DN' && ['In transit', 'Ready for shipment', 'Ready for handover'].includes(row.status));
+        if (config.scope === 'PO_FULFILLMENT') return mockRecords.filter(row => row.type === 'PO' || (row.type === 'DN' && String(row.source).startsWith('PO-')));
+        if (config.scope === 'PO_EXCEPTION') return mockRecords.filter(row => row.type === 'PO' && ['Draft', 'Rejected'].includes(row.status));
+        if (config.scope === 'PO_APPROVED') return mockRecords.filter(row => row.type === 'PO' && row.status === 'Approved');
+        return [];
+      }
+
+      function moduleStatusGroup(row) {
+        if (['Draft', 'Rejected', 'Needs review', 'Expired'].includes(row.status)) return 'TODO';
+        if (['Approved', 'Completed', 'Ready', 'Ready for handover'].includes(row.status)) return 'COMPLETED';
+        return 'IN_PROGRESS';
+      }
+
+      function filteredModuleRows() {
+        const rows = moduleRows();
+        return state.moduleFilter === 'ALL' ? rows : rows.filter(row => moduleStatusGroup(row) === state.moduleFilter);
+      }
+
+      function modulePrimaryAction(config) {
+        const flowData = config.flow
+          ? `data-flow="${config.flow}" data-mode="${config.mode || 'standalone'}" data-source-type="${config.sourceType || 'ANY'}"`
+          : '';
+        return `<button class="zds-button primary" data-action="module-primary" data-module-label="${esc(config.primary)}" ${flowData} type="button">${esc(config.primary)}</button>`;
+      }
+
+      function renderModulePage() {
+        const config = moduleConfigs[state.activeModule] || moduleConfigs[state.businessEnd === 'po' ? 'po-list' : 'pr-list'];
+        const allRows = moduleRows();
+        const rows = filteredModuleRows();
+        const todo = allRows.filter(row => moduleStatusGroup(row) === 'TODO').length;
+        const inProgress = allRows.filter(row => moduleStatusGroup(row) === 'IN_PROGRESS').length;
+        const completed = allRows.filter(row => moduleStatusGroup(row) === 'COMPLETED').length;
+        const quantity = allRows.reduce((sum, row) => sum + (Number(row.quantity) || 0), 0);
+        const filterButtons = [
+          ['ALL', '全部', allRows.length],
+          ['TODO', '待处理', todo],
+          ['IN_PROGRESS', '进行中', inProgress],
+          ['COMPLETED', '已完成', completed]
+        ].map(([value, label, count]) => `<button class="module-filter ${state.moduleFilter === value ? 'active' : ''}" data-action="module-filter" data-module-filter="${value}" type="button">${label}<span>${count}</span></button>`).join('');
+        const tableRows = rows.length ? rows.map(row => {
+          const businessRecord = ['PR', 'PO', 'DN'].includes(row.type);
+          const reference = businessRecord
+            ? `<button class="record-link" data-action="open-record-detail" data-reference="${esc(row.reference)}" type="button">${esc(row.reference)}</button>`
+            : `<button class="record-link" data-action="module-row-action" data-module-label="${esc(config.task)}" type="button">${esc(row.reference)}</button>`;
+          const action = businessRecord
+            ? `<button class="zds-button small" data-action="open-record-detail" data-reference="${esc(row.reference)}" type="button">${esc(config.task)}</button>`
+            : `<button class="zds-button small" data-action="module-row-action" data-module-label="${esc(config.task)}" type="button">${esc(config.task)}</button>`;
+          return `<tr><td>${reference}</td><td><span class="review-chip">${esc(row.type)}</span></td><td>${esc(row.source || '—')}</td><td><strong>${esc(row.company || row.dealer || '—')}</strong></td><td>${esc(row.vehicle || '—')}</td><td>${esc(row.quantity || '—')}</td><td>${esc(row.port || '—')}</td><td>${esc(row.delivery || row.updated || '—')}</td><td><span class="review-chip ${fulfillmentStatusClass(row.status)}">${esc(row.status)}</span></td><td>${action}</td></tr>`;
+        }).join('') : '<tr><td colspan="10"><div class="review-empty-note">当前筛选下没有待展示的业务记录。</div></td></tr>';
+        $('#reviewWorkspace').innerHTML = `<div class="review-scroll"><div class="review-page module-page">
+          <div class="review-breadcrumb"><button class="zds-button link" data-action="go-home" type="button">采购与交付</button><span>/</span><span>${esc(config.eyebrow)}</span><span>/</span><strong>${esc(config.title)}</strong></div>
+          <div class="review-page-header module-page-header"><div><span class="module-eyebrow">${esc(config.eyebrow)}</span><h1>${esc(config.title)}</h1><p>${esc(config.subtitle)}</p></div><div class="review-page-actions">${modulePrimaryAction(config)}</div></div>
+          <div class="module-metrics" role="list" aria-label="${esc(config.title)}统计"><div role="listitem"><span>全部记录</span><strong>${allRows.length}</strong></div><div role="listitem"><span>待处理</span><strong>${todo}</strong></div><div role="listitem"><span>进行中</span><strong>${inProgress}</strong></div><div role="listitem"><span>车辆 / 数据量</span><strong>${quantity}</strong></div></div>
+          <section class="review-surface module-table-panel"><div class="module-toolbar"><div class="module-filters" role="tablist">${filterButtons}</div><div class="module-toolbar-meta"><span>${rows.length} 条结果</span><button class="zds-button small" data-action="module-row-action" data-module-label="导出当前列表" type="button">导出</button></div></div><div class="records-wrap"><table class="review-records module-table" aria-label="${esc(config.title)}"><thead><tr><th>单据 / 任务</th><th>类型</th><th>来源 / 类别</th><th>公司</th><th>车辆 / 内容</th><th>数量</th><th>目的地</th><th>交付 / 更新时间</th><th>状态</th><th>操作</th></tr></thead><tbody>${tableRows}</tbody></table></div></section>
+        </div></div>`;
       }
 
       function homeHeader(title, subtitle, actions = '') {
@@ -3122,7 +3251,7 @@
         const detailAction = source && sourceRemainingQty(source) > 0 ? `<button class="zds-button primary" data-action="create-dn-from-record" data-source-ref="${esc(source.reference)}" type="button">+ 新建 DN</button>` : '<button class="zds-button primary" data-action="noop" type="button">编辑单据</button>';
         $('#reviewWorkspace').innerHTML = `<div class="review-scroll"><div class="review-page">
           <div class="review-breadcrumb"><button class="zds-button link" data-action="go-home" type="button">Procurement &amp; Delivery</button><span>/</span><span>${esc(flowMeta[row.type].title)}</span><span>/</span><strong>${esc(row.reference)}</strong></div>
-          <div class="review-page-header record-detail-head"><div><h1>${esc(row.reference)} <span class="review-chip blue">${esc(row.type)}</span></h1><p>${esc(row.company)} · ${esc(row.vehicle)} · ${esc(row.quantity)} vehicles</p></div><div class="review-page-actions"><span class="review-chip ${row.status === 'Rejected' ? 'danger' : row.status === 'Approved' || row.status === 'Ready for handover' ? 'green' : ''}">${esc(row.status)}</span><button class="zds-button" data-action="go-home" type="button">Back to list</button>${detailAction}</div></div>
+          <div class="review-page-header record-detail-head"><div><h1>${esc(row.reference)} <span class="review-chip blue">${esc(row.type)}</span></h1><p>${esc(row.company)} · ${esc(row.vehicle)} · ${esc(row.quantity)} vehicles</p></div><div class="review-page-actions"><span class="review-chip ${row.status === 'Rejected' ? 'danger' : row.status === 'Approved' || row.status === 'Ready for handover' ? 'green' : ''}">${esc(row.status)}</span><button class="zds-button" data-action="back-from-detail" type="button">Back to list</button>${detailAction}</div></div>
           <section class="review-surface record-detail-status" aria-label="Document status timeline">${stages}</section>
           ${source ? renderFulfillmentOverview(source, row) : ''}
           <section class="review-surface detail-tab-panel"><div class="record-detail-tabs" role="tablist">${tabButtons}</div><div class="detail-tab-content">${tabContent}</div></section>
@@ -3134,7 +3263,7 @@
         const flow = state.flow;
         const meta = flowMeta[flow];
         const modeText = flow === 'DN' ? 'PR / PO 分批履约' : '单独创建';
-        const header = `<div class="review-breadcrumb"><button class="zds-button link" data-action="go-home" type="button">Procurement &amp; Delivery</button><span>/</span><span>${meta.title}</span><span>/</span><strong>New</strong></div><div class="review-page-header"><div><h1>${meta.task}</h1><p>${meta.subtitle}</p></div><div class="review-page-actions"><span class="review-chip">${modeText}</span></div></div>${renderCreateContext()}${renderProcessingContext(flow)}`;
+        const header = `<div class="review-breadcrumb"><button class="zds-button link" data-action="go-home" type="button">Procurement &amp; Delivery</button><span>/</span><span>${meta.title}</span><span>/</span><strong>New</strong></div><div class="review-page-header"><div><h1>${meta.task}</h1><p>${meta.subtitle}</p></div><div class="review-page-actions"><span class="review-chip">${modeText}</span></div></div>`;
         let body = '';
         if (state.variant === 'guide') body = renderGuideCreate();
         else if (state.variant === 'efficiency') body = renderEfficiencyCreate();
@@ -3580,6 +3709,9 @@
         state.recordType = 'ALL';
         state.recordPage = 1;
         state.selectedRecord = null;
+        state.activeModule = null;
+        state.moduleFilter = 'ALL';
+        state.detailReturnModule = null;
         state.errors = {};
         closeOverlay();
         renderAll();
@@ -3882,7 +4014,33 @@
         if (!actionNode) return;
         const action = actionNode.dataset.action;
         if (action === 'go-home') {
-          state.route = 'home'; state.flow = null; state.errors = {}; renderAll(); scrollWorkspaceTop();
+          state.route = 'home'; state.flow = null; state.activeModule = null; state.detailReturnModule = null; state.errors = {}; renderAll(); scrollWorkspaceTop();
+        } else if (action === 'back-from-detail') {
+          state.route = state.detailReturnModule ? 'module' : 'home';
+          if (state.detailReturnModule) state.activeModule = state.detailReturnModule;
+          else state.activeModule = null;
+          state.selectedRecord = null;
+          state.detailReturnModule = null;
+          renderAll();
+          scrollWorkspaceTop();
+        } else if (action === 'open-module') {
+          const moduleId = actionNode.dataset.module;
+          if (!moduleConfigs[moduleId]) return;
+          state.activeModule = moduleId;
+          state.moduleFilter = 'ALL';
+          state.route = 'module';
+          state.flow = null;
+          state.errors = {};
+          renderAll();
+          scrollWorkspaceTop();
+        } else if (action === 'module-filter') {
+          state.moduleFilter = actionNode.dataset.moduleFilter || 'ALL';
+          renderAll();
+        } else if (action === 'module-primary') {
+          if (actionNode.dataset.flow) startFlow(actionNode.dataset.flow, actionNode.dataset.mode || 'standalone', false, actionNode.dataset.sourceType || 'ANY');
+          else toast(`${actionNode.dataset.moduleLabel}已在演示工作台中创建。`, 'success');
+        } else if (action === 'module-row-action') {
+          toast(`${actionNode.dataset.moduleLabel || '操作'}已完成演示。`, 'success');
         } else if (action === 'toggle-sidebar') {
           state.sidebarCollapsed = !state.sidebarCollapsed;
           renderAll();
@@ -3912,6 +4070,7 @@
           startFlow('DN', 'linked', false, source.type);
         }
         else if (action === 'open-record-detail') {
+          state.detailReturnModule = state.route === 'module' ? state.activeModule : null;
           state.selectedRecord = actionNode.dataset.reference;
           state.recordDetailTab = 'Basic Information';
           state.route = 'detail';
@@ -3976,13 +4135,15 @@
       $('#reviewMask').addEventListener('click', closeOverlay);
 
       window.__ISALES_DEMO__ = Object.freeze({
-        version: 'otd2-blue-multi-dn-v2',
+        version: 'otd2-blue-menu-workbench-v3',
         getState: () => ({
           language: state.language,
           variant: state.variant,
           businessEnd: state.businessEnd,
           route: state.route,
           flow: state.flow,
+          activeModule: state.activeModule,
+          moduleFilter: state.moduleFilter,
           createMode: state.createMode,
           created: { ...state.created },
           workflow: { ...state.workflow },
