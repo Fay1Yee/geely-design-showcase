@@ -1946,23 +1946,35 @@
         const labels = {
           PR: {
             available: '可创建',
-            pending_review: '后台审核中',
+            pending_review: '已进入审核队列',
             approved: '已审核通过'
           },
           PO: {
             locked: '等待 PR 通过',
-            ready: '已解锁',
-            pending_confirmation: '后台确认中',
+            ready: '已进入 PO 角色队列',
+            pending_confirmation: '已进入后续队列',
             confirmed: '已确认'
           },
           DN: {
             locked: '等待 PO 确认',
-            ready: '已解锁',
-            pending_delivery: '交付处理中',
+            ready: '已进入 DN 角色队列',
+            pending_delivery: '已进入交付队列',
             completed: '已完成'
           }
         };
         return labels[flow][state.workflow[flow]] || '待处理';
+      }
+
+      function roleLabel(roleKey) {
+        return demoRoles[roleKey]?.label || '待业务确认';
+      }
+
+      function roleShort(roleKey) {
+        return demoRoles[roleKey]?.short || '角色待确认';
+      }
+
+      function canActOnFlow(flow) {
+        return processMeta[flow]?.actorRole === state.demoRole;
       }
 
       function isLinkedReady(flow) {
@@ -1971,11 +1983,22 @@
 
       function renderLinkedStartButton(flow, label, classes = '') {
         const ready = isLinkedReady(flow);
+        const roleReady = canActOnFlow(flow);
         const waitingLabel = flow === 'PO' ? '等待 PR 通过' : flow === 'DN' ? '等待 PO 确认' : label;
-        const attributes = ready
+        const displayLabel = !ready ? waitingLabel : !roleReady ? `由${demoRoles[processMeta[flow].actorRole].code}处理` : label;
+        const attributes = ready && roleReady
           ? `data-start="${flow}" data-mode="${flow === 'PR' ? 'standalone' : 'linked'}" ${flow === 'PR' ? 'data-chain="true"' : ''}`
           : 'disabled aria-disabled="true"';
-        return `<button class="zds-button ${classes}" ${attributes} type="button">${ready ? label : waitingLabel}</button>`;
+        return `<button class="zds-button ${classes}" ${attributes} type="button" title="${ready && !roleReady ? esc(roleLabel(processMeta[flow].actorRole)) : ''}">${displayLabel}</button>`;
+      }
+
+      function renderStandaloneStartButton(flow, label, classes = '') {
+        const roleReady = canActOnFlow(flow);
+        const attributes = roleReady
+          ? `data-start="${flow}" data-mode="standalone"`
+          : 'disabled aria-disabled="true"';
+        const displayLabel = roleReady ? label : `由${demoRoles[processMeta[flow].actorRole].code}处理`;
+        return `<button class="zds-button ${classes}" ${attributes} type="button" title="${roleReady ? '' : esc(roleLabel(processMeta[flow].actorRole))}">${displayLabel}</button>`;
       }
 
       function workflowFocus() {
@@ -1990,9 +2013,9 @@
         if (!flow) {
           return {
             current: '尚未开始关联链路',
-            background: '暂无后台处理',
-            unlock: '创建 PR 并提交后进入审核',
-            note: '同一位经销商业务操作员可在不同时间点继续处理后续已解锁任务。',
+            assignee: roleLabel('pr_creator'),
+            handoff: `提交 PR 后移交至 ${roleLabel('po_processor')}`,
+            note: '关联链路从角色 A 开始；具体岗位名称与权限范围仍待业务确认。',
             action: renderLinkedStartButton('PR', '开始关联 PR', 'primary')
           };
         }
@@ -2000,40 +2023,48 @@
         const reference = state.created[flow] || flow;
         if (status === 'ready') {
           const upstream = flow === 'PO' ? state.created.PR : state.created.PO;
+          const actorRole = processMeta[flow].actorRole;
           return {
-            current: `${flow} 已解锁`,
-            background: '上游条件已满足',
-            unlock: `可基于 ${upstream || '上游单据'} 创建关联 ${flow}`,
-            note: '车辆、数量和上游单据上下文会自动带入，当前用户继续处理。',
+            current: `${flow} 已进入任务队列`,
+            assignee: roleLabel(actorRole),
+            handoff: `基于 ${upstream || '上游单据'} 处理 ${flow}，提交后移交至 ${roleLabel(processMeta[flow].nextRole)}`,
+            note: state.demoRole === actorRole
+              ? '此任务已进入当前演示角色队列，车辆、数量和上游单据上下文会自动带入。'
+              : `此任务属于 ${roleLabel(actorRole)}；请通过顶部 DEMO ONLY 控件切换评审视角。`,
             action: renderLinkedStartButton(flow, flow === 'PO' ? '创建关联 PO' : '处理关联 DN', 'primary')
           };
         }
         if (status === 'pending_review' || status === 'pending_confirmation' || status === 'pending_delivery') {
           return {
             current: `${reference} · ${workflowStatusLabel(flow)}`,
-            background: processMeta[flow].background,
-            unlock: processMeta[flow].unlock,
+            assignee: roleLabel(processMeta[flow].nextRole),
+            handoff: processMeta[flow].unlock,
             note: processMeta[flow].pendingDetail,
-            action: '<button class="zds-button" type="button" disabled aria-disabled="true">当前无需操作</button>'
+            action: '<button class="zds-button" type="button" disabled aria-disabled="true">已移交下一角色</button>'
           };
         }
         return {
           current: `${reference} · ${workflowStatusLabel(flow)}`,
-          background: '后台处理已完成',
-          unlock: flow === 'DN' ? '当前关联链路已完成' : processMeta[flow].unlock,
-          note: flow === 'DN' ? '可返回任务中心查看完整单据链路。' : '下一阶段任务已在任务中心解锁。',
+          assignee: roleLabel(processMeta[flow].nextRole),
+          handoff: flow === 'DN' ? '当前关联链路已完成' : processMeta[flow].unlock,
+          note: flow === 'DN' ? '可返回任务中心查看完整单据链路。' : '下一阶段任务已在对应角色的任务队列中生成。',
           action: '<button class="zds-button" data-action="go-home" type="button">查看任务中心</button>'
         };
       }
 
       function renderWorkflowStatusPanel() {
         const data = workflowPanelData();
-        return `<section class="review-surface workflow-status-panel"><div class="workflow-status-head"><h2>关联业务进度 / Linked workflow</h2><span class="review-chip">当前操作人 · Dealer Operations</span></div><div class="workflow-status-grid"><div class="workflow-status-item"><span>当前单据 / Current document</span><strong>${esc(data.current)}</strong></div><div class="workflow-status-item"><span>后台处理 / Background process</span><strong>${esc(data.background)}</strong></div><div class="workflow-status-item"><span>下一解锁条件 / Next unlock</span><strong>${esc(data.unlock)}</strong></div><div class="workflow-status-actions">${data.action}</div></div><p class="workflow-status-note">${esc(data.note)}</p></section>`;
+        return `<section class="review-surface workflow-status-panel"><div class="workflow-status-head"><h2>关联业务进度 / Linked workflow</h2><span class="review-chip long-status">演示视角 · ${esc(roleShort(state.demoRole))}（岗位待业务确认）</span></div><div class="workflow-status-grid"><div class="workflow-status-item"><span>当前单据 / Current document</span><strong>${esc(data.current)}</strong></div><div class="workflow-status-item"><span>当前处理角色 / Assigned role</span><strong>${esc(data.assignee)}</strong></div><div class="workflow-status-item"><span>交接与解锁 / Handoff &amp; unlock</span><strong>${esc(data.handoff)}</strong></div><div class="workflow-status-actions">${data.action}</div></div><p class="workflow-status-note">${esc(data.note)}</p></section>`;
       }
 
       function renderAll() {
         const shell = $('#reviewShell');
         shell.dataset.variant = state.variant;
+        const rolePill = $('#demoRolePill');
+        if (rolePill) {
+          $('span', rolePill).textContent = roleShort(state.demoRole);
+          rolePill.title = `仅供评审：当前为 ${roleLabel(state.demoRole)}，点击切换视角`;
+        }
         $$('.variant-button').forEach(button => {
           const active = button.dataset.variant === state.variant;
           button.classList.toggle('active', active);
@@ -2160,8 +2191,8 @@
       function renderGuideHome() {
         $('#reviewWorkspace').innerHTML = `
           <div class="review-scroll"><div class="review-page">
-            ${homeHeader('Procurement & Delivery', 'Create and track dealer purchasing and vehicle delivery documents.', '<button class="zds-button" data-start="PR" data-mode="standalone" data-chain="true" type="button">Create linked chain</button><button class="zds-button primary" data-start="PR" data-mode="standalone" type="button">+ New PR</button>')}
-            <div class="home-section-title"><h2>My tasks</h2><span>Choose a document to begin</span></div>
+            ${homeHeader('Procurement & Delivery', 'Create, hand off and track purchasing and delivery documents across role queues.', `${renderLinkedStartButton('PR', 'Create linked chain')}${renderStandaloneStartButton('PR', '+ New PR', 'primary')}`)}
+            <div class="home-section-title"><h2>当前角色任务 / My tasks</h2><span>${esc(roleLabel(state.demoRole))}</span></div>
             ${renderTaskCards()}
             ${renderWorkflowStatusPanel()}
             ${renderFilterPanel()}
@@ -2173,14 +2204,14 @@
         return `<div class="task-grid">${['PR','PO','DN'].map((flow, index) => {
           const meta = flowMeta[flow];
           const linkedLabel = flow === 'PR' ? '从此开始串联' : `关联 ${flow === 'PO' ? 'PR' : 'PO'} 创建`;
-          return `<article class="task-card"><div class="task-card-top"><span class="task-number">0${index + 1}</span><div><h3>${meta.task}</h3><span class="task-code">${meta.title} · ${flow}</span></div></div><p>${meta.subtitle}</p><div class="task-actions"><button class="zds-button primary small" data-start="${flow}" data-mode="standalone" type="button">单独创建</button>${renderLinkedStartButton(flow, linkedLabel, 'small')}</div></article>`;
+          return `<article class="task-card"><div class="task-card-top"><span class="task-number">0${index + 1}</span><div><h3>${meta.task}</h3><span class="task-code">${meta.title} · ${flow}</span></div></div><p>${meta.subtitle}</p><div class="task-actions">${renderStandaloneStartButton(flow, '单独创建', 'primary small')}${renderLinkedStartButton(flow, linkedLabel, 'small')}</div></article>`;
         }).join('')}</div>`;
       }
 
       function renderEfficiencyHome() {
         $('#reviewWorkspace').innerHTML = `
           <div class="review-scroll"><div class="review-page">
-            ${homeHeader('Task Workbench', 'Documents requiring attention and frequently used actions.', `${renderLinkedStartButton('PO', '+ PO from PR')}<button class="zds-button primary" data-start="PR" data-mode="standalone" type="button">+ Quick PR</button>`)}
+            ${homeHeader('Task Workbench', `当前演示视角：${roleLabel(state.demoRole)}。仅展示此角色可处理的创建动作。`, `${renderLinkedStartButton('PO', '+ PO from PR')}${renderStandaloneStartButton('PR', '+ Quick PR', 'primary')}`)}
             <div class="metric-grid">
               ${metric('待处理 / To-do', '8', '2 due today')}${metric('草稿 / Drafts', '4', '')}${metric('驳回 / Rejected', '2', 'Needs action')}${metric('异常 / Errors', '1', 'Network retry')}${metric('最近创建', '12', '7 days')}
             </div>
@@ -2200,7 +2231,7 @@
 
       function quickRow(flow) {
         const meta = flowMeta[flow];
-        return `<div class="quick-row"><span class="quick-code">${flow}</span><div><strong>${meta.task}</strong><span>${flow === 'PR' ? '6 fields' : 'Auto-fill available after upstream completion'}</span></div><div class="quick-row-actions"><button class="zds-button" data-start="${flow}" data-mode="standalone" type="button">New</button>${flow !== 'PR' ? renderLinkedStartButton(flow, 'Linked', 'primary') : ''}</div></div>`;
+        return `<div class="quick-row"><span class="quick-code">${flow}</span><div><strong>${meta.task}</strong><span>${flow === 'PR' ? '6 fields' : 'Auto-fill available after upstream completion'}</span></div><div class="quick-row-actions">${renderStandaloneStartButton(flow, 'New')}${flow !== 'PR' ? renderLinkedStartButton(flow, 'Linked', 'primary') : ''}</div></div>`;
       }
 
       function renderPriorityQueue() {
@@ -2209,13 +2240,13 @@
           ['PR-DEMO-004', 'Rejected', 'Owner action', 'Review'],
           ['DN-DEMO-002', 'Delivery confirmation', 'Tomorrow', 'Open']
         ];
-        return `<section class="review-surface"><div class="review-section-head"><div><h2>Priority queue</h2></div><div class="review-section-actions"><span class="review-chip">3 items</span></div></div><div class="priority-list">${rows.map(row => `<div class="priority-row"><strong>${row[0]}</strong><span>${row[1]}</span><span class="review-muted">${row[2]}</span><button class="zds-button small" data-action="noop" type="button">${row[3]}</button></div>`).join('')}</div></section>`;
+        return `<section class="review-surface"><div class="review-section-head"><div><h2>当前角色队列 / Role queue</h2><p>${esc(roleLabel(state.demoRole))}</p></div><div class="review-section-actions"><span class="review-chip">3 items</span></div></div><div class="priority-list">${rows.map(row => `<div class="priority-row"><strong>${row[0]}</strong><span>${row[1]}</span><span class="review-muted">${row[2]}</span><button class="zds-button small" data-action="noop" type="button">${row[3]}</button></div>`).join('')}</div></section>`;
       }
 
       function renderCollaborationHome() {
         $('#reviewWorkspace').innerHTML = `
           <div class="review-scroll"><div class="review-page">
-            ${homeHeader('Order lifecycle', 'Related purchasing and delivery documents in one business chain.', '<button class="zds-button" data-start="PR" data-mode="standalone" type="button">Standalone PR</button><button class="zds-button primary" data-start="PR" data-mode="standalone" data-chain="true" type="button">+ Start chain</button>')}
+            ${homeHeader('Order lifecycle', 'Related purchasing and delivery documents move across role queues in one business chain.', `${renderStandaloneStartButton('PR', 'Standalone PR')}${renderLinkedStartButton('PR', '+ Start chain', 'primary')}`)}
             <div class="collab-hero">
               <section class="collab-flow-card"><h2>Document relationship</h2>${renderLifecycleMap(null)}</section>
               ${renderWorkflowStatusPanel()}
@@ -2229,7 +2260,7 @@
       function collabEntry(flow) {
         const meta = flowMeta[flow];
         const upstream = flow === 'PO' ? 'PR' : flow === 'DN' ? 'PO' : '';
-        return `<div class="collab-entry"><div><strong>${flow} · ${meta.task}</strong><span>${upstream ? `承接 ${upstream} 上下文；上游条件满足后解锁` : '完整链路起点或独立需求'}</span></div><div class="entry-buttons"><button class="zds-button" data-start="${flow}" data-mode="standalone" type="button">Standalone</button>${renderLinkedStartButton(flow, flow === 'PR' ? 'Start chain' : 'Linked', 'primary')}</div></div>`;
+        return `<div class="collab-entry"><div><strong>${flow} · ${meta.task}</strong><span>${upstream ? `承接 ${upstream} 上下文；上游条件满足后进入 ${roleLabel(processMeta[flow].actorRole)} 队列` : `完整链路起点 · ${roleLabel(processMeta[flow].actorRole)}`}</span></div><div class="entry-buttons">${renderStandaloneStartButton(flow, 'Standalone')}${renderLinkedStartButton(flow, flow === 'PR' ? 'Start chain' : 'Linked', 'primary')}</div></div>`;
       }
 
       function renderLifecycleMap(activeFlow) {
