@@ -1780,9 +1780,95 @@
     .result-stage.next .result-stage-copy strong,
     .result-stage.next .result-stage-copy span { color: #2355d9; }
 
+    /* Fulfillment model: one PR / PO can create multiple delivery notes. */
+    .fulfillment-create-context { gap: 12px; }
+    .create-source-inline { display: flex; align-items: center; gap: 10px; margin-left: auto; }
+    .create-source-inline > span { color: var(--zds-color-text-primary); font-weight: 600; }
+    .fulfillment-source-panel { margin-bottom: 12px; overflow: hidden; }
+    .fulfillment-source-summary { display: grid; grid-template-columns: minmax(240px, 1.8fr) repeat(4, minmax(120px, .7fr)); background: #f5f6f7; border-bottom: 1px solid var(--zds-color-divider-primary); }
+    .fulfillment-source-summary > div { min-width: 0; min-height: 78px; padding: 13px 16px; background: #fff; border-right: 1px solid var(--zds-color-divider-primary); }
+    .fulfillment-source-summary > div:last-child { border-right: 0; }
+    .fulfillment-source-summary span { display: block; color: var(--zds-color-text-tertiary); font-size: 12px; line-height: 18px; }
+    .fulfillment-source-summary strong { display: block; margin-top: 4px; font-size: 20px; line-height: 28px; }
+    .fulfillment-source-summary .source-identity strong { overflow: hidden; color: var(--zds-color-brand-primary); font-size: 16px; line-height: 24px; text-overflow: ellipsis; white-space: nowrap; }
+    .fulfillment-source-summary .source-identity p { overflow: hidden; margin: 2px 0 0; color: var(--zds-color-text-secondary); font-size: 12px; line-height: 18px; text-overflow: ellipsis; white-space: nowrap; }
+    .balance-number { color: var(--zds-color-brand-primary); }
+    .allocation-section-head,
+    .existing-dn-head { display: flex; align-items: center; gap: 16px; padding: 12px 16px; border-top: 1px solid var(--zds-color-divider-primary); border-bottom: 1px solid var(--zds-color-divider-primary); background: #fff; }
+    .allocation-section-head h3,
+    .existing-dn-head h3 { margin: 0; font-size: 14px; line-height: 22px; }
+    .allocation-section-head p,
+    .existing-dn-head p { margin: 1px 0 0; color: var(--zds-color-text-tertiary); font-size: 12px; line-height: 18px; }
+    .allocation-total { display: flex; align-items: baseline; gap: 5px; margin-left: auto; padding: 6px 10px; background: #eef3ff; border: 1px solid #c9d8ff; border-radius: 2px; }
+    .allocation-total span { color: var(--zds-color-text-secondary); font-size: 12px; }
+    .allocation-total strong { color: var(--zds-color-brand-primary); font-size: 20px; }
+    .allocation-total em { color: var(--zds-color-text-tertiary); font-size: 11px; font-style: normal; }
+    .allocation-total.invalid { background: var(--zds-color-support-danger-active); border-color: #f1c7c4; }
+    .allocation-total.invalid strong { color: var(--zds-color-support-danger); }
+    .allocation-table th:first-child,
+    .allocation-table td:first-child { min-width: 250px; }
+    .allocation-table td { height: 54px; }
+    .allocation-table .allocation-invalid td { background: #fff9f8; }
+    .allocation-qty-input { width: 78px; height: 32px; padding: 0 8px; border: 1px solid var(--zds-color-border-primary); border-radius: 2px; outline: none; text-align: right; }
+    .allocation-qty-input:focus { border-color: var(--zds-color-brand-primary); box-shadow: 0 0 0 2px rgba(49,107,246,.14); }
+    .table-support-copy { display: block; overflow: hidden; margin-top: 2px; color: var(--zds-color-text-tertiary); font-size: 11px; line-height: 16px; text-overflow: ellipsis; white-space: nowrap; }
+    .existing-dn-head { border-top: 1px solid var(--zds-color-divider-primary); }
+    .existing-dn-head .review-chip { margin-left: auto; }
+    .relation-table-wrap { max-height: 250px; }
+    .delivery-relation-table th,
+    .delivery-relation-table td { min-width: 110px; }
+    .delivery-relation-table th:first-child,
+    .delivery-relation-table td:first-child { min-width: 150px; }
+    .source-empty-panel { display: grid; min-height: 220px; margin-bottom: 12px; place-items: center; text-align: center; }
+    .source-empty-panel h2 { margin: 0; font-size: 18px; }
+    .source-empty-panel p { margin: 6px 0 16px; color: var(--zds-color-text-secondary); }
+
+    .fulfillment-detail-hero { margin: 12px 0; overflow: hidden; }
+    .fulfillment-detail-head { display: flex; align-items: center; gap: 20px; min-height: 86px; padding: 14px 16px; border-bottom: 1px solid var(--zds-color-divider-primary); }
+    .detail-eyebrow { color: var(--zds-color-brand-primary); font-size: 11px; font-weight: 600; letter-spacing: .2px; text-transform: uppercase; }
+    .fulfillment-detail-head h2 { margin: 2px 0 0; font-size: 18px; line-height: 26px; }
+    .fulfillment-detail-head p { margin: 2px 0 0; color: var(--zds-color-text-secondary); font-size: 12px; line-height: 18px; }
+    .fulfillment-detail-actions { margin-left: auto; }
+    .fulfillment-metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-bottom: 1px solid var(--zds-color-divider-primary); }
+    .fulfillment-metrics > div { min-height: 86px; padding: 13px 16px; border-right: 1px solid var(--zds-color-divider-primary); }
+    .fulfillment-metrics > div:last-child { border-right: 0; }
+    .fulfillment-metrics span { display: block; color: var(--zds-color-text-tertiary); font-size: 12px; }
+    .fulfillment-metrics strong { display: inline-block; margin-top: 4px; font-size: 24px; line-height: 30px; }
+    .fulfillment-metrics em { margin-left: 6px; color: var(--zds-color-text-tertiary); font-size: 11px; font-style: normal; }
+    .fulfillment-progress-row { display: grid; grid-template-columns: 100px minmax(180px, 1fr) auto; align-items: center; gap: 14px; min-height: 58px; padding: 0 16px; background: #f8faff; border-bottom: 1px solid var(--zds-color-divider-primary); }
+    .fulfillment-progress-row > div:first-child { display: flex; align-items: center; justify-content: space-between; font-size: 12px; }
+    .fulfillment-progress { height: 8px; overflow: hidden; background: #dfe7f8; border-radius: 20px; }
+    .fulfillment-progress span { display: block; height: 100%; background: var(--zds-color-brand-primary); border-radius: inherit; }
+    .fulfillment-progress-row p { margin: 0; color: var(--zds-color-text-secondary); font-size: 12px; }
+    .record-detail-section { margin-top: 12px; overflow: hidden; }
+    .detail-tab-panel { margin-top: 12px; overflow: hidden; }
+    .detail-tab-content { min-height: 190px; }
+    .detail-tab-content > .record-detail-section,
+    .detail-tab-content > .business-detail-panel { margin: 0; border: 0; }
+    .detail-key-info { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .detail-tab-empty { display: grid; min-height: 190px; padding: 32px; place-content: center; text-align: center; }
+    .detail-tab-empty h3 { margin: 8px 0 4px; }
+    .detail-tab-empty p { margin: 0; color: var(--zds-color-text-secondary); }
+    .detail-related-tab { padding: 16px; }
+    .mini-progress { width: 110px; height: 6px; overflow: hidden; background: #e8edf5; border-radius: 12px; }
+    .mini-progress span { display: block; height: 100%; background: var(--zds-color-brand-primary); }
+
+    .review-picker-modal { width: min(1180px, calc(100vw - 48px)); }
+    .picker-help-strip { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; padding: 9px 12px; color: var(--zds-color-text-secondary); background: #f8faff; border: 1px solid #d9e4ff; }
+    .picker-help-strip strong { color: var(--zds-color-text-primary); font-size: 12px; }
+    .picker-help-strip span:last-child { margin-left: auto; font-size: 11px; }
+    .pr-picker-table .source-fulfilled { opacity: .58; }
+    .pr-picker-table .source-fulfilled .record-link { color: var(--zds-color-text-tertiary); cursor: not-allowed; }
+
     @media (max-width: 1100px) {
       .home-filter-grid,
       .review-shell[data-language="en"] .home-filter-grid { grid-template-columns: repeat(3, minmax(140px, 1fr)); }
+      .fulfillment-source-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .fulfillment-source-summary .source-identity { grid-column: 1 / -1; }
+      .fulfillment-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .fulfillment-progress-row { grid-template-columns: 90px 1fr; }
+      .fulfillment-progress-row p { grid-column: 1 / -1; padding-bottom: 10px; }
+      .detail-key-info { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
   </style>
   <script id="isales-otd2-blue-app">
@@ -1837,13 +1923,13 @@
         },
         DN: {
           title: 'Delivery Note',
-          task: '安排车辆交付',
+          task: '创建分批交付单',
           code: 'DN',
-          subtitle: '根据审核通过的 PR 创建 DN，并继续支付、标记与零售报告。',
+          subtitle: '从已审核 PR 或已确认 PO 中选择来源，按剩余数量分批创建多个 DN。',
           steps: [
-            ['确认交付来源', '关联 PR 或独立创建'],
-            ['分配车辆', '选择 VIN 与仓库'],
-            ['确认交接', '填写日期与联系人']
+            ['选择履约来源', '确认 PR / PO 与可交付余额'],
+            ['分配车辆与物流', '填写本批数量、VIN、仓库与承运'],
+            ['确认交付', '填写日期、收货方与随车单证']
           ]
         }
       };
@@ -1851,12 +1937,12 @@
       const businessEnds = {
         prdn: {
           label: 'PR / DN 及后续',
-          subtitle: 'PR 创建与审核 → 根据 PR 创建 DN → 支付 DN → 全部标记 → 添加零售报告',
+          subtitle: 'PR 创建与审核 → 按剩余数量分批创建多个 DN → 发运、交接与零售报告',
           flows: ['PR', 'DN']
         },
         po: {
           label: 'PO 端',
-          subtitle: 'PO 独立创建、确认与跟进',
+          subtitle: 'PO 创建与确认 → 按订单余额分批创建多个 DN → 跟进交付',
           flows: ['PO']
         }
       };
@@ -1873,21 +1959,21 @@
         },
         PO: {
           end: 'po',
-          process: 'PO 确认与跟进',
-          unlock: 'PO 在独立端完成确认，不解锁 PR / DN 流程',
+          process: 'PO 确认、分批履约与交付跟进',
+          unlock: 'PO 确认后，可按剩余订单数量创建多个 DN',
           exception: '异常订单返回 PO 草稿继续处理',
           pendingStatus: 'PO 确认中',
-          pendingDetail: 'PO 已提交，后续状态在 PO 端独立跟进。',
+          pendingDetail: 'PO 已提交；确认后可进入分批履约并创建多个 DN。',
           approvedStatus: 'PO 已确认'
         },
         DN: {
           end: 'prdn',
-          process: 'DN 支付、车辆标记与零售报告',
-          unlock: 'DN 创建后依次完成支付、全部标记和零售报告',
-          exception: '车辆或 VIN 异常时保留 DN 数据并返回处理',
-          pendingStatus: 'DN 待支付',
-          pendingDetail: 'DN 已创建；下一步在同一端完成支付、车辆标记和零售报告。',
-          approvedStatus: 'PR / DN 全流程已完成'
+          process: '来源余额扣减、VIN 分配、发运与交付确认',
+          unlock: 'DN 创建后扣减本批数量；来源仍有余额时可继续创建下一张 DN',
+          exception: '数量超额、VIN 或物流异常时保留草稿并返回对应环节处理',
+          pendingStatus: 'DN 待发运',
+          pendingDetail: 'DN 已创建并占用来源数量；下一步完成 VIN、发运与交接。',
+          approvedStatus: 'DN 已完成交付'
         }
       };
 
@@ -1896,11 +1982,39 @@
         { goodsCode: 'ZK-X-26-EU-003', brand: 'ZEEKR', series: 'X', marketing: 'X Privilege', modelYear: '2026', trim: 'Privilege AWD', purpose: 'Retail', exterior: 'Palace Beige', interior: 'Midnight Blue', qty: '3', unitPrice: '€49,490.00', amount: '€148,470.00' }
       ];
 
-      const prCandidates = [
-        { reference: 'PR-DEMO-MOCK-001', company: 'Northstar Mobility Demo', salesCompany: 'ZEEKR Europe Demo', brand: 'ZEEKR', port: 'Barcelona Demo Port', quantity: '8', country: 'Spain', vehicle: 'ZEEKR 7X · Demo configuration' },
-        { reference: 'PR-DEMO-MOCK-002', company: 'Aurora Dealer Demo', salesCompany: 'ZEEKR Europe Demo', brand: 'ZEEKR', port: 'Zeebrugge Demo Port', quantity: '12', country: 'Netherlands', vehicle: 'ZEEKR 001 · Demo configuration' },
-        { reference: 'PR-DEMO-MOCK-003', company: 'Costa Retail Demo', salesCompany: 'ZEEKR Europe Demo', brand: 'ZEEKR', port: 'Sines Demo Port', quantity: '5', country: 'Portugal', vehicle: 'ZEEKR X · Demo configuration' },
-        { reference: 'PR-DEMO-MOCK-004', company: 'Nordlicht Auto Demo', salesCompany: 'ZEEKR Europe Demo', brand: 'ZEEKR', port: 'Bremerhaven Demo Port', quantity: '10', country: 'Germany', vehicle: 'ZEEKR 001 · Demo configuration' }
+      const deliverySources = [
+        {
+          reference: 'PR-DEMO-007', type: 'PR', status: 'Approved', company: 'Northstar Mobility Demo', salesCompany: 'ZEEKR Europe Demo', brand: 'ZEEKR', port: 'Barcelona Demo Port', quantity: 8, country: 'Spain', vehicle: 'ZEEKR 7X · Demo configuration',
+          goods: [
+            { goodsCode: 'ZK-7X-26-EU-008', vehicle: '7X Long Range · Privilege AWD', requested: 5, allocated: 3, remaining: 2 },
+            { goodsCode: 'ZK-X-26-EU-003', vehicle: 'X Privilege · Privilege AWD', requested: 3, allocated: 2, remaining: 1 }
+          ],
+          dns: [
+            { reference: 'DN-DEMO-002', quantity: 3, allocations: { 'ZK-7X-26-EU-008': 2, 'ZK-X-26-EU-003': 1 }, status: 'In transit', vin: '3 / 3', delivery: '02 Oct 2026', route: 'Demo EU Hub → Barcelona', updated: '20 Aug · 11:05' },
+            { reference: 'DN-DEMO-004', quantity: 2, allocations: { 'ZK-7X-26-EU-008': 1, 'ZK-X-26-EU-003': 1 }, status: 'Ready for shipment', vin: '2 / 2', delivery: '05 Oct 2026', route: 'Demo EU Hub → Barcelona', updated: '20 Aug · 16:40' }
+          ]
+        },
+        {
+          reference: 'PR-DEMO-005', type: 'PR', status: 'Approved', company: 'Costa Retail Demo', salesCompany: 'ZEEKR Europe Demo', brand: 'ZEEKR', port: 'Sines Demo Port', quantity: 5, country: 'Portugal', vehicle: 'ZEEKR X · Demo configuration',
+          goods: [{ goodsCode: 'ZK-X-26-EU-003', vehicle: 'X Privilege · Privilege AWD', requested: 5, allocated: 5, remaining: 0 }],
+          dns: [{ reference: 'DN-DEMO-001', quantity: 5, allocations: { 'ZK-X-26-EU-003': 5 }, status: 'Ready for handover', vin: '5 / 5', delivery: '30 Sep 2026', route: 'Demo EU Hub → Sines', updated: '19 Aug · 10:44' }]
+        },
+        {
+          reference: 'PO-DEMO-004', type: 'PO', status: 'Confirmed', company: 'Northstar Mobility Demo', salesCompany: 'ZEEKR Europe Demo', brand: 'ZEEKR', port: 'Barcelona Demo Port', quantity: 8, country: 'Spain', vehicle: 'ZEEKR 7X · Demo configuration',
+          goods: [
+            { goodsCode: 'ZK-7X-26-EU-008', vehicle: '7X Long Range · Privilege AWD', requested: 5, allocated: 2, remaining: 3 },
+            { goodsCode: 'ZK-X-26-EU-003', vehicle: 'X Privilege · Privilege AWD', requested: 3, allocated: 1, remaining: 2 }
+          ],
+          dns: [
+            { reference: 'DN-DEMO-005', quantity: 2, allocations: { 'ZK-7X-26-EU-008': 2, 'ZK-X-26-EU-003': 0 }, status: 'VIN allocating', vin: '1 / 2', delivery: '08 Oct 2026', route: 'Demo EU Hub → Barcelona', updated: '20 Aug · 15:18' },
+            { reference: 'DN-DEMO-006', quantity: 1, allocations: { 'ZK-7X-26-EU-008': 0, 'ZK-X-26-EU-003': 1 }, status: 'Draft', vin: '0 / 1', delivery: '10 Oct 2026', route: 'Demo EU Hub → Barcelona', updated: '20 Aug · 17:02' }
+          ]
+        },
+        {
+          reference: 'PO-DEMO-003', type: 'PO', status: 'Confirmed', company: 'Costa Retail Demo', salesCompany: 'ZEEKR Europe Demo', brand: 'ZEEKR', port: 'Sines Demo Port', quantity: 5, country: 'Portugal', vehicle: 'ZEEKR X · Demo configuration',
+          goods: [{ goodsCode: 'ZK-X-26-EU-003', vehicle: 'X Privilege · Privilege AWD', requested: 5, allocated: 0, remaining: 5 }],
+          dns: []
+        }
       ];
 
       const initialForms = () => ({
@@ -1943,20 +2057,31 @@
           specialRequest: 'Priority allocation for the opening fleet.'
         },
         DN: {
-          sourceRef: '',
+          sourceRef: 'PR-DEMO-007',
+          sourceType: 'PR',
           dealer: 'Northstar Mobility Demo',
           vehicle: 'ZEEKR 7X · Demo configuration',
-          quantity: '8',
+          quantity: '3',
+          allocationMethod: 'Partial delivery / 分批交付',
+          deliveryBatch: 'Batch 3 / 第 3 批',
+          splitReason: 'Dealer capacity and phased handover plan',
+          allocations: { 'ZK-7X-26-EU-008': '2', 'ZK-X-26-EU-003': '1' },
           deliveryNoteType: 'Vehicle delivery',
-          vinBatch: '8 demo VINs available',
+          vinBatch: '3 demo VINs available',
           warehouse: 'Demo EU Hub',
           portOfLoading: 'Demo EU Port',
           portOfDestination: 'Barcelona Demo Port',
           transportMethod: 'Sea transport',
           carrier: 'Demo Logistics Partner',
+          bookingNumber: 'BK-DEMO-202609-018',
+          incoterm: 'CIF · Demo Port',
+          exportDeclaration: 'Documents in preparation',
           shipmentDate: '2026-09-25',
           estimatedArrival: '2026-10-01',
           handoverDate: '2026-10-02',
+          receiverCompany: 'Northstar Mobility Demo',
+          handoverMethod: 'Dealer handover',
+          documentPackage: 'Invoice + Packing List + COC',
           deliveryContact: 'Demo Operations Contact',
           deliveryPhone: '+00 000 000 000',
           deliveryAddress: '88 Demo Mobility Avenue, Barcelona',
@@ -1975,6 +2100,7 @@
         steps: { PR: 0, PO: 0, DN: 0 },
         forms: initialForms(),
         created: { PR: null, PO: null, DN: null },
+        createdDnCount: 0,
         workflow: { PR: 'available', PO: 'available', DN: 'locked' },
         errors: {},
         networkArmed: false,
@@ -1986,7 +2112,7 @@
         lastResult: null,
         selectedRecord: null,
         recordDetailTab: 'Basic Information',
-        selectedPrCandidate: 'PR-DEMO-MOCK-001',
+        selectedSourceCandidate: 'PR-DEMO-007',
         recordType: 'ALL',
         recordPage: 1,
         recordPageSize: 4,
@@ -2018,9 +2144,12 @@
       ];
 
       const mockRecords = [
-        { reference: 'PR-DEMO-007', type: 'PR', source: 'Standalone', vehicleBrand: 'ZEEKR', region: 'EU', country: 'Spain', company: 'Northstar Mobility Demo', store: 'Barcelona Demo Store', dealer: 'Northstar Mobility Demo', vehicle: 'ZEEKR 7X · Demo', quantity: '8', totalAmount: '€557,128.70', currency: 'EUR', port: 'Barcelona', paymentTerm: '30 days after invoice', delivery: '18 Sep 2026', status: 'Submitted', approval: 'Pending review', owner: '—', created: '20 Aug · 10:32', updated: '20 Aug · 14:18' },
-        { reference: 'PO-DEMO-004', type: 'PO', source: 'Standalone PO', vehicleBrand: 'ZEEKR', region: 'EU', country: 'Spain', company: 'Northstar Mobility Demo', store: 'Barcelona Demo Store', dealer: 'Northstar Mobility Demo', vehicle: 'ZEEKR 7X · Demo', quantity: '8', totalAmount: '€557,128.70', currency: 'EUR', port: 'Barcelona', paymentTerm: '30 days after invoice', delivery: '18 Sep 2026', status: 'Pending approval', approval: 'Pending review', owner: '—', created: '20 Aug · 12:16', updated: '20 Aug · 13:42' },
-        { reference: 'DN-DEMO-002', type: 'DN', source: 'PR-DEMO-007', vehicleBrand: 'ZEEKR', region: 'EU', country: 'Spain', company: 'Northstar Mobility Demo', store: 'Barcelona Demo Store', dealer: 'Northstar Mobility Demo', vehicle: 'ZEEKR 7X · Demo', quantity: '8', totalAmount: '€557,128.70', currency: 'EUR', port: 'Barcelona', paymentTerm: '30 days after invoice', delivery: '02 Oct 2026', status: 'Pendiente de confirmación de entrega', approval: 'Approved', owner: '—', created: '20 Aug · 09:45', updated: '20 Aug · 11:05' },
+        { reference: 'PR-DEMO-007', type: 'PR', source: 'Standalone', vehicleBrand: 'ZEEKR', region: 'EU', country: 'Spain', company: 'Northstar Mobility Demo', store: 'Barcelona Demo Store', dealer: 'Northstar Mobility Demo', vehicle: 'ZEEKR 7X · Demo', quantity: '8', totalAmount: '€557,128.70', currency: 'EUR', port: 'Barcelona', paymentTerm: '30 days after invoice', delivery: '18 Sep 2026', status: 'Approved', approval: 'Approved', owner: '—', created: '20 Aug · 10:32', updated: '20 Aug · 14:18' },
+        { reference: 'PO-DEMO-004', type: 'PO', source: 'Standalone PO', vehicleBrand: 'ZEEKR', region: 'EU', country: 'Spain', company: 'Northstar Mobility Demo', store: 'Barcelona Demo Store', dealer: 'Northstar Mobility Demo', vehicle: 'ZEEKR 7X · Demo', quantity: '8', totalAmount: '€557,128.70', currency: 'EUR', port: 'Barcelona', paymentTerm: '30 days after invoice', delivery: '18 Sep 2026', status: 'Approved', approval: 'Approved', owner: '—', created: '20 Aug · 12:16', updated: '20 Aug · 13:42' },
+        { reference: 'DN-DEMO-002', type: 'DN', source: 'PR-DEMO-007', vehicleBrand: 'ZEEKR', region: 'EU', country: 'Spain', company: 'Northstar Mobility Demo', store: 'Barcelona Demo Store', dealer: 'Northstar Mobility Demo', vehicle: 'ZEEKR 7X · Demo', quantity: '3', totalAmount: '€205,128.70', currency: 'EUR', port: 'Barcelona', paymentTerm: '30 days after invoice', delivery: '02 Oct 2026', status: 'In transit', approval: 'Approved', owner: '—', created: '20 Aug · 09:45', updated: '20 Aug · 11:05' },
+        { reference: 'DN-DEMO-004', type: 'DN', source: 'PR-DEMO-007', vehicleBrand: 'ZEEKR', region: 'EU', country: 'Spain', company: 'Northstar Mobility Demo', store: 'Barcelona Demo Store', dealer: 'Northstar Mobility Demo', vehicle: 'ZEEKR 7X · Demo', quantity: '2', totalAmount: '€124,800.00', currency: 'EUR', port: 'Barcelona', paymentTerm: '30 days after invoice', delivery: '05 Oct 2026', status: 'Ready for shipment', approval: 'Approved', owner: '—', created: '20 Aug · 15:02', updated: '20 Aug · 16:40' },
+        { reference: 'DN-DEMO-005', type: 'DN', source: 'PO-DEMO-004', vehicleBrand: 'ZEEKR', region: 'EU', country: 'Spain', company: 'Northstar Mobility Demo', store: 'Barcelona Demo Store', dealer: 'Northstar Mobility Demo', vehicle: 'ZEEKR 7X · Demo', quantity: '2', totalAmount: '€124,800.00', currency: 'EUR', port: 'Barcelona', paymentTerm: '30 days after invoice', delivery: '08 Oct 2026', status: 'VIN allocating', approval: 'Approved', owner: '—', created: '20 Aug · 14:30', updated: '20 Aug · 15:18' },
+        { reference: 'DN-DEMO-006', type: 'DN', source: 'PO-DEMO-004', vehicleBrand: 'ZEEKR', region: 'EU', country: 'Spain', company: 'Northstar Mobility Demo', store: 'Barcelona Demo Store', dealer: 'Northstar Mobility Demo', vehicle: 'ZEEKR X · Demo', quantity: '1', totalAmount: '€49,490.00', currency: 'EUR', port: 'Barcelona', paymentTerm: '30 days after invoice', delivery: '10 Oct 2026', status: 'Draft', approval: '—', owner: '—', created: '20 Aug · 16:22', updated: '20 Aug · 17:02' },
         { reference: 'PR-DEMO-006', type: 'PR', source: 'Standalone', vehicleBrand: 'ZEEKR', region: 'EU', country: 'Netherlands', company: 'Aurora Dealer Demo', store: 'Amsterdam Demo Store', dealer: 'Aurora Dealer Demo', vehicle: 'ZEEKR 001 · Demo', quantity: '12', totalAmount: '€779,880.00', currency: 'EUR', port: 'Zeebrugge', paymentTerm: 'Prepayment', delivery: '22 Sep 2026', status: 'Draft', approval: '—', owner: '—', created: '19 Aug · 16:54', updated: '19 Aug · 17:26' },
         { reference: 'PO-DEMO-003', type: 'PO', source: 'Standalone PO', vehicleBrand: 'ZEEKR', region: 'EU', country: 'Portugal', company: 'Costa Retail Demo', store: 'Lisbon Demo Store', dealer: 'Costa Retail Demo', vehicle: 'ZEEKR X · Demo', quantity: '5', totalAmount: '€272,189.50', currency: 'EUR', port: 'Sines', paymentTerm: 'Letter of credit', delivery: '27 Sep 2026', status: 'Approved', approval: 'Approved', owner: '—', created: '19 Aug · 13:20', updated: '19 Aug · 15:08' },
         { reference: 'DN-DEMO-001', type: 'DN', source: 'PR-DEMO-005', vehicleBrand: 'ZEEKR', region: 'EU', country: 'Portugal', company: 'Costa Retail Demo', store: 'Lisbon Demo Store', dealer: 'Costa Retail Demo', vehicle: 'ZEEKR X · Demo', quantity: '5', totalAmount: '€272,189.50', currency: 'EUR', port: 'Sines', paymentTerm: 'Letter of credit', delivery: '30 Sep 2026', status: 'Ready for handover', approval: 'Approved', owner: '—', created: '19 Aug · 08:18', updated: '19 Aug · 10:44' },
@@ -2077,9 +2206,9 @@
           <div class="modal-actions"><button class="zds-button" data-action="close-network" type="button">继续编辑</button><button class="zds-button primary" data-action="retry-submit" type="button">重试提交</button></div>
         </div>
         <div class="review-modal review-picker-modal" id="prPickerModal" role="dialog" aria-modal="true" aria-labelledby="prPickerTitle">
-          <div class="picker-modal-head"><div><h2 id="prPickerTitle">Select Approved Purchase Request</h2><p>Search, review and import an approved PR into this delivery note.</p></div><button class="zds-button icon-only" data-action="close-pr-picker" type="button" aria-label="Close">×</button></div>
+          <div class="picker-modal-head"><div><h2 id="prPickerTitle">选择履约来源 / Select fulfillment source</h2><p>从已审核 PR 或已确认 PO 中选择来源，并检查已建 DN 与剩余可交付数量。</p></div><button class="zds-button icon-only" data-action="close-pr-picker" type="button" aria-label="Close">×</button></div>
           <div class="picker-modal-body" id="prPickerBody"></div>
-          <div class="picker-modal-foot"><span id="prPickerCount">1 selected</span><button class="zds-button" data-action="close-pr-picker" type="button">Cancel</button><button class="zds-button primary" data-action="apply-pr-picker" type="button">Import PR Context</button></div>
+          <div class="picker-modal-foot"><span id="prPickerCount">1 selected</span><button class="zds-button" data-action="close-pr-picker" type="button">Cancel</button><button class="zds-button primary" data-action="apply-pr-picker" type="button">使用所选来源 / Use source</button></div>
         </div>
         <div class="review-loading" id="reviewLoading"><div class="loading-box"><span class="loading-spin"></span><span id="loadingText">Submitting…</span></div></div>
         <div class="review-toasts" id="reviewToasts" aria-live="polite"></div>`;
@@ -2129,6 +2258,8 @@
         ['确认发运与交接信息；提交后继续支付、车辆标记和零售上报。', 'Confirm shipment and handover information; continue payment, vehicle marking and retail reporting after submission.'],
         ['PR / DN 及后续全流程', 'PR / DN lifecycle'], ['业务任务', 'Business tasks'], ['单独创建', 'Create standalone'], ['根据 PR 创建', 'Create from PR'], ['根据 PR 创建 DN', 'Create DN from PR'], ['创建单据', 'Create document'],
         ['新建 PR', 'New PR'], ['新建 PO', 'New PO'], ['从 PR 新建 DN', 'New DN from PR'], ['快速新建 PR', 'Quick PR'], ['快速新建 PO', 'Quick PO'],
+        ['已创建', 'Created'], ['草稿已保存', 'Draft saved'], ['申请已提交', 'Request submitted'], ['已批准', 'Approved'], ['分批履约', 'Partial fulfillment'], ['履约关闭', 'Closed'], ['仍有可交付余额', 'Balance remains'], ['已全部分配', 'Fully allocated'],
+        ['PO 已生成', 'PO generated'], ['商务审核', 'Commercial review'], ['已确认', 'Confirmed'], ['来源已锁定', 'Source locked'], ['数量已分配', 'Quantity allocated'], ['VIN 与物流', 'VIN & logistics'], ['暂无 DN', 'No DN'], ['编辑单据', 'Edit document'],
         ['待处理', 'To-do'], ['草稿', 'Drafts'], ['驳回', 'Rejected'], ['异常', 'Errors'], ['最近创建', 'Recently created'],
         ['今天到期 2 项', '2 due today'], ['今日到期', 'Due today'], ['需要处理', 'Needs action'], ['网络重试', 'Network retry'], ['近 7 天', '7 days'], ['快速创建', 'Quick create'],
         ['新建', 'New'], ['从 PR 创建', 'From PR'], ['重点任务', 'Priority queue'], ['今日', 'Today'], ['明日', 'Tomorrow'], ['打开', 'Open'], ['跟进', 'Track'], ['上报', 'Report'], ['只读', 'Read only'],
@@ -2388,20 +2519,29 @@
           { id: 'specialRequest', label: 'Special Request / 特殊要求', type: 'textarea', required: false, step: 2, full: true }
         ];
         return [
-          { id: 'sourceRef', label: 'Purchase Request / 关联采购需求', type: 'select', required: state.createMode === 'linked', step: 0, options: linkedOptions('PR'), hint: state.createMode === 'linked' ? 'Dealer, vehicle and delivery context are carried from the approved PR.' : 'Standalone mode allows an independent delivery note.' },
-          { id: 'dealer', label: 'Dealer / 经销商', type: 'text', required: true, readonly: state.createMode === 'linked', step: 0 },
-          { id: 'vehicle', label: 'Vehicle / 车辆', type: 'text', required: true, readonly: state.createMode === 'linked', step: 0 },
-          { id: 'quantity', label: 'Quantity / 数量', type: 'number', required: true, readonly: state.createMode === 'linked', step: 0 },
+          { id: 'sourceRef', label: 'Source Document / 来源单据', type: 'select', required: true, step: 0, options: eligibleDeliverySources().map(item => item.reference), hint: '支持已审核 PR 或已确认 PO；同一来源可分批创建多个 DN。' },
+          { id: 'dealer', label: 'Dealer / 经销商', type: 'text', required: true, readonly: true, step: 0 },
+          { id: 'vehicle', label: 'Vehicle / 车辆', type: 'text', required: true, readonly: true, step: 0 },
+          { id: 'quantity', label: 'This DN Quantity / 本批数量', type: 'number', required: true, readonly: true, step: 0, hint: '由下方商品行的“本批数量”自动汇总。' },
+          { id: 'allocationMethod', label: 'Allocation Method / 分配方式', type: 'select', required: true, step: 0, options: ['Partial delivery / 分批交付', 'Final balance / 交付剩余全部'] },
+          { id: 'deliveryBatch', label: 'Delivery Batch / 交付批次', type: 'text', required: true, step: 0 },
+          { id: 'splitReason', label: 'Split Reason / 拆分原因', type: 'textarea', required: true, step: 0, full: true },
           { id: 'deliveryNoteType', label: 'Delivery Note Type / 交付单类型', type: 'select', required: true, step: 0, options: ['Vehicle delivery', 'Dealer pickup', 'Port handover'] },
-          { id: 'vinBatch', label: 'VIN Allocation / 车辆分配', type: 'select', required: true, step: 1, options: ['8 demo VINs available', 'Manual demo allocation'] },
+          { id: 'vinBatch', label: 'VIN Allocation / 车辆分配', type: 'select', required: true, step: 1, options: ['3 demo VINs available', 'Manual demo allocation'] },
           { id: 'warehouse', label: 'Warehouse / 仓库', type: 'select', required: true, step: 1, options: ['Demo EU Hub', 'Demo Port Compound'] },
           { id: 'portOfLoading', label: 'Port of Loading / 装货港', type: 'select', required: true, step: 1, options: ['Demo EU Port', 'Demo Port Compound'] },
           { id: 'portOfDestination', label: 'Port of Destination / 目的港', type: 'select', required: true, step: 1, options: ['Barcelona Demo Port', 'Dealer handover location'] },
           { id: 'transportMethod', label: 'Transport Method / 运输方式', type: 'select', required: true, step: 1, options: ['Sea transport', 'Road transport', 'Rail transport'] },
           { id: 'carrier', label: 'Carrier / 承运商', type: 'select', required: true, step: 1, options: ['Demo Logistics Partner', 'Demo Port Carrier'] },
+          { id: 'bookingNumber', label: 'Booking Number / 订舱号', type: 'text', required: true, step: 1 },
+          { id: 'incoterm', label: 'Incoterm / 贸易条款', type: 'select', required: true, step: 1, options: ['CIF · Demo Port', 'FOB · Demo Port', 'DAP · Dealer'] },
+          { id: 'exportDeclaration', label: 'Export Declaration / 出口申报', type: 'select', required: true, step: 1, options: ['Documents in preparation', 'Submitted', 'Released'] },
           { id: 'shipmentDate', label: 'Shipment Date / 发运日期', type: 'date', required: true, step: 2 },
           { id: 'estimatedArrival', label: 'Estimated Arrival / 预计到达', type: 'date', required: true, step: 2 },
           { id: 'handoverDate', label: 'Handover Date / 交接日期', type: 'date', required: true, step: 2 },
+          { id: 'receiverCompany', label: 'Receiver Company / 收货公司', type: 'text', required: true, step: 2 },
+          { id: 'handoverMethod', label: 'Handover Method / 交接方式', type: 'select', required: true, step: 2, options: ['Dealer handover', 'Port handover', 'Warehouse pickup'] },
+          { id: 'documentPackage', label: 'Document Package / 随车单证', type: 'select', required: true, step: 2, options: ['Invoice + Packing List + COC', 'Invoice + Packing List', 'Custom package'] },
           { id: 'deliveryContact', label: 'Delivery Contact / 交付联系人', type: 'text', required: true, step: 2 },
           { id: 'deliveryPhone', label: 'Contact Phone / 联系电话', type: 'text', required: true, step: 2 },
           { id: 'deliveryAddress', label: 'Delivery Address / 交付地址', type: 'text', required: true, step: 2, full: true },
@@ -2409,10 +2549,46 @@
         ];
       }
 
-      function linkedOptions(upstream) {
-        const current = state.created[upstream];
-        const mock = `${upstream}-DEMO-MOCK-001`;
-        return current ? [current, mock] : [mock];
+      function sourceAllocatedQty(source) {
+        return source ? source.dns.reduce((sum, item) => sum + Number(item.quantity || 0), 0) : 0;
+      }
+
+      function sourceRemainingQty(source) {
+        return source ? Math.max(0, Number(source.quantity || 0) - sourceAllocatedQty(source)) : 0;
+      }
+
+      function eligibleDeliverySources(type = 'ANY') {
+        return deliverySources.filter(source => (type === 'ANY' || source.type === type) && sourceRemainingQty(source) > 0);
+      }
+
+      function deliverySourceByRef(reference) {
+        return deliverySources.find(source => source.reference === reference) || null;
+      }
+
+      function selectedDeliverySource() {
+        return deliverySourceByRef(state.forms.DN.sourceRef);
+      }
+
+      function allocationTotal() {
+        return Object.values(state.forms.DN.allocations || {}).reduce((sum, value) => sum + (Number(value) || 0), 0);
+      }
+
+      function applyDeliverySource(source) {
+        if (!source) return;
+        const allocations = {};
+        source.goods.forEach(item => { allocations[item.goodsCode] = String(item.remaining); });
+        Object.assign(state.forms.DN, {
+          sourceRef: source.reference,
+          sourceType: source.type,
+          dealer: source.company,
+          vehicle: source.vehicle,
+          quantity: String(sourceRemainingQty(source)),
+          allocations,
+          deliveryBatch: `Batch ${source.dns.length + 1} / 第 ${source.dns.length + 1} 批`,
+          vinBatch: `${sourceRemainingQty(source)} demo VINs available`,
+          portOfDestination: source.port,
+          receiverCompany: source.company
+        });
       }
 
       function workflowStatusLabel(flow) {
@@ -2443,16 +2619,16 @@
         return businessEnds[state.businessEnd].flows;
       }
 
-      function isLinkedReady(flow) {
-        return flow === 'PR' || (flow === 'DN' && state.workflow.PR === 'approved');
+      function isLinkedReady(flow, sourceType = 'ANY') {
+        return flow === 'PR' || (flow === 'DN' && eligibleDeliverySources(sourceType).length > 0);
       }
 
-      function renderLinkedStartButton(flow, label, classes = '') {
+      function renderLinkedStartButton(flow, label, classes = '', sourceType = 'ANY') {
         if (flow === 'PO') return '';
-        const ready = isLinkedReady(flow);
-        const waitingLabel = flow === 'DN' ? '等待 PR 审核通过' : label;
+        const ready = isLinkedReady(flow, sourceType);
+        const waitingLabel = flow === 'DN' ? '暂无可交付余额' : label;
         const attributes = ready
-          ? `data-start="${flow}" data-mode="${flow === 'PR' ? 'standalone' : 'linked'}" ${flow === 'PR' ? 'data-chain="true"' : ''}`
+          ? `data-start="${flow}" data-mode="${flow === 'PR' ? 'standalone' : 'linked'}" data-source-type="${sourceType}" ${flow === 'PR' ? 'data-chain="true"' : ''}`
           : 'disabled aria-disabled="true"';
         return `<button class="zds-button ${classes}" ${attributes} type="button">${ready ? label : waitingLabel}</button>`;
       }
@@ -2583,11 +2759,11 @@
           ? `
             ${sidebarLeaf('上传中心')}
             ${sidebarGroup('pr', '采购申请', state.flow === 'PR' && state.route !== 'home', `
-              ${sidebarStart('PR', '新建 PR')}
+              ${sidebarChild('申请列表')}
               ${sidebarChild('PR 审核')}
             `)}
             ${sidebarGroup('dn', '交付管理', state.flow === 'DN' && state.route !== 'home', `
-              ${sidebarStart('DN', '新建 DN')}
+              ${sidebarChild('交付单列表')}
               ${sidebarChild('发运')}
               ${sidebarChild('验收')}
               ${sidebarChild('零售')}
@@ -2597,9 +2773,9 @@
           : `
             ${sidebarLeaf('上传中心')}
             ${sidebarGroup('po', '采购订单', state.flow === 'PO' && state.route !== 'home', `
-              ${sidebarStart('PO', '新建 PO')}
               ${sidebarChild('订单列表')}
               ${sidebarChild('审核跟进')}
+              ${sidebarChild('履约与交付')}
               ${sidebarChild('异常处理')}
               ${sidebarChild('入库')}
             `)}
@@ -2675,8 +2851,8 @@
       function renderGuideHome() {
         const end = businessEnds[state.businessEnd];
         const actions = state.businessEnd === 'po'
-          ? renderStandaloneStartButton('PO', '+ New PO', 'primary')
-          : `${renderLinkedStartButton('DN', '根据 PR 创建 DN')}${renderStandaloneStartButton('PR', '+ New PR', 'primary')}`;
+          ? `${renderLinkedStartButton('DN', '按 PO 创建 DN', '', 'PO')}${renderStandaloneStartButton('PO', '+ New PO', 'primary')}`
+          : `${renderLinkedStartButton('DN', '按 PR 创建 DN', '', 'PR')}${renderStandaloneStartButton('PR', '+ New PR', 'primary')}`;
         $('#reviewWorkspace').innerHTML = `
           <div class="review-scroll"><div class="review-page">
             ${homeHeader(state.businessEnd === 'po' ? 'PO 采购流程' : 'PR / DN 及后续全流程', end.subtitle, actions)}
@@ -2692,7 +2868,7 @@
         return `<div class="task-grid">${activeEndFlows().map((flow, index) => {
           const meta = flowMeta[flow];
           const actions = flow === 'DN'
-            ? `${renderStandaloneStartButton(flow, '单独创建', 'small')}${renderLinkedStartButton(flow, '根据 PR 创建', 'primary small')}`
+            ? renderLinkedStartButton(flow, '按来源创建 DN', 'primary small', 'PR')
             : renderStandaloneStartButton(flow, '创建单据', 'primary small');
           return `<article class="task-card"><div class="task-card-top"><span class="task-number">0${index + 1}</span><div><h3>${meta.task}</h3><span class="task-code">${meta.title} · ${flow}</span></div></div><p>${meta.subtitle}</p><div class="task-actions">${actions}</div></article>`;
         }).join('')}</div>`;
@@ -2701,8 +2877,8 @@
       function renderEfficiencyHome() {
         const end = businessEnds[state.businessEnd];
         const actions = state.businessEnd === 'po'
-          ? renderStandaloneStartButton('PO', '+ Quick PO', 'primary')
-          : `${renderLinkedStartButton('DN', '+ DN from PR')}${renderStandaloneStartButton('PR', '+ Quick PR', 'primary')}`;
+          ? `${renderLinkedStartButton('DN', '+ DN from PO', '', 'PO')}${renderStandaloneStartButton('PO', '+ Quick PO', 'primary')}`
+          : `${renderLinkedStartButton('DN', '+ DN from PR', '', 'PR')}${renderStandaloneStartButton('PR', '+ Quick PR', 'primary')}`;
         $('#reviewWorkspace').innerHTML = `
           <div class="review-scroll"><div class="review-page">
             ${homeHeader('Task Workbench', end.subtitle, actions)}
@@ -2726,8 +2902,9 @@
       function quickRow(flow) {
         const meta = flowMeta[flow];
         const count = fieldDefinitions(flow).length;
-        const note = flow === 'DN' ? `${count} fields · PR context can be carried forward` : `${count} business fields`;
-        return `<div class="quick-row"><span class="quick-code">${flow}</span><div><strong>${meta.task}</strong><span>${note}</span></div><div class="quick-row-actions">${renderStandaloneStartButton(flow, 'New')}${flow === 'DN' ? renderLinkedStartButton(flow, 'From PR', 'primary') : ''}</div></div>`;
+        const note = flow === 'DN' ? `${count} fields · PR / PO balance is carried forward` : `${count} business fields`;
+        const action = flow === 'DN' ? renderLinkedStartButton(flow, 'From source', 'primary', 'PR') : renderStandaloneStartButton(flow, 'New');
+        return `<div class="quick-row"><span class="quick-code">${flow}</span><div><strong>${meta.task}</strong><span>${note}</span></div><div class="quick-row-actions">${action}</div></div>`;
       }
 
       function renderPriorityQueue() {
@@ -2890,34 +3067,73 @@
         return `<td title="${esc(raw)}">${esc(raw)}</td>`;
       }
 
+      function renderDetailInformation(row) {
+        const fieldIds = row.type === 'DN'
+          ? ['reference', 'source', 'company', 'dealer', 'vehicle', 'quantity', 'port', 'delivery', 'status', 'owner', 'created', 'updated']
+          : ['reference', 'company', 'store', 'dealer', 'vehicle', 'quantity', 'totalAmount', 'currency', 'paymentTerm', 'port', 'delivery', 'status', 'approval', 'created', 'updated'];
+        const columns = fieldIds.map(id => recordColumns.find(column => column.id === id)).filter(Boolean);
+        return `<div class="record-info-grid detail-key-info">${columns.map(column => `<div class="record-info-item"><span>${esc(column.label)}</span><strong>${esc(row[column.id] ?? '—')}</strong></div>`).join('')}</div>`;
+      }
+
+      function renderSourceGoodsBalance(source, currentDn = null) {
+        const sourceDn = currentDn ? source.dns.find(item => item.reference === currentDn.reference) : null;
+        const rows = source.goods.map(item => {
+          const currentAllocation = sourceDn ? Number(sourceDn.allocations?.[item.goodsCode] || 0) : 0;
+          return `<tr><td><strong>${esc(item.goodsCode)}</strong><span class="table-support-copy">${esc(item.vehicle)}</span></td><td>${item.requested}</td><td>${item.allocated}</td><td><strong>${item.remaining}</strong></td>${currentDn ? `<td>${currentAllocation || '—'}</td>` : ''}<td><div class="mini-progress"><span style="width:${Math.min(100, Math.round(item.allocated / Math.max(1, item.requested) * 100))}%"></span></div></td></tr>`;
+        }).join('');
+        return `<section class="review-surface record-detail-section"><div class="review-section-head"><div><h2>商品履约余额 / Goods fulfillment</h2><p>按商品行追踪来源数量、全部 DN 占用和剩余可交付数量。</p></div><span class="review-chip">${source.goods.length} lines</span></div><div class="business-table-wrap"><table class="business-table goods-balance-table"><thead><tr><th>Goods / Vehicle</th><th>Source Qty</th><th>In DNs</th><th>Remaining</th>${currentDn ? '<th>Current DN</th>' : ''}<th>Fulfillment</th></tr></thead><tbody>${rows}</tbody></table></div></section>`;
+      }
+
+      function renderFulfillmentOverview(source, row) {
+        const allocated = sourceAllocatedQty(source);
+        const remaining = sourceRemainingQty(source);
+        const percent = Math.min(100, Math.round(allocated / Math.max(1, Number(source.quantity)) * 100));
+        const isCurrentDn = row.type === 'DN';
+        const action = remaining > 0 ? `<button class="zds-button primary" data-action="create-dn-from-record" data-source-ref="${esc(source.reference)}" type="button">+ 创建下一张 DN</button>` : '<span class="review-chip green">已全部分配</span>';
+        return `<section class="review-surface fulfillment-detail-hero">
+          <div class="fulfillment-detail-head"><div><span class="detail-eyebrow">${isCurrentDn ? '上游履约来源 / Upstream source' : '履约概览 / Fulfillment overview'}</span><h2>${source.type} · ${esc(source.reference)}</h2><p>${esc(source.company)} · ${esc(source.vehicle)} · ${esc(source.port)}</p></div><div class="fulfillment-detail-actions">${action}</div></div>
+          <div class="fulfillment-metrics"><div><span>来源总量</span><strong>${source.quantity}</strong><em>vehicles</em></div><div><span>全部 DN 占用</span><strong>${allocated}</strong><em>${source.dns.length} DNs</em></div><div><span>剩余可交付</span><strong class="balance-number">${remaining}</strong><em>available</em></div><div><span>当前单据</span><strong>${isCurrentDn ? row.quantity : source.dns.length}</strong><em>${isCurrentDn ? 'this DN' : 'DN count'}</em></div></div>
+          <div class="fulfillment-progress-row"><div><span>履约进度</span><strong>${percent}%</strong></div><div class="fulfillment-progress"><span style="width:${percent}%"></span></div><p>${allocated} 已进入 DN，${remaining} 仍可继续分批交付。</p></div>
+          <div class="existing-dn-head"><div><h3>${isCurrentDn ? '同源 DN / Sibling delivery notes' : '关联 DN / Related delivery notes'}</h3><p>${isCurrentDn ? `当前：${esc(row.reference)}；其余单据共享同一来源余额。` : `一张 ${source.type} 对应 ${source.dns.length} 张 DN。`}</p></div><span class="review-chip blue">1 source → ${source.dns.length} DNs</span></div>
+          ${renderSourceDnTable(source, isCurrentDn ? row.reference : '')}
+        </section>`;
+      }
+
       function renderRecordDetail() {
         const row = mockRecords.find(item => item.reference === state.selectedRecord) || mockRecords[0];
-        const tabs = ['Basic Information', 'Goods Information', 'Payment', 'Delivery', 'Approval History', 'Attachments', 'Operation Log', 'Related Documents'];
+        const source = row.type === 'DN' ? deliverySourceByRef(row.source) : deliverySourceByRef(row.reference);
+        const tabs = ['Basic Information', 'Goods & Allocation', 'Delivery', 'Approval History', 'Attachments', 'Operation Log', 'Related Documents'];
+        if (!tabs.includes(state.recordDetailTab)) state.recordDetailTab = 'Basic Information';
         const stageCopy = row.type === 'PR'
-          ? [['Created', 'Draft saved'], ['Submitted', 'Request submitted'], ['Review', row.approval], ['Approved', 'Review passed'], ['DN Ready', 'Create DN from PR']]
+          ? [['已创建', '草稿已保存'], ['已提交', '申请已提交'], ['已批准', row.approval], ['分批履约', source ? `${source.dns.length} DNs` : '暂无 DN'], ['履约关闭', source && sourceRemainingQty(source) === 0 ? '已全部分配' : '仍有可交付余额']]
           : row.type === 'PO'
-            ? [['Created', 'PO generated'], ['Information check', row.source], ['Commercial review', row.paymentTerm], ['Confirmed', row.approval], ['Archived', 'Independent PO complete']]
-            : [['Created', 'DN generated'], ['Payment', 'Payment status'], ['Vehicle marked', `${row.quantity} vehicles`], ['Retail report', row.delivery], ['Completed', row.status]];
-        const currentIndex = row.status === 'Draft' ? 0 : row.status === 'Rejected' ? 2 : row.status === 'Approved' || row.status === 'Ready for handover' ? 3 : 2;
+            ? [['已创建', 'PO 已生成'], ['商务审核', row.paymentTerm], ['已确认', row.approval], ['分批履约', source ? `${source.dns.length} DNs` : '暂无 DN'], ['履约关闭', source && sourceRemainingQty(source) === 0 ? '已全部分配' : '仍有可交付余额']]
+            : [['来源已锁定', row.source], ['数量已分配', `${row.quantity} vehicles`], ['VIN 与物流', row.status], ['交付', row.delivery], ['已完成', row.status]];
+        const currentIndex = row.type === 'DN'
+          ? row.status === 'Draft' ? 1 : row.status === 'VIN allocating' ? 2 : row.status === 'In transit' || row.status === 'Ready for shipment' || row.status === 'Ready for handover' ? 3 : 4
+          : source && sourceRemainingQty(source) === 0 ? 4 : row.status === 'Approved' ? 3 : row.status === 'Rejected' ? 1 : 2;
         const stages = stageCopy.map((stage, index) => `<div class="record-stage ${index < currentIndex ? 'done' : index === currentIndex ? 'current' : ''}" data-step="${index + 1}"><strong>${esc(stage[0])}</strong><span>${esc(stage[1])}</span></div>`).join('');
-        const info = recordColumns.map(column => `<div class="record-info-item"><span>${esc(column.label)}</span><strong>${esc(row[column.id] ?? '—')}</strong></div>`).join('');
         const tabButtons = tabs.map(tab => `<button class="record-detail-tab ${state.recordDetailTab === tab ? 'active' : ''}" data-record-detail-tab="${esc(tab)}" type="button">${esc(tab)}</button>`).join('');
-        const extra = row.type === 'DN' ? renderVinInformation(false) : renderGoodsInformation(row.type === 'PR' ? 'Requested Goods' : 'Order Goods', false, false);
-        const nextAction = row.type === 'PR' ? 'Create DN after PR approval' : row.type === 'PO' ? 'Confirm / revise PO in this business end' : 'Pay DN → mark vehicles → add retail report';
-        const related = `<section class="review-surface record-detail-section"><div class="review-section-head"><div><h2>Document relationship &amp; process</h2><p>Source, current document, business end and next business action</p></div></div><div class="commercial-summary-grid"><div><span>Source Document</span><strong>${esc(row.source)}</strong></div><div><span>Current Document</span><strong>${esc(row.reference)}</strong></div><div><span>Current Status</span><strong>${esc(row.status)}</strong></div><div><span>Business End</span><strong>${esc(businessEnds[processMeta[row.type].end].label)}</strong></div><div><span>Next Document / Action</span><strong>${esc(nextAction)}</strong></div><div><span>Exception Handling</span><strong>${esc(processMeta[row.type].exception)}</strong></div></div></section>`;
+        let tabContent = renderDetailInformation(row);
+        if (state.recordDetailTab === 'Goods & Allocation') tabContent = source ? renderSourceGoodsBalance(source, row.type === 'DN' ? row : null) : renderGoodsInformation(row.type === 'PR' ? 'Requested Goods' : 'Order Goods', false, false);
+        else if (state.recordDetailTab === 'Delivery') tabContent = row.type === 'DN' ? renderVinInformation(false) : renderDetailInformation(row);
+        else if (state.recordDetailTab === 'Related Documents') tabContent = source ? `<div class="detail-related-tab">${renderSourceDnTable(source, row.type === 'DN' ? row.reference : '')}</div>` : '<div class="review-empty-note detail-tab-empty">No related delivery documents.</div>';
+        else if (!['Basic Information', 'Goods & Allocation', 'Delivery', 'Related Documents'].includes(state.recordDetailTab)) tabContent = `<div class="detail-tab-empty"><span class="review-chip">Demo</span><h3>${esc(state.recordDetailTab)}</h3><p>该区域保留真实单据页的信息层级，当前演示数据不会连接业务系统。</p></div>`;
+        const detailAction = source && sourceRemainingQty(source) > 0 ? `<button class="zds-button primary" data-action="create-dn-from-record" data-source-ref="${esc(source.reference)}" type="button">+ 新建 DN</button>` : '<button class="zds-button primary" data-action="noop" type="button">编辑单据</button>';
         $('#reviewWorkspace').innerHTML = `<div class="review-scroll"><div class="review-page">
           <div class="review-breadcrumb"><button class="zds-button link" data-action="go-home" type="button">Procurement &amp; Delivery</button><span>/</span><span>${esc(flowMeta[row.type].title)}</span><span>/</span><strong>${esc(row.reference)}</strong></div>
-          <div class="review-page-header record-detail-head"><div><h1>${esc(row.reference)} <span class="review-chip">${esc(row.type)}</span></h1><p>${esc(row.company)} · ${esc(row.vehicle)} · ${esc(row.quantity)} vehicles</p></div><div class="review-page-actions"><span class="review-chip ${row.status === 'Rejected' ? 'danger' : row.status === 'Approved' || row.status === 'Ready for handover' ? 'green' : ''}">${esc(row.status)}</span><button class="zds-button" data-action="go-home" type="button">Back to list</button><button class="zds-button primary" data-action="noop" type="button">Edit document</button></div></div>
+          <div class="review-page-header record-detail-head"><div><h1>${esc(row.reference)} <span class="review-chip blue">${esc(row.type)}</span></h1><p>${esc(row.company)} · ${esc(row.vehicle)} · ${esc(row.quantity)} vehicles</p></div><div class="review-page-actions"><span class="review-chip ${row.status === 'Rejected' ? 'danger' : row.status === 'Approved' || row.status === 'Ready for handover' ? 'green' : ''}">${esc(row.status)}</span><button class="zds-button" data-action="go-home" type="button">Back to list</button>${detailAction}</div></div>
           <section class="review-surface record-detail-status" aria-label="Document status timeline">${stages}</section>
-          <section class="review-surface"><div class="record-detail-tabs" role="tablist">${tabButtons}</div><div class="record-info-grid">${info}</div></section>
-          ${extra}${related}
+          ${source ? renderFulfillmentOverview(source, row) : ''}
+          <section class="review-surface detail-tab-panel"><div class="record-detail-tabs" role="tablist">${tabButtons}</div><div class="detail-tab-content">${tabContent}</div></section>
+          ${source && state.recordDetailTab !== 'Goods & Allocation' ? renderSourceGoodsBalance(source, row.type === 'DN' ? row : null) : ''}
         </div></div>`;
       }
 
       function renderCreate() {
         const flow = state.flow;
         const meta = flowMeta[flow];
-        const modeText = state.createMode === 'linked' ? '关联 PR 创建' : '单独创建';
+        const modeText = flow === 'DN' ? 'PR / PO 分批履约' : '单独创建';
         const header = `<div class="review-breadcrumb"><button class="zds-button link" data-action="go-home" type="button">Procurement &amp; Delivery</button><span>/</span><span>${meta.title}</span><span>/</span><strong>New</strong></div><div class="review-page-header"><div><h1>${meta.task}</h1><p>${meta.subtitle}</p></div><div class="review-page-actions"><span class="review-chip">${modeText}</span></div></div>${renderCreateContext()}${renderProcessingContext(flow)}`;
         let body = '';
         if (state.variant === 'guide') body = renderGuideCreate();
@@ -2928,17 +3144,15 @@
 
       function renderCreateContext() {
         const flow = state.flow;
-        const upstream = flow === 'DN' ? 'PR' : null;
-        const linkedReady = !upstream || isLinkedReady(flow) || state.createMode === 'linked';
-        const linkedLabel = linkedReady ? `Linked ${upstream}` : 'Linked PR · 等待审核通过';
-        return `<div class="create-context"><span class="review-chip ${state.createMode === 'linked' ? 'orange' : ''}">${flow}</span><span><strong>${state.createMode === 'linked' ? 'Linked creation' : 'Standalone creation'}</strong>${state.createMode === 'linked' ? ` · Source: ${upstream}` : ''}</span>${upstream ? `<div class="mode-switch"><button class="mode-button ${state.createMode === 'standalone' ? 'active' : ''}" data-mode-switch="standalone" type="button">Standalone</button><button class="mode-button ${state.createMode === 'linked' ? 'active' : ''}" data-mode-switch="linked" type="button" ${linkedReady ? '' : 'disabled aria-disabled="true"'}>${linkedLabel}</button></div>` : ''}</div>`;
+        if (flow !== 'DN') return `<div class="create-context"><span class="review-chip">${flow}</span><span><strong>Standalone creation</strong> · 在当前业务端独立创建并提交</span></div>`;
+        const source = selectedDeliverySource();
+        return `<div class="create-context fulfillment-create-context"><span class="review-chip blue">DN</span><span><strong>分批履约 / Partial fulfillment</strong> · 一张 PR 或 PO 可创建多个 DN</span><div class="create-source-inline"><span>${source ? `${source.type} · ${source.reference}` : '未选择来源'}</span><button class="zds-button small" data-action="open-pr-picker" type="button">更换来源</button></div></div>`;
       }
 
       function renderProcessingContext(flow) {
         const meta = processMeta[flow];
-        const source = state.createMode === 'linked'
-          ? `PR · ${state.forms[flow].sourceRef || '待选择'}`
-          : '单独创建 / Standalone';
+        const deliverySource = flow === 'DN' ? selectedDeliverySource() : null;
+        const source = deliverySource ? `${deliverySource.type} · ${deliverySource.reference}` : '单独创建 / Standalone';
         return `<section class="processing-context" aria-label="业务端与流程说明"><div class="processing-context-item"><span>所属业务端 / Business end</span><strong>${esc(businessEnds[meta.end].label)}</strong></div><div class="processing-context-item"><span>业务来源 / Source</span><strong>${esc(source)}</strong></div><div class="processing-context-item"><span>提交后流程 / After submit</span><strong>${esc(meta.process)}</strong></div><div class="processing-context-item"><span>异常处理 / Exception</span><strong>${esc(meta.exception)}</strong></div></section>`;
       }
 
@@ -2955,7 +3169,7 @@
           const summary = show(2) ? renderCommercialSummary('PO') : '';
           return `${source}${goods}${summary}`;
         }
-        const source = show(0) ? (state.createMode === 'linked' ? renderSourcePrInformation(compact) : renderStandaloneDnInformation(compact)) : '';
+        const source = show(0) ? renderSourceFulfillmentInformation(compact) : '';
         const vins = show(1) ? renderVinInformation(compact) : '';
         const summary = show(2) ? renderCommercialSummary('DN') : '';
         return `${source}${vins}${summary}`;
@@ -2978,11 +3192,41 @@
         </section>`;
       }
 
-      function renderSourcePrInformation(compact) {
+      function fulfillmentStatusClass(status) {
+        if (status === 'Ready for handover' || status === 'Delivered') return 'green';
+        if (status === 'Draft' || status === 'VIN allocating') return '';
+        return 'blue';
+      }
+
+      function renderSourceDnTable(source, excludeReference = '') {
+        const rows = source.dns.filter(item => item.reference !== excludeReference);
+        const body = rows.length
+          ? rows.map(item => `<tr><td><button class="record-link" data-action="open-record-detail" data-reference="${esc(item.reference)}" type="button">${esc(item.reference)}</button></td><td>${esc(item.quantity)}</td><td><span class="review-chip ${fulfillmentStatusClass(item.status)}">${esc(item.status)}</span></td><td>${esc(item.vin)}</td><td>${esc(item.delivery)}</td><td>${esc(item.route)}</td><td>${esc(item.updated)}</td></tr>`).join('')
+          : '<tr><td colspan="7"><div class="review-empty-note">尚未创建 DN，本次将成为第 1 批交付。</div></td></tr>';
+        return `<div class="business-table-wrap relation-table-wrap"><table class="business-table delivery-relation-table" aria-label="Related delivery notes"><thead><tr><th>DN No.</th><th>Qty</th><th>Status</th><th>VIN</th><th>Planned delivery</th><th>Route</th><th>Updated</th></tr></thead><tbody>${body}</tbody></table></div>`;
+      }
+
+      function renderSourceFulfillmentInformation(compact) {
         const form = state.forms.DN;
-        return `<section class="review-surface business-detail-panel ${compact ? 'compact' : ''}">
-          <div class="review-section-head"><div><h2>Approved Purchase Request</h2><p>Selected PR and remaining delivery quantity</p></div><div class="review-section-actions"><button class="zds-button small" data-action="open-pr-picker" type="button">Select PR</button><button class="zds-button primary small" data-action="open-pr-picker" type="button">Import PR Context</button></div></div>
-          <div class="business-table-wrap"><table class="business-table source-pr-table" aria-label="Selected approved PR"><thead><tr><th>Dealer Company</th><th>PR No.</th><th>Destination Port</th><th>Cars Qty</th><th>Pending Delivery Qty</th><th>DN Created Qty</th><th>Action</th></tr></thead><tbody><tr><td>${esc(form.dealer)}</td><td>${esc(form.sourceRef || 'Standalone')}</td><td>${esc(form.portOfDestination)}</td><td>${esc(form.quantity)}</td><td>${esc(form.quantity)}</td><td>0</td><td><button class="cell-link" data-action="open-pr-picker" type="button">Details</button></td></tr></tbody></table></div>
+        const source = selectedDeliverySource();
+        if (!source) return `<section class="review-surface source-empty-panel"><div><h2>请选择履约来源</h2><p>从已审核 PR 或已确认 PO 中选择一个仍有可交付数量的来源单。</p><button class="zds-button primary" data-action="open-pr-picker" type="button">选择 PR / PO</button></div></section>`;
+        const allocated = sourceAllocatedQty(source);
+        const remaining = sourceRemainingQty(source);
+        const allocationRows = source.goods.map(item => {
+          const value = Number(form.allocations?.[item.goodsCode] || 0);
+          const after = item.remaining - value;
+          const invalid = value < 0 || value > item.remaining;
+          return `<tr class="${invalid ? 'allocation-invalid' : ''}"><td><strong>${esc(item.goodsCode)}</strong><span class="table-support-copy">${esc(item.vehicle)}</span></td><td>${item.requested}</td><td>${item.allocated}</td><td><strong>${item.remaining}</strong></td><td><input class="allocation-qty-input" data-dn-allocation="${esc(item.goodsCode)}" type="number" min="0" max="${item.remaining}" value="${esc(value)}" aria-label="${esc(item.goodsCode)} quantity for this DN"></td><td><strong>${after}</strong></td></tr>`;
+        }).join('');
+        const currentQty = allocationTotal();
+        const invalid = currentQty <= 0 || currentQty > remaining;
+        return `<section class="review-surface business-detail-panel fulfillment-source-panel ${compact ? 'compact' : ''}">
+          <div class="review-section-head"><div><h2>交付来源与履约余额 / Source &amp; balance</h2><p>同一 ${source.type} 可分批创建多个 DN；本次数量不得超过剩余可交付数量。</p></div><div class="review-section-actions"><span class="review-chip blue">${source.type} · ${esc(source.status)}</span><button class="zds-button small" data-action="open-pr-picker" type="button">更换来源</button></div></div>
+          <div class="fulfillment-source-summary"><div class="source-identity"><span>${source.type} 来源单</span><strong>${esc(source.reference)}</strong><p>${esc(source.company)} · ${esc(source.vehicle)}</p></div><div><span>需求 / 订单总量</span><strong>${source.quantity}</strong></div><div><span>已有 DN 占用</span><strong>${allocated}</strong></div><div><span>剩余可交付</span><strong class="balance-number">${remaining}</strong></div><div><span>已建 DN</span><strong>${source.dns.length}</strong></div></div>
+          <div class="allocation-section-head"><div><h3>本批商品分配 / Allocation for this DN</h3><p>按商品行填写本次交付数量，系统自动计算创建后的余额。</p></div><div class="allocation-total ${invalid ? 'invalid' : ''}"><span>本批合计</span><strong>${currentQty}</strong><em>/ 可用 ${remaining}</em></div></div>
+          <div class="business-table-wrap"><table class="business-table allocation-table" aria-label="Delivery quantity allocation"><thead><tr><th>Goods / Vehicle</th><th>Source Qty</th><th>Previous DN Qty</th><th>Remaining Before</th><th>This DN Qty</th><th>Remaining After</th></tr></thead><tbody>${allocationRows}</tbody></table></div>
+          <div class="existing-dn-head"><div><h3>已创建的 DN / Existing delivery notes</h3><p>共 ${source.dns.length} 张，累计占用 ${allocated} 辆。</p></div><span class="review-chip">一对多履约</span></div>
+          ${renderSourceDnTable(source)}
         </section>`;
       }
 
@@ -3020,7 +3264,7 @@
           ? [['Transaction With', form.transactionWith], ['Payment Term', form.paymentTerm], ['Delivery Method', form.deliveryMethod], ['Warehouse', form.warehouse], ['Delivery Location', `${form.deliveryCity}, ${form.deliveryCountry}`], ['Total Incl. VAT', '€557,168.70']]
           : flow === 'PO'
             ? [['Applicant Company', form.applicantCompany], ['Seller Organization', form.sellerOrganization], ['Payment Term', form.paymentTerm], ['Incoterm', form.incoterm], ['Route', `${form.portOfLoading} → ${form.portOfDestination}`], ['Total Incl. VAT', '€557,168.70']]
-            : [['Source PR', form.sourceRef || 'Standalone'], ['Carrier', form.carrier], ['Transport', form.transportMethod], ['Route', `${form.portOfLoading} → ${form.portOfDestination}`], ['Estimated Arrival', form.estimatedArrival], ['Handover', form.handoverDate]];
+            : [['Source Document', `${form.sourceType} · ${form.sourceRef}`], ['This DN Qty', form.quantity], ['Carrier', form.carrier], ['Route', `${form.portOfLoading} → ${form.portOfDestination}`], ['Estimated Arrival', form.estimatedArrival], ['Handover', form.handoverDate]];
         return `<section class="review-surface commercial-summary"><div class="review-section-head"><div><h2>${flow} Summary</h2><p>Review business, financial and delivery information before submission</p></div></div><div class="commercial-summary-grid">${rows.map(([label, value]) => `<div><span>${label}</span><strong>${esc(value || '—')}</strong></div>`).join('')}</div></section>`;
       }
 
@@ -3033,11 +3277,10 @@
       }
 
       function guideInstruction(flow, step) {
-        if (flow === 'DN' && step === 0 && state.createMode === 'standalone') return '填写经销商、车辆与交付单类型，以独立方式建立交付任务。';
         const copy = {
           PR: ['先确认需求属于哪个经销商与门店，再进入车辆选择。', '核对车型、数量、付款条件和交付方式。', '确认日期与地址；提交审核后，在同一业务端继续创建 DN。'],
           PO: ['确认申请公司、销售组织、区域、国家和币种。', '核对车型、数量、订单车辆类型与紧急标记。', '完成贸易、付款和运输条款；提交后在 PO 端独立跟进。'],
-          DN: ['选择审核通过的 PR，带入经销商、车辆和交付信息。', '分配 VIN、仓库、港口、运输方式和承运商。', '确认发运与交接信息；提交后继续支付、车辆标记和零售上报。']
+          DN: ['选择已审核 PR 或已确认 PO，并按商品行填写本批交付数量。', '完成 VIN、仓库、订舱、贸易条款和出口申报信息。', '确认发运日期、收货方、交接方式与随车单证。']
         };
         return copy[flow][step];
       }
@@ -3054,7 +3297,8 @@
         const source = flow === 'PR' ? form.store : form.sourceRef || 'Standalone';
         const vehicle = form.vehicle || (flow === 'DN' ? state.forms.PR.vehicle : '—');
         const quantity = form.quantity || (flow === 'DN' ? state.forms.PR.quantity : '—');
-        return [[flow, 'Document'], [source, 'Source'], [vehicle, 'Vehicle'], [quantity, 'Quantity']].map(([value,label]) => `<div class="eff-summary-item"><span>${label}</span><strong>${esc(value)}</strong></div>`).join('');
+        const documentLabel = flow === 'DN' ? 'DN · Partial' : flow;
+        return [[documentLabel, 'Document'], [source, 'Source'], [vehicle, 'Vehicle'], [quantity, flow === 'DN' ? 'This DN Qty' : 'Quantity']].map(([value,label]) => `<div class="eff-summary-item"><span>${label}</span><strong>${esc(value)}</strong></div>`).join('');
       }
 
       function renderStickySummary(flow) {
@@ -3068,7 +3312,7 @@
           ? [['Dealer', form.dealer], ['Store', form.store], ['Vehicle', form.vehicle], ['Quantity', form.quantity], ['Delivery', form.deliveryDate]]
           : flow === 'PO'
             ? [['Order source', form.sourceRef], ['Dealer', form.dealer], ['Vehicle', form.vehicle], ['Quantity', form.quantity], ['Trade term', form.incoterm]]
-            : [['Source PR', state.createMode === 'linked' ? form.sourceRef : 'Standalone'], ['VIN allocation', form.vinBatch], ['Warehouse', form.warehouse], ['Handover', form.handoverDate]];
+            : [['Source document', `${form.sourceType} · ${form.sourceRef}`], ['This DN quantity', form.quantity], ['Delivery batch', form.deliveryBatch], ['VIN allocation', form.vinBatch], ['Handover', form.handoverDate]];
       }
 
       function renderGuideSummary(flow) {
@@ -3093,7 +3337,7 @@
           const exposesEmptyGraphic = field.id === 'sourceRef' || field.id === 'vinBatch';
           if ((!value || !field.required || exposesEmptyGraphic) && !options.includes('')) options.unshift('');
           const placeholder = field.id === 'sourceRef'
-            ? state.flow === 'PO' ? '— Order source —' : '— Select approved PR —'
+            ? state.flow === 'PO' ? '— Order source —' : '— Select approved PR / confirmed PO —'
             : field.id === 'vinBatch' ? '— No VIN allocated —' : '— Please select —';
           control = renderSelectControl('form', field.id, value, options, placeholder, field.label);
         } else if (field.type === 'textarea') {
@@ -3117,9 +3361,9 @@
             labels: ['PO organization', 'Vehicle / Quantity', 'Commercial terms', 'Submit PO']
           },
           DN: {
-            file: 'dn-delivery-flow.svg?v=2',
-            alt: 'Delivery note flow from approved purchase request through warehouse and VIN allocation, shipment and delivery',
-            labels: ['PR / Standalone', 'Warehouse / VIN', 'Shipment', 'Delivery']
+            file: 'dn-delivery-flow.svg?v=3',
+            alt: 'Delivery note flow from PR or PO fulfillment source through quantity and VIN allocation, shipment and delivery',
+            labels: ['PR / PO source', 'Qty / VIN', 'Shipment', 'Delivery']
           }
         };
         const asset = assets[flow];
@@ -3131,8 +3375,8 @@
 
       function renderContextualEmptyState(flow, compact) {
         const form = state.forms[flow];
-        if (flow === 'DN' && state.createMode === 'linked' && !form.sourceRef) {
-          return `<div class="graphic-empty-state ${compact ? 'compact' : ''}"><img src="assets/isales-demo-graphics-otd2-blue/empty-dealer-pr.png" alt="Delivery note waiting for an approved purchase request source"><strong>No approved PR selected</strong><p>Select a source PR to carry dealer, vehicle and delivery details into this DN.</p><button class="zds-button primary small" data-action="open-pr-picker" type="button">Select PR</button></div>`;
+        if (flow === 'DN' && !form.sourceRef) {
+          return `<div class="graphic-empty-state ${compact ? 'compact' : ''}"><img src="assets/isales-demo-graphics-otd2-blue/empty-dealer-pr.png" alt="Delivery note waiting for a PR or PO fulfillment source"><strong>No fulfillment source selected</strong><p>Select an approved PR or confirmed PO with remaining quantity.</p><button class="zds-button primary small" data-action="open-pr-picker" type="button">Select PR / PO</button></div>`;
         }
         if (flow === 'DN' && !form.vinBatch) {
           return `<div class="graphic-empty-state ${compact ? 'compact' : ''}"><img src="assets/isales-demo-graphics-otd2-blue/empty-vin.png" alt="Warehouse and vehicle awaiting an available VIN allocation slot"><strong>No VIN available to allocate</strong><p>Choose an available VIN batch or update the warehouse selection.</p><button class="zds-button primary small" data-action="focus-field" data-field-target="vinBatch" type="button">Allocate VIN</button></div>`;
@@ -3163,9 +3407,9 @@
         $('#reviewWorkspace').innerHTML = `<div class="review-scroll"><div class="review-page"><div class="result-wrap"><section class="review-surface result-card"><div class="result-hero"><div class="result-copy"><span class="result-eyebrow">${processState}</span><h1>${esc(currentStatus)}</h1><p>${flow} 已提交至${esc(businessEnds[meta.end].label)}。${completed ? '任务中心与关联流程已更新。' : esc(meta.pendingDetail)}</p><div class="result-reference"><span>Reference</span><strong>${esc(reference)}</strong><span class="review-chip">${completed ? 'Processed' : 'Submitted'}</span></div></div><img class="result-art" src="assets/isales-demo-graphics-otd2-blue/submit-success.png" alt="Submitted business document and updated process status"></div><div class="result-processing"><div class="result-processing-item"><span>业务端 / Business end</span><strong>${esc(businessEnds[meta.end].label)}</strong></div><div class="result-processing-item"><span>当前状态 / Current status</span><strong>${esc(currentStatus)}</strong></div><div class="result-processing-item"><span>提交后流程 / Process</span><strong>${esc(meta.process)}</strong></div><div class="result-processing-item"><span>下一条件 / Next condition</span><strong>${esc(unlock)}</strong></div></div><div class="result-progress journey" aria-label="Document lifecycle">${progress}</div><div class="result-footer"><div class="result-next-copy"><span>${processState}</span><strong>返回任务中心查看关联记录</strong><p>${esc(detail)}</p></div><div class="result-actions"><button class="zds-button" data-action="noop" type="button">View submitted ${flow}</button><button class="zds-button primary" data-action="go-home" type="button">Back to task home</button></div></div></section></div></div></div>`;
       }
 
-      function startFlow(flow, mode = 'standalone', chain = false) {
-        if (mode === 'linked' && !isLinkedReady(flow)) {
-          toast('关联 DN 将在 PR 审核通过后解锁。');
+      function startFlow(flow, mode = 'standalone', chain = false, sourceType = 'ANY') {
+        if (mode === 'linked' && !isLinkedReady(flow, sourceType)) {
+          toast('当前没有可用于创建 DN 的 PR / PO 剩余数量。');
           return;
         }
         state.businessEnd = flow === 'PO' ? 'po' : 'prdn';
@@ -3175,22 +3419,19 @@
         state.chain = chain;
         state.steps[flow] = 0;
         state.errors = {};
-        if (flow === 'DN' && mode === 'standalone') state.forms.DN.sourceRef = '';
-        applyLinkedCarry(flow, mode);
+        applyLinkedCarry(flow, mode, sourceType);
         renderAll();
         scrollWorkspaceTop();
       }
 
-      function applyLinkedCarry(flow, mode) {
+      function applyLinkedCarry(flow, mode, sourceType = 'ANY') {
         if (mode !== 'linked') return;
         if (flow === 'DN') {
-          state.forms.DN.sourceRef = state.created.PR || 'PR-DEMO-MOCK-001';
-          state.forms.DN.dealer = state.forms.PR.dealer;
-          state.forms.DN.vehicle = state.forms.PR.vehicle;
-          state.forms.DN.quantity = state.forms.PR.quantity;
-          state.forms.DN.portOfDestination = `${state.forms.PR.deliveryCity} Demo Port`;
-          state.forms.DN.deliveryAddress = state.forms.PR.deliveryAddress;
-          state.forms.DN.deliveryContact = state.forms.PR.contactPerson;
+          const current = deliverySourceByRef(state.forms.DN.sourceRef);
+          const source = current && (sourceType === 'ANY' || current.type === sourceType) && sourceRemainingQty(current) > 0
+            ? current
+            : eligibleDeliverySources(sourceType)[0];
+          applyDeliverySource(source);
         }
       }
 
@@ -3201,6 +3442,16 @@
           if (field.required && !value) nextErrors[field.id] = `${field.label.split(' / ')[0]} is required. Your other entries are preserved.`;
           if (field.id === 'quantity' && value && (!Number.isFinite(Number(value)) || Number(value) <= 0)) nextErrors[field.id] = 'Quantity must be greater than 0.';
         });
+        if (state.flow === 'DN') {
+          const source = selectedDeliverySource();
+          const total = allocationTotal();
+          if (!source) nextErrors.sourceRef = '请选择已审核 PR 或已确认 PO 作为 DN 来源。';
+          else {
+            const exceedsLine = source.goods.some(item => Number(state.forms.DN.allocations?.[item.goodsCode] || 0) > item.remaining);
+            if (total <= 0) nextErrors.quantity = '本批至少需要分配 1 辆车。';
+            else if (total > sourceRemainingQty(source) || exceedsLine) nextErrors.quantity = `本批数量不能超过来源剩余可交付数量 ${sourceRemainingQty(source)}。`;
+          }
+        }
         state.errors = nextErrors;
         return Object.keys(nextErrors).length === 0;
       }
@@ -3241,7 +3492,8 @@
 
       function completeSubmission() {
         const flow = state.flow;
-        const sequence = flow === 'PR' ? '008' : flow === 'PO' ? '005' : '003';
+        if (flow === 'DN') state.createdDnCount += 1;
+        const sequence = flow === 'PR' ? '008' : flow === 'PO' ? '005' : String(6 + state.createdDnCount).padStart(3, '0');
         state.created[flow] = `${flow}-DEMO-${sequence}`;
         if (flow === 'PR') {
           state.workflow.PR = 'pending_review';
@@ -3249,6 +3501,17 @@
         } else if (flow === 'PO') {
           state.workflow.PO = 'pending_confirmation';
         } else {
+          const source = selectedDeliverySource();
+          const quantity = allocationTotal();
+          if (source) {
+            source.goods.forEach(item => {
+              const current = Number(state.forms.DN.allocations?.[item.goodsCode] || 0);
+              item.allocated += current;
+              item.remaining = Math.max(0, item.remaining - current);
+            });
+            source.dns.push({ reference: state.created.DN, quantity, allocations: { ...state.forms.DN.allocations }, status: 'VIN allocating', vin: `0 / ${quantity}`, delivery: state.forms.DN.handoverDate, route: `${state.forms.DN.warehouse} → ${source.port}`, updated: 'Just now' });
+            mockRecords.unshift({ reference: state.created.DN, type: 'DN', source: source.reference, vehicleBrand: source.brand, region: 'EU', country: source.country, company: source.company, store: `${source.country} Demo Store`, dealer: source.company, vehicle: source.vehicle, quantity: String(quantity), totalAmount: 'Calculated on source lines', currency: 'EUR', port: source.port, paymentTerm: 'Inherited from source', delivery: state.forms.DN.handoverDate, status: 'VIN allocating', approval: 'Approved', owner: '—', created: 'Just now', updated: 'Just now' });
+          }
           state.workflow.DN = 'pending_payment';
         }
         state.lastResult = flow;
@@ -3354,10 +3617,16 @@
       }
 
       function renderPrPicker() {
-        const rows = prCandidates.map(candidate => `<tr class="${state.selectedPrCandidate === candidate.reference ? 'selected' : ''}" data-pr-candidate="${esc(candidate.reference)}"><td><input class="pr-picker-radio" data-action="select-pr-candidate" data-reference="${esc(candidate.reference)}" type="radio" name="dealer-pr" ${state.selectedPrCandidate === candidate.reference ? 'checked' : ''} aria-label="Select ${esc(candidate.reference)}"></td><td><button class="record-link" data-action="select-pr-candidate" data-reference="${esc(candidate.reference)}" type="button">${esc(candidate.reference)}</button></td><td>${esc(candidate.salesCompany)}</td><td>${esc(candidate.brand)}</td><td>${esc(candidate.company)}</td><td>${esc(candidate.country)}</td><td>${esc(candidate.port)}</td><td>${esc(candidate.quantity)}</td><td>${esc(candidate.vehicle)}</td></tr>`).join('');
-        $('#prPickerBody').innerHTML = `<div class="pr-picker-filters"><div><label>Dealer PR No.</label><input value="" placeholder="Enter PR number"></div><div><label>Vehicle Brand</label><input value="" placeholder="All brands"></div><div><label>Dealer</label><input value="" placeholder="All dealers"></div><div><label>Destination Port</label><input value="" placeholder="All ports"></div></div><div class="business-table-wrap"><table class="business-table pr-picker-table" aria-label="Dealer purchase request selection"><thead><tr><th></th><th>Dealer PR No.</th><th>Sales Company</th><th>Brand</th><th>Dealer Company</th><th>Country</th><th>Port</th><th>Cars Qty</th><th>Vehicle</th></tr></thead><tbody>${rows}</tbody></table></div>`;
-        const selected = prCandidates.find(candidate => candidate.reference === state.selectedPrCandidate);
-        $('#prPickerCount').textContent = selected ? `1 selected · ${selected.reference}` : '0 selected';
+        const rows = deliverySources.map(source => {
+          const allocated = sourceAllocatedQty(source);
+          const remaining = sourceRemainingQty(source);
+          const selected = state.selectedSourceCandidate === source.reference;
+          const disabled = remaining === 0;
+          return `<tr class="${selected ? 'selected' : ''} ${disabled ? 'source-fulfilled' : ''}" data-source-candidate="${esc(source.reference)}"><td><input class="pr-picker-radio" data-action="select-source-candidate" data-reference="${esc(source.reference)}" type="radio" name="delivery-source" ${selected ? 'checked' : ''} ${disabled ? 'disabled' : ''} aria-label="Select ${esc(source.reference)}"></td><td><span class="review-chip blue">${source.type}</span></td><td><button class="record-link" data-action="select-source-candidate" data-reference="${esc(source.reference)}" type="button" ${disabled ? 'disabled' : ''}>${esc(source.reference)}</button></td><td><span class="review-chip ${disabled ? 'green' : ''}">${disabled ? 'Fully allocated' : esc(source.status)}</span></td><td>${esc(source.company)}</td><td>${source.quantity}</td><td>${allocated}</td><td><strong>${remaining}</strong></td><td>${source.dns.length}</td><td>${esc(source.port)}</td></tr>`;
+        }).join('');
+        $('#prPickerBody').innerHTML = `<div class="pr-picker-filters source-picker-filters"><div><label>Source No.</label><input value="" placeholder="PR / PO number"></div><div><label>Source Type</label><input value="" placeholder="PR or PO"></div><div><label>Dealer</label><input value="" placeholder="All dealers"></div><div><label>Destination</label><input value="" placeholder="All ports"></div></div><div class="picker-help-strip"><span class="review-chip blue">Rule</span><strong>仅显示可作为 DN 来源的已审核 PR / 已确认 PO</strong><span>完全履约的来源保留只读，不能继续分配。</span></div><div class="business-table-wrap"><table class="business-table pr-picker-table" aria-label="PR and PO fulfillment source selection"><thead><tr><th></th><th>Type</th><th>Source No.</th><th>Status</th><th>Dealer Company</th><th>Total Qty</th><th>In DNs</th><th>Remaining</th><th>DN Count</th><th>Destination</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+        const selected = deliverySourceByRef(state.selectedSourceCandidate);
+        $('#prPickerCount').textContent = selected ? `1 selected · ${selected.type} ${selected.reference} · ${sourceRemainingQty(selected)} remaining` : '0 selected';
         applyLanguage($('#prPickerModal'));
       }
 
@@ -3369,23 +3638,17 @@
       }
 
       function applyPrPicker() {
-        const candidate = prCandidates.find(item => item.reference === state.selectedPrCandidate);
-        if (!candidate) {
-          toast('Select a Dealer PR before importing.', 'error');
+        const source = deliverySourceByRef(state.selectedSourceCandidate);
+        if (!source || sourceRemainingQty(source) <= 0) {
+          toast('请选择仍有可交付数量的 PR 或 PO。', 'error');
           return;
         }
-        Object.assign(state.forms.DN, {
-          sourceRef: candidate.reference,
-          dealer: candidate.company,
-          vehicle: candidate.vehicle,
-          quantity: candidate.quantity,
-          portOfDestination: candidate.port
-        });
+        applyDeliverySource(source);
         state.createMode = 'linked';
         state.errors = {};
         closeOverlay();
         renderAll();
-        toast(`${candidate.reference} imported with dealer, vehicle, quantity and destination.`, 'success');
+        toast(`${source.type} ${source.reference} 已带入，本批最多可分配 ${sourceRemainingQty(source)} 辆。`, 'success');
       }
 
       function openDrawer(drawer) {
@@ -3496,6 +3759,12 @@
           state.recordFilters[recordFilter.dataset.recordFilter] = recordFilter.value;
           return;
         }
+        const allocation = event.target.closest('[data-dn-allocation]');
+        if (allocation) {
+          state.forms.DN.allocations[allocation.dataset.dnAllocation] = allocation.value;
+          state.forms.DN.quantity = String(allocationTotal());
+          return;
+        }
         const field = event.target.closest('[data-field]');
         if (!field || !state.flow) return;
         state.forms[state.flow][field.dataset.field] = field.value;
@@ -3504,6 +3773,13 @@
       });
 
       document.addEventListener('change', event => {
+        const allocation = event.target.closest('[data-dn-allocation]');
+        if (allocation) {
+          state.forms.DN.allocations[allocation.dataset.dnAllocation] = allocation.value;
+          state.forms.DN.quantity = String(allocationTotal());
+          renderAll();
+          return;
+        }
         const field = event.target.closest('[data-field]');
         if (field && state.flow) {
           state.forms[state.flow][field.dataset.field] = field.value;
@@ -3525,7 +3801,8 @@
           const value = selectOption.dataset.selectValue;
           const label = selectOption.textContent.trim();
           if (root.dataset.selectScope === 'form' && state.flow) {
-            state.forms[state.flow][root.dataset.selectField] = value;
+            if (state.flow === 'DN' && root.dataset.selectField === 'sourceRef') applyDeliverySource(deliverySourceByRef(value));
+            else state.forms[state.flow][root.dataset.selectField] = value;
             delete state.errors[root.dataset.selectField];
             renderAll();
           } else {
@@ -3571,7 +3848,7 @@
 
         const starter = event.target.closest('[data-start]');
         if (starter) {
-          startFlow(starter.dataset.start, starter.dataset.mode || 'standalone', starter.dataset.chain === 'true');
+          startFlow(starter.dataset.start, starter.dataset.mode || 'standalone', starter.dataset.chain === 'true', starter.dataset.sourceType || 'ANY');
           return;
         }
 
@@ -3617,11 +3894,23 @@
         else if (action === 'open-columns') openColumns();
         else if (action === 'open-pr-picker') openPrPicker();
         else if (action === 'close-pr-picker') closeOverlay();
-        else if (action === 'select-pr-candidate') {
-          state.selectedPrCandidate = actionNode.dataset.reference;
+        else if (action === 'select-source-candidate') {
+          const source = deliverySourceByRef(actionNode.dataset.reference);
+          if (!source || sourceRemainingQty(source) <= 0) return;
+          state.selectedSourceCandidate = actionNode.dataset.reference;
           renderPrPicker();
         }
         else if (action === 'apply-pr-picker') applyPrPicker();
+        else if (action === 'create-dn-from-record') {
+          const source = deliverySourceByRef(actionNode.dataset.sourceRef);
+          if (!source || sourceRemainingQty(source) <= 0) {
+            toast('该来源已经全部分配，无法继续创建 DN。', 'error');
+            return;
+          }
+          state.selectedSourceCandidate = source.reference;
+          applyDeliverySource(source);
+          startFlow('DN', 'linked', false, source.type);
+        }
         else if (action === 'open-record-detail') {
           state.selectedRecord = actionNode.dataset.reference;
           state.recordDetailTab = 'Basic Information';
@@ -3687,7 +3976,7 @@
       $('#reviewMask').addEventListener('click', closeOverlay);
 
       window.__ISALES_DEMO__ = Object.freeze({
-        version: 'otd2-blue-two-variant-v1',
+        version: 'otd2-blue-multi-dn-v2',
         getState: () => ({
           language: state.language,
           variant: state.variant,
@@ -3697,6 +3986,9 @@
           createMode: state.createMode,
           created: { ...state.created },
           workflow: { ...state.workflow },
+          sourceRef: state.forms.DN.sourceRef,
+          allocationTotal: allocationTotal(),
+          fulfillment: deliverySources.map(source => ({ reference: source.reference, type: source.type, total: source.quantity, allocated: sourceAllocatedQty(source), remaining: sourceRemainingQty(source), dnCount: source.dns.length })),
           networkArmed: state.networkArmed,
           hiddenColumns: [...state.hiddenColumns]
         }),
